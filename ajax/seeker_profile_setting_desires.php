@@ -38,11 +38,13 @@
 				$arr_location_ids = pipetoarray($seeker_desires["location_ids"]);
 				$sb_locations = $f->select_box("locations",$v->w("location"),$locations,$arr_location_ids,220,200,994,5,26,12,"grey");
 				$sb_locations_selected = "";
-				foreach($arr_location_ids as $location_id) {
-					$arr_location_id = explode(":",$location_id);
-					$location = $db->fetch_single_data("locations","name_".$__locale,array("province_id" => $arr_location_id[0],"location_id" => $arr_location_id[1]));
-					$sb_locations_selected .= $location."<br>";
-				}				
+				if(count($arr_location_ids) > 0) {
+					foreach($arr_location_ids as $location_id) {
+						$arr_location_id = explode(":",$location_id);
+						$location = $db->fetch_single_data("locations","name_".$__locale,array("province_id" => $arr_location_id[0],"location_id" => $arr_location_id[1]));
+						$sb_locations_selected .= $location."<br>";
+					}
+				}
 				
 				$db->addtable("salaries"); 
 				$db->addfield("id");$db->addfield("salary"); $db->order("id");
@@ -57,13 +59,13 @@
 				
 				
 				$rows = array();
-				$rows[] = [$v->w("job_type"),$sb_job_types."<br><br>".$sb_job_types_selected];
-				$rows[] = [$v->w("job_level"),$sb_job_levels."<br><br>".$sb_job_levels_selected];
-				$rows[] = [$v->w("job_function"),$sb_job_functions."<br><br>".$sb_job_functions_selected];
-				$rows[] = [$v->w("job_category"),$sb_job_categories."<br><br>".$sb_job_categories_selected];
-				$rows[] = [$v->w("industry"),$sb_industries."<br><br>".$sb_industries_selected];
-				$rows[] = [$v->w("location"),$sb_locations."<br><br>".$sb_locations_selected];
-				$rows[] = [$v->w("salary"),$salary_range];
+				$rows[] = array( $v->w("job_type"),$sb_job_types."<br><br>".$sb_job_types_selected );
+				$rows[] = array( $v->w("job_level"),$sb_job_levels."<br><br>".$sb_job_levels_selected );
+				$rows[] = array( $v->w("job_function"),$sb_job_functions."<br><br>".$sb_job_functions_selected );
+				$rows[] = array( $v->w("job_category"),$sb_job_categories."<br><br>".$sb_job_categories_selected );
+				$rows[] = array( $v->w("industry"),$sb_industries."<br><br>".$sb_industries_selected );
+				$rows[] = array( $v->w("location"),$sb_locations."<br><br>".$sb_locations_selected );
+				$rows[] = array( $v->w("salary"),$salary_range );
 				echo $f->start("edit_desires");
 					echo $f->input("saving_edit_desires_form","1","type='hidden'");
 					echo $t->start("","","content_data");

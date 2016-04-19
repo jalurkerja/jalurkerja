@@ -151,16 +151,21 @@
             $this->limit = $value;
         }
 		
-		public function fetch_single_data($table,$field,$wheres,$orders) {
+		public function fetch_single_data($table,$field,$wheres,$orders = array()) {
 			$this->addtable($table);
 			$this->addfield($field);
 			$this->limit(1);
+			
 			foreach($wheres as $condition => $value) {
 				$this->where($condition,$value);
 			}
-			foreach($orders as $key => $value) {
-				$this->order($value);
+			
+			if(count($orders) > 0) {
+				foreach($orders as $key => $value) {
+					$this->order($value);
+				}
 			}
+			
 			return $this->fetch_data(false,0);
 		}
 		
@@ -177,17 +182,22 @@
 			
 		}
 		
-		public function fetch_select_data($table,$id,$field,$wheres,$orders,$limit = "") {
+		public function fetch_select_data($table,$id,$field,$wheres,$orders = array(),$limit = "") {
 			$this->addtable($table);
 			$this->addfield($id);
 			$this->addfield($field);
-			foreach($wheres as $condition => $value) {
-				$values = explode(":",$value);
-				$this->where($condition,$values[0],"",$values[1]);
+			
+			if(count($wheres) > 0) {
+				foreach($wheres as $condition => $value) {
+					$values = explode(":",$value);
+					$this->where($condition,$values[0],"",$values[1]);
+				}
 			}
 			
-			foreach($orders as $key => $value) {
-				$this->order($value);
+			if(count($orders) > 0) {
+				foreach($orders as $key => $value) {
+					$this->order($value);
+				}
 			}
 			
 			if($limit != "") $this->limit($limit);

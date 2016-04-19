@@ -4,7 +4,7 @@
 <?=$f->input("call_histories","Call Histories","type='button' onclick='call_histories();'");?>
 <?php
 	$db->addtable("company_profiles");$db->where("id",$_GET["id"]);$db->limit(1);$company_profile = $db->fetch_data();
-	if(filesize("../company_logo/".$company_profile["logo"])>4096) 
+	if(@filesize("../company_logo/".$company_profile["logo"])>4096) 
 		$logo = "<img src='../company_logo/".$company_profile["logo"]."' width='150'><br>"; 
 	else $logo = "";
 	$industry = $db->fetch_single_data("industries","name_en",array("id" => $company_profile["industry_id"]));

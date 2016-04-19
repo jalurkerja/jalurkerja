@@ -38,7 +38,7 @@
 								<?=$v->words("hello");?>, <span id="first_name"><?=ucwords($__first_name);?></span>
 							</td>
 							<td class="homepage_greeting" nowrap valign="middle">
-								<?php if(filesize("seekers_photo/".$photo)>4096){ ?> <td> <img id="photo" src="seekers_photo/<?=$photo;?>" style="height:60px;"> </td> <?php } ?>
+								<?php if(@filesize("seekers_photo/".$photo)>4096){ ?> <td> <img id="photo" src="seekers_photo/<?=$photo;?>" style="height:60px;"> </td> <?php } ?>
 							</td>
 							<td class="homepage_greeting" nowrap valign="middle">
 								<img title="<?=$v->words("job_seeker_setting");?>" src="icons/settings.png" onclick="window.location='seeker_profile.php';">

@@ -53,7 +53,7 @@
 	$txt_nationality = $f->input("nationality",$seeker_profiles["nationality"]);
 	$sel_gender = $f->select("gender_id",$db->fetch_select_data("gender","id","name_en"),$seeker_profiles["gender_id"]);
 	$sel_marital_status = $f->select("marital_status_id",$db->fetch_select_data("marital_status","id","name_en"),$seeker_profiles["marital_status_id"]);
-	if(filesize("../seekers_photo/".$seeker_profiles["photo"])>4096) 
+	if(@filesize("../seekers_photo/".$seeker_profiles["photo"])>4096) 
 		$photo = "<img src='../seekers_photo/".$seeker_profiles["photo"]."' width='150'><br>"; 
 	else $photo = "";
 	$txt_photo = $photo.$f->input("photo","","type='file'");

@@ -45,7 +45,7 @@ class FormElements {
     public function select_multiple($name,$values,$selecteds=array(),$attr="",$class=""){
         $return='<select multiple name="'.$name.'[]" id="'.$name.'" '.$attr.' class="'.$class.'">';
         foreach($values as $value => $caption){
-          $selected=(in_array($value,$selecteds))?"selected":"";
+          $selected=(@in_array($value,$selecteds))?"selected":"";
           $return.='<option value="'.$value.'" '.$selected.'>'.$caption.'</option>';
         }
         $return.='</select>';
@@ -242,7 +242,7 @@ class FormElements {
         ';
 
         foreach($values as $id => $caption){
-            $checked = (in_array($id,$selecteds)) ? "checked" : "";
+            $checked = (@in_array($id,$selecteds)) ? "checked" : "";
             $return .='
                 <div>
                 <input type="checkbox" id="'.$name.'['.$id.']" name="'.$name.'['.$id.']" value="1" '.$checked.' class="'.$class.'" onclick="return select_box_check_'.$name.'(this);"> <font color="'.$contains_color.'">'.$caption.'</font>

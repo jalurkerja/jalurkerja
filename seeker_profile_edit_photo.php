@@ -9,7 +9,7 @@
 	}
 	
 	$db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1); $arr_seeker_profile = $db->fetch_data();
-	if(filesize("seekers_photo/".$arr_seeker_profile["photo"])>4096){
+	if(@filesize("seekers_photo/".$arr_seeker_profile["photo"])>4096){
 		echo $f->start("","POST","","enctype='multipart/form-data'");
 			echo $t->start("width='100%'");
 				echo $t->row(array('<img id="photo" src="seekers_photo/'.$arr_seeker_profile["photo"].'" style="height:150px;">'),array("align='center'"));

@@ -15,7 +15,7 @@
 <?=$f->input("applied_opportunities","Applied Opportunitites","type='button' onclick='applied_opportunities();'");?>&nbsp;
 <?php	
 	$db->addtable("seeker_profiles");$db->where("user_id",$_GET["user_id"]);$db->limit(1);$seeker_profiles = $db->fetch_data();	
-	if(filesize("../seekers_photo/".$seeker_profiles["photo"])>4096) 
+	if(@filesize("../seekers_photo/".$seeker_profiles["photo"])>4096) 
 		$photo = "<img src='../seekers_photo/".$seeker_profiles["photo"]."' width='150'><br>"; 
 	else $photo = "";	
 ?>

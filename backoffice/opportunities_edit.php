@@ -91,7 +91,7 @@
 	$date_closing_date			= $f->input_tanggal("closing_date",$opportunity["closing_date"]);
 	$date_posted_at				= $f->input_tanggal("posted_at",$opportunity["posted_at"]);
 	
-	if(filesize("../opportunity_logo/".$opportunity["logo"])>4096) 
+	if(@filesize("../opportunity_logo/".$opportunity["logo"])>4096) 
 		$logo = "<img src='../opportunity_logo/".$opportunity["logo"]."' width='150'><br>"; 
 	else $logo = "";
 	$txt_logo = $logo.$f->input("logo","","type='file'");

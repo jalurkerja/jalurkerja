@@ -34,7 +34,8 @@
 		$db->addfield("updated_at");		$db->addvalue(date("Y-m-d H:i:s"));
 		$db->addfield("updated_by");		$db->addvalue($__username);
 		$db->addfield("updated_ip");		$db->addvalue($_SERVER["REMOTE_ADDR"]);
-		if($db->update()["affected_rows"] >= 0){
+		$updating = $db->update();
+		if($updating["affected_rows"] >= 0){
 			if($_FILES['logo']['tmp_name']) {
 				move_uploaded_file($_FILES['logo']['tmp_name'], "../company_logo/".$_GET["id"].".".pathinfo($_FILES['logo']['name'],PATHINFO_EXTENSION));
 				$db->addtable("company_profiles");$db->where("id",$_GET["id"]);
@@ -74,7 +75,7 @@
 	$txt_nppkp = $f->input("nppkp",$company_profile["nppkp"]);
 	$status = $db->fetch_select_data("status","id","name");
 	$sel_status = $f->select("status_id",$status,$company_profile["status_id"],"style='height:20px;'");
-	if(filesize("../company_logo/".$company_profile["logo"])>4096) 
+	if(@filesize("../company_logo/".$company_profile["logo"])>4096) 
 		$logo = "<img src='../company_logo/".$company_profile["logo"]."' width='150'><br>"; 
 	else $logo = "";
 	$txt_logo = $logo.$f->input("logo","","type='file'");

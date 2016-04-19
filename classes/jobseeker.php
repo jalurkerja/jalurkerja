@@ -18,7 +18,8 @@
 				$this->addfield("created_at");		$this->addvalue(date("Y-m-d H:i:s"));
 				$this->addfield("created_by");		$this->addvalue($_SESSION["username"]);
 				$this->addfield("created_ip");		$this->addvalue($_SERVER["REMOTE_ADDR"]);
-				return $this->insert()["affected_rows"];
+				$inserting = $this->insert();
+				return $inserting["affected_rows"];
 			}else{
 				return "error:already_applied";
 			}
@@ -41,7 +42,8 @@
 				$this->addfield("created_at");		$this->addvalue(date("Y-m-d H:i:s"));
 				$this->addfield("created_by");		$this->addvalue($_SESSION["username"]);
 				$this->addfield("created_ip");		$this->addvalue($_SERVER["REMOTE_ADDR"]);
-				return $this->insert()["affected_rows"];
+				$inserting = $this->insert();
+				return $inserting["affected_rows"];
 			}else{
 				return "error:already_saved";
 			}

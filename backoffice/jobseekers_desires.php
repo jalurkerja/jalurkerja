@@ -20,13 +20,13 @@
 				}
 				
 				$rows = array();
-				$rows[] = [$v->w("job_type"),$sb_job_types_selected];
-				$rows[] = [$v->w("job_level"),$sb_job_levels_selected];
-				$rows[] = [$v->w("job_function"),$sb_job_functions_selected];
-				$rows[] = [$v->w("job_category"),$sb_job_categories_selected];
-				$rows[] = [$v->w("industry"),$sb_industries_selected];
-				$rows[] = [$v->w("location"),$sb_locations_selected];
-				$rows[] = [$v->w("salary"),salary_min_max($seeker_desires["salary_min"],$seeker_desires["salary_min"])];
+				$rows[] = array( $v->w("job_type"),$sb_job_types_selected );
+				$rows[] = array( $v->w("job_level"),$sb_job_levels_selected );
+				$rows[] = array( $v->w("job_function"),$sb_job_functions_selected );
+				$rows[] = array( $v->w("job_category"),$sb_job_categories_selected );
+				$rows[] = array( $v->w("industry"),$sb_industries_selected );
+				$rows[] = array( $v->w("location"),$sb_locations_selected );
+				$rows[] = array( $v->w("salary"),salary_min_max($seeker_desires["salary_min"],$seeker_desires["salary_min"]) );
 				echo $f->start("edit_desires");
 					echo $f->input("saving_edit_desires_form","1","type='hidden'");
 					echo $t->start("","","content_data");

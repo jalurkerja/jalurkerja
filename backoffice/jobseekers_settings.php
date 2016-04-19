@@ -6,8 +6,8 @@
 			<?php
 				$db->addtable("seeker_summary");$db->where("user_id",$_GET["user_id"]);$db->limit(0); $seeker_summary = $db->fetch_data();
 				$rows = array();
-				$rows[] = [$v->w("availability"),$db->fetch_single_data("availability","name_en",array("id" => $seeker_summary["availability_id"]))];
-				$rows[] = [$v->w("cover_letter"),$f->textarea("cover_letter",$seeker_summary["cover_letter"],"disabled")];
+				$rows[] = array( $v->w("availability"),$db->fetch_single_data("availability","name_en",array("id" => $seeker_summary["availability_id"])) );
+				$rows[] = array( $v->w("cover_letter"),$f->textarea("cover_letter",$seeker_summary["cover_letter"],"disabled") );
 				echo $f->start("edit_application");
 					echo $f->input("saving_edit_application_form","1","type='hidden'");
 					echo $t->start("","","content_data");
@@ -29,9 +29,9 @@
 				$db->addtable("seeker_setting");$db->where("user_id",$_GET["user_id"]);$db->limit(0); $seeker_setting = $db->fetch_data();
 				$rows = array();
 				$checked = ($seeker_setting["get_job_alert"] == "1") ? "checked" : "";
-				$rows[] = [$f->input("get_job_alert","1","type='checkbox' disabled ".$checked)." ".$v->w("get_job_alert")];
+				$rows[] = array( $f->input("get_job_alert","1","type='checkbox' disabled ".$checked)." ".$v->w("get_job_alert") );
 				$checked = ($seeker_setting["get_newsletter"] == "1") ? "checked" : "";
-				$rows[] = [$f->input("get_newsletter","1","type='checkbox' disabled ".$checked)." ".$v->w("get_newsletter")];
+				$rows[] = array( $f->input("get_newsletter","1","type='checkbox' disabled ".$checked)." ".$v->w("get_newsletter") );
 				echo $f->start("edit_setting");
 					echo $f->input("saving_edit_setting_form","1","type='hidden'");
 					echo $t->start("","","content_data");

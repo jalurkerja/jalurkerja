@@ -12,7 +12,8 @@
 		$db->addfield("updated_at");			$db->addvalue(date("Y-m-d H:i:s"));
 		$db->addfield("updated_by");			$db->addvalue($__username);
 		$db->addfield("updated_ip");			$db->addvalue($_SERVER["REMOTE_ADDR"]);
-		if($db->update()["affected_rows"] >= 0){
+		$updating = $db->update();
+		if($updating["affected_rows"] >= 0){
 			if($_POST["cso_name"] != ""){
 				$db->addtable("cso_profiles");	$db->where("user_id",$_GET["id"]);
 				$db->addfield("name");	$db->addvalue($_POST["cso_name"]);
