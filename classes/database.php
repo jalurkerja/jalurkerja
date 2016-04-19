@@ -30,10 +30,12 @@
     **************************************************************************/
     
     class Database {
-        protected $host   = "localhost";
-        protected $user   = "root";
+		protected $lines = array();
+		protected $arrconfig = array();
+        protected $host   = "";
+        protected $user   = "";
         protected $pass   = "";
-        protected $dbname = "jalurkerja";
+        protected $dbname = "";
         protected $tables = array();
         protected $fields = array();
         protected $values = array();
@@ -46,7 +48,13 @@
 		
 		public $searchjob_limit		= 15;
 		
-		public function __construct(){
+		public function __construct(){	
+			$this->lines = file($_SERVER["DOCUMENT_ROOT"]."/jalurkerja_db_config.php");
+			$this->arrconfig = explode("|",$this->lines[0]);
+			$this->host   = $this->arrconfig[0];
+			$this->user   = $this->arrconfig[1];
+			$this->pass   = $this->arrconfig[2];
+			$this->dbname = $this->arrconfig[3];
 			$this->db = $this->conn();
 		}
 
@@ -182,7 +190,7 @@
 			
 		}
 		
-		public function fetch_select_data($table,$id,$field,$wheres,$orders = array(),$limit = "") {
+		public function fetch_select_data($table,$id,$field,$wheres = array(),$orders = array(),$limit = "") {
 			$this->addtable($table);
 			$this->addfield($id);
 			$this->addfield($field);
@@ -262,7 +270,12 @@
 			
             $this->fetch_data_clear();
             $return = $this->fetch_query("SELECT $_fields FROM $_tables $whereclause $orderclause $limit",$withindex);
-			if(is_null($field_index)){ return $return; } else { return $return[$field_index]; }
+			if(is_null($field_index)){ 
+				return $return; 
+			} else { 
+				if(count($return) > 0) return $return[$field_index]; 
+			}
+
         }
 
         public function insert(){
@@ -276,25 +289,28 @@
 
             $_values = "";
             foreach($this->values as $values){ $_values .= "'".$values."',"; }
-            //foreach($this->no_nullable_fields($_table,$this->fields) as $field){ 
 			foreach($nonull_fields as $field){
                 $field_info = $this->field_info($_table,$field);
 				if($field_info["extra"] == "auto_increment")              				$_values .= "NULL,";
                 else if(!$field_info["column_default"]){
-                    if($field_info["data_type"] == "integer")              				$_values .= "0,";
-                    else if($field_info["data_type"] == "int")                   		$_values .= "0,";
-                    else if($field_info["data_type"] == "smallint")                  	$_values .= "0,";
-                    else if($field_info["data_type"] == "tinyint")                  	$_values .= "0,";
-                    else if($field_info["data_type"] == "character varying")     		$_values .= "'',";
-                    else if($field_info["data_type"] == "varchar")         				$_values .= "'',";
-                    else if(stripos(" ".$field_info["data_type"],"timestamp") > 0)   	$_values .= "NOW(),";
-                    else if($field_info["data_type"] == "inet")                      	$_values .= "'127.0.0.1',";
-                    else if($field_info["data_type"] == "boolean")                  	$_values .= "false,";
-                    else if($field_info["data_type"] == "text")                      	$_values .= "'',";
-                    else if($field_info["data_type"] == "datetime")                     $_values .= "NOW(),";
-                    else if($field_info["data_type"] == "date")		                    $_values .= "NOW(),";
-                    else if($field_info["data_type"] == "time")		                    $_values .= "NOW(),";
-					else																$_values .= "'',";
+					if(isset($field_info["data_type"])){
+						if($field_info["data_type"] == "integer")              				$_values .= "0,";
+						else if($field_info["data_type"] == "int")                   		$_values .= "0,";
+						else if($field_info["data_type"] == "smallint")                  	$_values .= "0,";
+						else if($field_info["data_type"] == "tinyint")                  	$_values .= "0,";
+						else if($field_info["data_type"] == "character varying")     		$_values .= "'',";
+						else if($field_info["data_type"] == "varchar")         				$_values .= "'',";
+						else if(stripos(" ".$field_info["data_type"],"timestamp") > 0)   	$_values .= "NOW(),";
+						else if($field_info["data_type"] == "inet")                      	$_values .= "'127.0.0.1',";
+						else if($field_info["data_type"] == "boolean")                  	$_values .= "false,";
+						else if($field_info["data_type"] == "text")                      	$_values .= "'',";
+						else if($field_info["data_type"] == "datetime")                     $_values .= "NOW(),";
+						else if($field_info["data_type"] == "date")		                    $_values .= "NOW(),";
+						else if($field_info["data_type"] == "time")		                    $_values .= "NOW(),";
+						else																$_values .= "'',";
+					} else {
+																							$_values .= "'',";
+					}
                 } else {
                     $_values .= $field_info["column_default"].",";
                 }
@@ -321,20 +337,24 @@
             foreach($this->values as $key => $values){
                 $_values .= $_fields[$key]." = ";
                 $field_info = $this->field_info($_table,$_fields[$key]);				
-                if($field_info["data_type"] == "integer")                   	$_values .= "$values,";
-                else if($field_info["data_type"] == "int")                   	$_values .= "$values,";
-                else if($field_info["data_type"] == "smallint")                 $_values .= "$values,";
-                else if($field_info["data_type"] == "tinyint")                  $_values .= "$values,";
-                else if($field_info["data_type"] == "character varying")        $_values .= "'$values',";
-                else if($field_info["data_type"] == "varchar")         			$_values .= "'$values',";
-                else if(stripos(" ".$field_info["data_type"],"timestamp") > 0)  $_values .= "'$values',";
-                else if($field_info["data_type"] == "inet")                     $_values .= "'$values',";
-                else if($field_info["data_type"] == "boolean")                  $_values .= "$values,";
-                else if($field_info["data_type"] == "text")                     $_values .= "'$values',";
-				else if($field_info["data_type"] == "datetime")                 $_values .= "'$values',";
-				else if($field_info["data_type"] == "date")		                $_values .= "'$values',";
-				else if($field_info["data_type"] == "time")		                $_values .= "'$values',";
-				else 															$_values .= "'$values',";
+				if(isset($field_info["data_type"])){
+					if($field_info["data_type"] == "integer")                   	$_values .= "$values,";
+					else if($field_info["data_type"] == "int")                   	$_values .= "$values,";
+					else if($field_info["data_type"] == "smallint")                 $_values .= "$values,";
+					else if($field_info["data_type"] == "tinyint")                  $_values .= "$values,";
+					else if($field_info["data_type"] == "character varying")        $_values .= "'$values',";
+					else if($field_info["data_type"] == "varchar")         			$_values .= "'$values',";
+					else if(stripos(" ".$field_info["data_type"],"timestamp") > 0)  $_values .= "'$values',";
+					else if($field_info["data_type"] == "inet")                     $_values .= "'$values',";
+					else if($field_info["data_type"] == "boolean")                  $_values .= "$values,";
+					else if($field_info["data_type"] == "text")                     $_values .= "'$values',";
+					else if($field_info["data_type"] == "datetime")                 $_values .= "'$values',";
+					else if($field_info["data_type"] == "date")		                $_values .= "'$values',";
+					else if($field_info["data_type"] == "time")		                $_values .= "'$values',";
+					else 															$_values .= "'$values',";	
+				} else {
+																					$_values .= "'$values',";
+				}
             }
            
             $_values = substr($_values,0,-1);

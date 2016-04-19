@@ -1,7 +1,7 @@
 <?php 
 	include_once "../common.php"; 
 	
-	$_mode = $_GET["mode"];
+	if(isset($_GET["mode"])){ $_mode = $_GET["mode"]; } else { $_mode = ""; }
 	if(isset($_POST["post_data"])){ parse_str($_POST["post_data"],$_POST); }
 	
 	if(isset($_POST["saving_edit_desires_form"])){

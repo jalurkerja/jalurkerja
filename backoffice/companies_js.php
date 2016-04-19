@@ -4,7 +4,7 @@
 	}
 	
 	function call_histories(){
-		popup_message("<iframe scrolling='no' id='frame_content' src=\"companies_call_histories.php?id=<?=$_GET["id"];?>\"></iframe>");
+		popup_message("<iframe scrolling='no' id='frame_content' src=\"companies_call_histories.php?id=<?=@$_GET["id"];?>\"></iframe>");
 	}
 	
 </script>

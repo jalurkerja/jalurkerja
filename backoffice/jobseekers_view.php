@@ -20,21 +20,21 @@
 	else $photo = "";	
 ?>
 <?=$t->start("","editor_content");?>
-	<?=$t->row(array("First Name",$seeker_profiles["first_name"]));?>
-	<?=$t->row(array("Middle Name",$seeker_profiles["middle_name"]));?>
-	<?=$t->row(array("Last Name",$seeker_profiles["last_name"]));?>
-	<?=$t->row(array("Address",chr13tobr($seeker_profiles["address"])));?>
-	<?=$t->row(array("Location",$db->fetch_single_data("locations","name_en",array("concat(province_id,':',location_id)" => $seeker_profiles["province_id"].":".$seeker_profiles["location_id"]))));?>
-	<?=$t->row(array("Zip Code",$seeker_profiles["zipcode"]));?>
-	<?=$t->row(array("Phone",$seeker_profiles["phone"]));?>
-	<?=$t->row(array("CellPhone",$seeker_profiles["cellphone"]));?>
-	<?=$t->row(array("Fax",$seeker_profiles["fax"]));?>
-	<?=$t->row(array("Web",$seeker_profiles["web"]));?>
-	<?=$t->row(array("Birth Place",$db->fetch_single_data("locations","name_en",array("id" => $seeker_profiles["birthplace"]))));?>
-	<?=$t->row(array("Birth Date",format_tanggal($seeker_profiles["birthdate"],"dMY")));?>
-	<?=$t->row(array("Nationality",$seeker_profiles["nationality"]));?>
-	<?=$t->row(array("Gender",$db->fetch_single_data("gender","name_en",array("id" => $seeker_profiles["gender_id"]))));?>
-	<?=$t->row(array("Marital Status",$db->fetch_single_data("marital_status","name_en",array("id" => $seeker_profiles["marital_status_id"]))));?>
+	<?=$t->row(array("First Name",@$seeker_profiles["first_name"]));?>
+	<?=$t->row(array("Middle Name",@$seeker_profiles["middle_name"]));?>
+	<?=$t->row(array("Last Name",@$seeker_profiles["last_name"]));?>
+	<?=$t->row(array("Address",chr13tobr(@$seeker_profiles["address"])));?>
+	<?=$t->row(array("Location",$db->fetch_single_data("locations","name_en",array("concat(province_id,':',location_id)" => @$seeker_profiles["province_id"].":".@$seeker_profiles["location_id"]))));?>
+	<?=$t->row(array("Zip Code",@$seeker_profiles["zipcode"]));?>
+	<?=$t->row(array("Phone",@$seeker_profiles["phone"]));?>
+	<?=$t->row(array("CellPhone",@$seeker_profiles["cellphone"]));?>
+	<?=$t->row(array("Fax",@$seeker_profiles["fax"]));?>
+	<?=$t->row(array("Web",@$seeker_profiles["web"]));?>
+	<?=$t->row(array("Birth Place",$db->fetch_single_data("locations","name_en",array("id" => @$seeker_profiles["birthplace"]))));?>
+	<?=$t->row(array("Birth Date",format_tanggal(@$seeker_profiles["birthdate"],"dMY")));?>
+	<?=$t->row(array("Nationality",@$seeker_profiles["nationality"]));?>
+	<?=$t->row(array("Gender",$db->fetch_single_data("gender","name_en",array("id" => @$seeker_profiles["gender_id"]))));?>
+	<?=$t->row(array("Marital Status",$db->fetch_single_data("marital_status","name_en",array("id" => @$seeker_profiles["marital_status_id"]))));?>
 	<?=$t->row(array("Photo",$photo));?>
 <?=$t->end();?>
 <?=$f->input("save","Save","type='submit'");?>&nbsp;

@@ -101,6 +101,7 @@
 	}
 	
 	function pipetoarray($data){
+		if(!is_array($data)) return "";
 		$arr = explode("|",$data);
 		foreach($arr as $data){ 
 			$data = str_replace("|","",$data);
@@ -117,6 +118,7 @@
 	}
 	
 	function sel_to_pipe($data){
+		if(!is_array($data)) return "";
 		sort($data);
 		$return = "";
 		foreach($data as $datum => $val){ $return .= "|".$val."|"; }

@@ -23,51 +23,51 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 	<div id="content">
 		<?php
 			$db->addtable("locations"); $db->addfield("name_".$__locale); 
-			$db->where("province_id",$arr_seeker_profile["province_id"]); $db->where("location_id",$arr_seeker_profile["location_id"]);$db->limit(1);
+			$db->where("province_id",@$arr_seeker_profile["province_id"]); $db->where("location_id",@$arr_seeker_profile["location_id"]);$db->limit(1);
 			$location = $db->fetch_data(false,0);
-			$db->addtable("locations"); $db->addfield("name_".$__locale); $db->where("id",$arr_seeker_profile["birthplace"]);$db->limit(1);
+			$db->addtable("locations"); $db->addfield("name_".$__locale); $db->where("id",@$arr_seeker_profile["birthplace"]);$db->limit(1);
 			$birthplace = $db->fetch_data(false,0);
-			$db->addtable("gender"); $db->addfield("name_".$__locale); $db->where("id",$arr_seeker_profile["gender_id"]);$db->limit(1);
+			$db->addtable("gender"); $db->addfield("name_".$__locale); $db->where("id",@$arr_seeker_profile["gender_id"]);$db->limit(1);
 			$gender = $db->fetch_data(false,0);
-			$db->addtable("marital_status"); $db->addfield("name_".$__locale); $db->where("id",$arr_seeker_profile["marital_status_id"]);$db->limit(1);
+			$db->addtable("marital_status"); $db->addfield("name_".$__locale); $db->where("id",@$arr_seeker_profile["marital_status_id"]);$db->limit(1);
 			$marital_status = $db->fetch_data(false,0);
 			
 			$rows = array();
 			if(!$edit_personal_data){
-				$rows[] = array($v->words("fullname"),$v->capitalize($arr_seeker_profile["first_name"]." ".$arr_seeker_profile["middle_name"]." ".$arr_seeker_profile["last_name"]));
-				$rows[] = array($v->words("address"),chr13tobr($arr_seeker_profile["address"]));
+				$rows[] = array($v->words("fullname"),$v->capitalize(@$arr_seeker_profile["first_name"]." ".@$arr_seeker_profile["middle_name"]." ".@$arr_seeker_profile["last_name"]));
+				$rows[] = array($v->words("address"),chr13tobr(@$arr_seeker_profile["address"]));
 				$rows[] = array($v->words("location"),$location);
-				$rows[] = array($v->words("zipcode"),$arr_seeker_profile["zipcode"]);
-				$rows[] = array($v->words("phone"),$arr_seeker_profile["phone"]);
-				$rows[] = array($v->words("cellphone"),$arr_seeker_profile["cellphone"]);
-				$rows[] = array($v->words("fax"),$arr_seeker_profile["fax"]);
-				$rows[] = array($v->words("web"),$arr_seeker_profile["web"]);
+				$rows[] = array($v->words("zipcode"),@$arr_seeker_profile["zipcode"]);
+				$rows[] = array($v->words("phone"),@$arr_seeker_profile["phone"]);
+				$rows[] = array($v->words("cellphone"),@$arr_seeker_profile["cellphone"]);
+				$rows[] = array($v->words("fax"),@$arr_seeker_profile["fax"]);
+				$rows[] = array($v->words("web"),@$arr_seeker_profile["web"]);
 				$rows[] = array($v->words("birthplace"),$birthplace);
-				$rows[] = array($v->words("birthdate"),format_tanggal($arr_seeker_profile["birthdate"],"dMY"));
-				$rows[] = array($v->words("nationality"),$arr_seeker_profile["nationality"]);
+				$rows[] = array($v->words("birthdate"),format_tanggal(@$arr_seeker_profile["birthdate"],"dMY"));
+				$rows[] = array($v->words("nationality"),@$arr_seeker_profile["nationality"]);
 				$rows[] = array($v->words("gender"),$gender);
 				$rows[] = array($v->words("marital_status"),$marital_status);
 			} else {				
 				$arrlocations 		= fetch_locations();				
 				$genders 			= $db->fetch_select_data("gender","id","name_".$__locale);
 				$arr_marital_status = $db->fetch_select_data("marital_status","id","name_".$__locale);
-				$birthplace_id = province_location_format_id($arr_seeker_profile["birthplace"]);
+				$birthplace_id = province_location_format_id(@$arr_seeker_profile["birthplace"]);
 				
-				$rows[] = array($v->words("first_name"),$f->input("first_name",$arr_seeker_profile["first_name"]));
-				$rows[] = array($v->words("middle_name"),$f->input("middle_name",$arr_seeker_profile["middle_name"]));
-				$rows[] = array($v->words("last_name"),$f->input("last_name",$arr_seeker_profile["last_name"]));
-				$rows[] = array($v->words("address"),$f->textarea("address",$arr_seeker_profile["address"]));
-				$rows[] = array($v->words("location"),$f->select("location",$arrlocations,$arr_seeker_profile["province_id"].":".$arr_seeker_profile["location_id"]));
-				$rows[] = array($v->words("zipcode"),$f->input("zipcode",$arr_seeker_profile["zipcode"]));
-				$rows[] = array($v->words("phone"),$f->input("phone",$arr_seeker_profile["phone"]));
-				$rows[] = array($v->words("cellphone"),$f->input("cellphone",$arr_seeker_profile["cellphone"]));
-				$rows[] = array($v->words("fax"),$f->input("fax",$arr_seeker_profile["fax"]));
-				$rows[] = array($v->words("web"),$f->input("web",$arr_seeker_profile["web"]));
+				$rows[] = array($v->words("first_name"),$f->input("first_name",@$arr_seeker_profile["first_name"]));
+				$rows[] = array($v->words("middle_name"),$f->input("middle_name",@$arr_seeker_profile["middle_name"]));
+				$rows[] = array($v->words("last_name"),$f->input("last_name",@$arr_seeker_profile["last_name"]));
+				$rows[] = array($v->words("address"),$f->textarea("address",@$arr_seeker_profile["address"]));
+				$rows[] = array($v->words("location"),$f->select("location",$arrlocations,@$arr_seeker_profile["province_id"].":".@$arr_seeker_profile["location_id"]));
+				$rows[] = array($v->words("zipcode"),$f->input("zipcode",@$arr_seeker_profile["zipcode"]));
+				$rows[] = array($v->words("phone"),$f->input("phone",@$arr_seeker_profile["phone"]));
+				$rows[] = array($v->words("cellphone"),$f->input("cellphone",@$arr_seeker_profile["cellphone"]));
+				$rows[] = array($v->words("fax"),$f->input("fax",@$arr_seeker_profile["fax"]));
+				$rows[] = array($v->words("web"),$f->input("web",@$arr_seeker_profile["web"]));
 				$rows[] = array($v->words("birthplace"),$f->select("birthplace",$arrlocations,$birthplace_id));
-				$rows[] = array($v->words("birthdate"),$f->input_tanggal("birthdate",$arr_seeker_profile["birthdate"]));
-				$rows[] = array($v->words("nationality"),$f->input("nationality",$arr_seeker_profile["nationality"]));
-				$rows[] = array($v->words("gender"),$f->select("gender_id",$genders,$arr_seeker_profile["gender_id"]));
-				$rows[] = array($v->words("marital_status"),$f->select("marital_status_id",$arr_marital_status,$arr_seeker_profile["marital_status_id"]));
+				$rows[] = array($v->words("birthdate"),$f->input_tanggal("birthdate",@$arr_seeker_profile["birthdate"]));
+				$rows[] = array($v->words("nationality"),$f->input("nationality",@$arr_seeker_profile["nationality"]));
+				$rows[] = array($v->words("gender"),$f->select("gender_id",$genders,@$arr_seeker_profile["gender_id"]));
+				$rows[] = array($v->words("marital_status"),$f->select("marital_status_id",$arr_marital_status,@$arr_seeker_profile["marital_status_id"]));
 			}
 			$btn_edit_personal_data = $t->row(array($f->input("edit",$v->words("edit"),"type='button' onclick=\"edit_personal_data();\"","btn_post")),array("align='right'"));
 			$btn_save_cancel_personal_data = $t->row(
@@ -81,11 +81,11 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 			$nav_personal_data = (!$edit_personal_data) ? $btn_edit_personal_data : $btn_save_cancel_personal_data;
 			$nav_personal_data = $t->start("","","navigation") . $nav_personal_data . $t->end();
 		?>
-		<?php if(@filesize("seekers_photo/".$arr_seeker_profile["photo"])>4096){ ?>
-			<div id="photo"><img id="photo" src="seekers_photo/<?=$arr_seeker_profile["photo"];?>" style="height:150px;"></div>
+		<?php if(@filesize("seekers_photo/".@$arr_seeker_profile["photo"])>4096){ ?>
+			<div id="photo"><img id="photo" src="seekers_photo/<?=@$arr_seeker_profile["photo"];?>" style="height:150px;"></div>
 		<?php } ?>
-		<?php if(@filesize("../seekers_photo/".$arr_seeker_profile["photo"])>4096){ ?>
-			<div id="photo"><img id="photo" src="seekers_photo/<?=$arr_seeker_profile["photo"];?>" style="height:150px;"></div>
+		<?php if(@filesize("../seekers_photo/".@$arr_seeker_profile["photo"])>4096){ ?>
+			<div id="photo"><img id="photo" src="seekers_photo/<?=@$arr_seeker_profile["photo"];?>" style="height:150px;"></div>
 			<div id="photo_nav"><?=$f->input("photo_nav",$v->w("edit"),"type='button' onclick=\"edit_photo('".$__user_id."');\"","btn_post");?></div>
 		<?php } ?>
 		<table width="100%"><tr><td align="center">

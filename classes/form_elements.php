@@ -25,7 +25,7 @@ class FormElements {
 		if ($value!="") $value='value="'.$value.'"';
 		if ($class!="") $class='class="'.$class.'"';
 		if ($attr=="") $attr="type='text'";
-        return '<input name="'.$name.'" id="'.$name.'" '.$value.' '.$attr.' '.$class.' onmouseover="hiding_select_box(\'\');">';
+        return '<input name="'.$name.'" id="'.$name.'" '.$value.' '.$attr.' '.$class.' onmouseover="try{ hiding_select_box(\'\'); } catch(e){}">';
     }
 
     public function textarea($name,$value="",$attr="",$class=""){
@@ -33,7 +33,7 @@ class FormElements {
     }
 
     public function select($name,$values,$selected=null,$attr="",$class=""){
-        $return='<select name="'.$name.'" id="'.$name.'" '.$attr.' class="'.$class.'" onmouseover="hiding_select_box(\'\');">';
+        $return='<select name="'.$name.'" id="'.$name.'" '.$attr.' class="'.$class.'" onmouseover="try{ hiding_select_box(\'\'); } catch(e){}">';
         foreach($values as $value => $caption){
           $isselected=($selected==$value)?"selected":"";
           $return.='<option value="'.$value.'" '.$isselected.'>'.$caption.'</option>';
@@ -58,14 +58,14 @@ class FormElements {
         $_dselect="<input type='hidden' name='$name' id='$name'>";
         $_dselect.="<select name='x_".$name."[tgl]' id='x_".$name."[tgl]' $attr class='$class' $_onchanges>";
         for($tgl=1; $tgl < 32; $tgl++){
-          $selected=($tgl==$arr[2]*1) ? "selected" : "";
+          if(isset($arr[2])) $selected = ($tgl==$arr[2]*1) ? "selected" : ""; else $selected = "";
           $_dselect.="<option $selected value='$tgl'>$tgl</option>";
         }
         $_dselect.="</select> ";
 
         $_dselect.="<select name='x_".$name."[bln]' id='x_".$name."[bln]' $attr class='$class' $_onchanges>";
         for($bln=1; $bln < 13; $bln++){
-          $selected=($bln==$arr[1]*1) ? "selected" : "";
+		  if(isset($arr[1])) $selected = ($bln==$arr[1]*1) ? "selected" : ""; else $selected = "";
           $_dselect.="<option $selected value='$bln'>$bln</option>";
         }
         $_dselect.="</select> ";
@@ -234,7 +234,7 @@ class FormElements {
 			'.$this->input("int_".$name,"","type='hidden'").'
 			'.$this->input("chr_".$name,"","type='hidden'").'
             <div style="position:relative;width:'.($width+17).'px;height:5px;z-index:'.$z_index.';">
-                <div onmouseover="hiding_select_box(\'select_box_values_'.$name.'\');" style="display: flex;align-items: center;width:'.($width+17).'px;font-size:'.$font_size.'px;height:'.$title_height.'px;border:solid '.$border_color.' 1px;position:absolute;z-index:'.$z_index.';background-color:'.$backcolor.';">
+                <div onmouseover="try{ hiding_select_box(\'select_box_values_'.$name.'\'); } catch(e){}" style="display: flex;align-items: center;width:'.($width+17).'px;font-size:'.$font_size.'px;height:'.$title_height.'px;border:solid '.$border_color.' 1px;position:absolute;z-index:'.$z_index.';background-color:'.$backcolor.';">
                     <div style="margin:0px 0px 0px 5px;float:left;width:'.($width-7).'px;color:'.$title_color.';" id="select_box_'.$name.'" onclick="select_box_toggle_'.$name.'();">'.$title.'</div>
                     <div style="margin:0px 5px 0px 0px;float:right;cursor:pointer;background-image: url(icons/arrow_down.png);height:17px;width:17px;" onclick="select_box_toggle_'.$name.'();"></div>
                 </div>

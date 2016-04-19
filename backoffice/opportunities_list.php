@@ -7,16 +7,16 @@
 		<?=$f->start("filter","GET");?>
 			<?=$t->start();?>
 			<?php
-				$txt_opportunity_id = $f->input("txt_opportunity_id",$_GET["txt_opportunity_id"]);
-				$txt_company_id 	= $f->input("txt_company_id",$_GET["txt_company_id"]);
-				$txt_title 			= $f->input("txt_title",$_GET["txt_title"]);
-				$sm_job_types 		= $f->select_multiple("sm_job_types",$db->fetch_select_data("job_type","id","name_en"),$_GET["sm_job_types"]);
-				$sm_job_categories	= $f->select_multiple("sm_job_categories",$db->fetch_select_data("job_categories","id","name_en",array("parent_id" => "0:>")),$_GET["sm_job_categories"]);
-				$sm_industries = $f->select_multiple("sm_industries",$db->fetch_select_data("industries","id","name_en"),$_GET["sm_industries"]);
+				$txt_opportunity_id = $f->input("txt_opportunity_id",@$_GET["txt_opportunity_id"]);
+				$txt_company_id 	= $f->input("txt_company_id",@$_GET["txt_company_id"]);
+				$txt_title 			= $f->input("txt_title",@$_GET["txt_title"]);
+				$sm_job_types 		= $f->select_multiple("sm_job_types",$db->fetch_select_data("job_type","id","name_en"),@$_GET["sm_job_types"]);
+				$sm_job_categories	= $f->select_multiple("sm_job_categories",$db->fetch_select_data("job_categories","id","name_en",array("parent_id" => "0:>")),@$_GET["sm_job_categories"]);
+				$sm_industries = $f->select_multiple("sm_industries",$db->fetch_select_data("industries","id","name_en"),@$_GET["sm_industries"]);
 				$db->addtable("locations");$db->addfield("province_id,location_id,name_en");
 				foreach($db->fetch_data() as $location){ $locations[$location[0].":".$location[1]] = $location[2]; }
-				$sm_locations = $f->select_multiple("sm_locations",$locations,$_GET["sm_locations"]);
-				$sm_job_functions = $f->select_multiple("sm_job_functions",$db->fetch_select_data("job_functions","id","name_en"),$_GET["sm_job_functions"]);
+				$sm_locations = $f->select_multiple("sm_locations",$locations,@$_GET["sm_locations"]);
+				$sm_job_functions = $f->select_multiple("sm_job_functions",$db->fetch_select_data("job_functions","id","name_en"),@$_GET["sm_job_functions"]);
 			?>
 			<?=$t->row(array("Opportunity Id",$txt_opportunity_id));?>
 			<?=$t->row(array("Company Id",$txt_company_id));?>
@@ -28,7 +28,7 @@
 			<?=$t->row(array("Job Fucntions",$sm_job_functions));?>
 			<?=$t->end();?>
 			<?=$f->input("page","1","type='hidden'");?>
-			<?=$f->input("sort",$_GET["sort"],"type='hidden'");?>
+			<?=$f->input("sort",@$_GET["sort"],"type='hidden'");?>
 			<?=$f->input("do_filter","Load","type='submit'");?>
 			<?=$f->input("reset","Reset","type='button' onclick=\"window.location='?';\"");?>
 		<?=$f->end();?>
@@ -37,25 +37,25 @@
 
 <?php
 	$whereclause = "";
-	if($_GET["txt_opportunity_id"]!="") $whereclause .= "id = '".$_GET["txt_opportunity_id"]."' AND ";
-	if($_GET["txt_company_id"]!="") $whereclause .= "company_id = '".$_GET["txt_company_id"]."' AND ";
-	if($_GET["txt_title"]!="") $whereclause .= "(title_id LIKE '%".$_GET["txt_title"]."%' OR title_en LIKE '%".$_GET["txt_title"]."%') AND ";
-	if(count($_GET["sm_job_types"]) > 0){
+	if(@$_GET["txt_opportunity_id"]!="") $whereclause .= "id = '".$_GET["txt_opportunity_id"]."' AND ";
+	if(@$_GET["txt_company_id"]!="") $whereclause .= "company_id = '".$_GET["txt_company_id"]."' AND ";
+	if(@$_GET["txt_title"]!="") $whereclause .= "(title_id LIKE '%".$_GET["txt_title"]."%' OR title_en LIKE '%".$_GET["txt_title"]."%') AND ";
+	if(count(@$_GET["sm_job_types"]) > 0){
 		$innerwhere = "";
 		foreach($_GET["sm_job_types"] as $selected){ $innerwhere .= "job_type_id = '".$selected."' OR "; }
 		$whereclause .= "(".substr($innerwhere,0,-3).") AND ";
 	}	
-	if(count($_GET["sm_job_categories"]) > 0){
+	if(count(@$_GET["sm_job_categories"]) > 0){
 		$innerwhere = "";
 		foreach($_GET["sm_job_categories"] as $selected){ $innerwhere .= "job_category_id = '".$selected."' OR "; }
 		$whereclause .= "(".substr($innerwhere,0,-3).") AND ";
 	}	
-	if(count($_GET["sm_industries"]) > 0){
+	if(count(@$_GET["sm_industries"]) > 0){
 		$innerwhere = "";
 		foreach($_GET["sm_industries"] as $selected){ $innerwhere .= "industry_id = '".$selected."' OR "; }
 		$whereclause .= "(".substr($innerwhere,0,-3).") AND ";
 	}	
-	if(count($_GET["sm_locations"]) > 0){
+	if(count(@$_GET["sm_locations"]) > 0){
 		$innerwhere = "";
 		foreach($_GET["sm_locations"] as $selected){ 
 			$arrselected = explode(":",$selected);
@@ -67,7 +67,7 @@
 		}
 		$whereclause .= "(".substr($innerwhere,0,-3).") AND ";
 	}
-	if(count($_GET["sm_job_functions"]) > 0){
+	if(count(@$_GET["sm_job_functions"]) > 0){
 		$innerwhere = "";
 		foreach($_GET["sm_job_functions"] as $selected){ $innerwhere .= "job_function_id = '".$selected."' OR "; }
 		$whereclause .= "(".substr($innerwhere,0,-3).") AND ";
@@ -76,12 +76,12 @@
 	$db->addtable("opportunities");
 	if($whereclause != "") $db->awhere(substr($whereclause,0,-4));$db->limit($_max_counting);
 	$maxrow = count($db->fetch_data(true));
-	$start = getStartRow($_GET["page"],$_rowperpage);
-	$paging = paging($_rowperpage,$maxrow,$_GET["page"],"paging");
+	$start = getStartRow(@$_GET["page"],$_rowperpage);
+	$paging = paging($_rowperpage,$maxrow,@$_GET["page"],"paging");
 	
 	$db->addtable("opportunities");
 	if($whereclause != "") $db->awhere(substr($whereclause,0,-4));$db->limit($start.",".$_rowperpage);
-	if($_GET["sort"] != "") $db->order($_GET["sort"]);
+	if(@$_GET["sort"] != "") $db->order($_GET["sort"]);
 	$opportunities = $db->fetch_data(true);
 ?>
 	<?=$f->input("add","Add","type='button' onclick=\"window.location='opportunities_add.php';\"");?>

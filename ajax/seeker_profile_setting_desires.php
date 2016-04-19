@@ -38,7 +38,7 @@
 				$arr_location_ids = pipetoarray($seeker_desires["location_ids"]);
 				$sb_locations = $f->select_box("locations",$v->w("location"),$locations,$arr_location_ids,220,200,994,5,26,12,"grey");
 				$sb_locations_selected = "";
-				if(count($arr_location_ids) > 0) {
+				if(is_array($arr_location_ids) && count($arr_location_ids) > 0) {
 					foreach($arr_location_ids as $location_id) {
 						$arr_location_id = explode(":",$location_id);
 						$location = $db->fetch_single_data("locations","name_".$__locale,array("province_id" => $arr_location_id[0],"location_id" => $arr_location_id[1]));

@@ -128,7 +128,7 @@
 		get_ajax("ajax/searchjob_ajax.php?mode=save&opportunity_id="+opportunity_id,"save_respon","success_saved(global_respon['save_respon']);");
 	}
 
-	<?php if($_POST["apply_after_login"] != "") { ?> $(document ).ready(function() { apply_action("<?=$_POST["apply_after_login"];?>"); }); <?php } ?>
+	<?php if(isset($_POST["apply_after_login"]) && $_POST["apply_after_login"] != "") { ?> $(document ).ready(function() { apply_action("<?=$_POST["apply_after_login"];?>"); }); <?php } ?>
 		
 	function show_login_form(opportunity_id) {
 		$.fancybox.open("<div style='overflow:auto;'>" + login_form(opportunity_id) + "</div>");

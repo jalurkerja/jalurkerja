@@ -4,38 +4,38 @@
 <?php
 	if(isset($_POST["save"])){
 		$db->addtable("opportunities");
-		$db->addfield("company_id");			$db->addvalue($_POST["company_id"]);
-		$db->addfield("title_id");				$db->addvalue($_POST["title_id"]);
-		$db->addfield("title_en");				$db->addvalue($_POST["title_en"]);
-		$db->addfield("job_type_id");			$db->addvalue($_POST["job_type_id"]);
-		$db->addfield("job_category_id");		$db->addvalue($_POST["job_category_id"]);
-		$db->addfield("industry_id");			$db->addvalue($_POST["industry_id"]);
-		$db->addfield("web");					$db->addvalue($_POST["web"]);
-		$db->addfield("company_description");	$db->addvalue($_POST["company_description"]);
-		$location_id = explode(":",$_POST["location"]);
+		$db->addfield("company_id");			$db->addvalue(@$_POST["company_id"]);
+		$db->addfield("title_id");				$db->addvalue(@$_POST["title_id"]);
+		$db->addfield("title_en");				$db->addvalue(@$_POST["title_en"]);
+		$db->addfield("job_type_id");			$db->addvalue(@$_POST["job_type_id"]);
+		$db->addfield("job_category_id");		$db->addvalue(@$_POST["job_category_id"]);
+		$db->addfield("industry_id");			$db->addvalue(@$_POST["industry_id"]);
+		$db->addfield("web");					$db->addvalue(@$_POST["web"]);
+		$db->addfield("company_description");	$db->addvalue(@$_POST["company_description"]);
+		$location_id = explode(":",@$_POST["location"]);
 		$db->addfield("province_id");			$db->addvalue($location_id[0]);
 		$db->addfield("location_id");			$db->addvalue($location_id[1]);
-		$db->addfield("job_level_ids");			$db->addvalue(sel_to_pipe($_POST["job_level_ids"]));
-		$db->addfield("job_function_id");		$db->addvalue($_POST["job_function_id"]);
-		$db->addfield("degree_id");				$db->addvalue($_POST["degree_id"]);
-		$db->addfield("major_ids");				$db->addvalue(sel_to_pipe($_POST["major_ids"]));
-		$db->addfield("experience_years");		$db->addvalue($_POST["experience_years"]);
-		$db->addfield("email");					$db->addvalue($_POST["email"]);
-		$db->addfield("name");					$db->addvalue($_POST["company_name"]);
-		$db->addfield("salary_min");			$db->addvalue($_POST["salary_min"]);
-		$db->addfield("salary_max");			$db->addvalue($_POST["salary_max"]);
-		$db->addfield("requirement");			$db->addvalue($_POST["requirement"]);
-		$db->addfield("contact_person");		$db->addvalue($_POST["contact_person"]);
-		$db->addfield("description");			$db->addvalue($_POST["description"]);
-		$db->addfield("closing_date");			$db->addvalue($_POST["closing_date"]);
-		$db->addfield("posted_at");				$db->addvalue($_POST["posted_at"]);
-		$db->addfield("is_question");			$db->addvalue($_POST["is_question"]);
-		$db->addfield("matched_applicant");		$db->addvalue($_POST["matched_applicant"]);
-		$db->addfield("unmatched_applicant");	$db->addvalue($_POST["unmatched_applicant"]);
-		$db->addfield("expired_in_months");		$db->addvalue($_POST["expired_in_months"]);
-		$db->addfield("expired_date");			$db->addvalue($_POST["expired_date"]);
-		$db->addfield("email_format");			$db->addvalue($_POST["email_format"]);
-		$db->addfield("is_emailing_unmatched");	$db->addvalue($_POST["is_emailing_unmatched"]);
+		$db->addfield("job_level_ids");			$db->addvalue(sel_to_pipe(@$_POST["job_level_ids"]));
+		$db->addfield("job_function_id");		$db->addvalue(@$_POST["job_function_id"]);
+		$db->addfield("degree_id");				$db->addvalue(@$_POST["degree_id"]);
+		$db->addfield("major_ids");				$db->addvalue(sel_to_pipe(@$_POST["major_ids"]));
+		$db->addfield("experience_years");		$db->addvalue(@$_POST["experience_years"]);
+		$db->addfield("email");					$db->addvalue(@$_POST["email"]);
+		$db->addfield("name");					$db->addvalue(@$_POST["company_name"]);
+		$db->addfield("salary_min");			$db->addvalue(@$_POST["salary_min"]);
+		$db->addfield("salary_max");			$db->addvalue(@$_POST["salary_max"]);
+		$db->addfield("requirement");			$db->addvalue(@$_POST["requirement"]);
+		$db->addfield("contact_person");		$db->addvalue(@$_POST["contact_person"]);
+		$db->addfield("description");			$db->addvalue(@$_POST["description"]);
+		$db->addfield("closing_date");			$db->addvalue(@$_POST["closing_date"]);
+		$db->addfield("posted_at");				$db->addvalue(@$_POST["posted_at"]);
+		$db->addfield("is_question");			$db->addvalue(@$_POST["is_question"]);
+		$db->addfield("matched_applicant");		$db->addvalue(@$_POST["matched_applicant"]);
+		$db->addfield("unmatched_applicant");	$db->addvalue(@$_POST["unmatched_applicant"]);
+		$db->addfield("expired_in_months");		$db->addvalue(@$_POST["expired_in_months"]);
+		$db->addfield("expired_date");			$db->addvalue(@$_POST["expired_date"]);
+		$db->addfield("email_format");			$db->addvalue(@$_POST["email_format"]);
+		$db->addfield("is_emailing_unmatched");	$db->addvalue(@$_POST["is_emailing_unmatched"]);
 		$db->addfield("created_at");			$db->addvalue(date("Y-m-d H:i:s"));
 		$db->addfield("created_by");			$db->addvalue($__username);
 		$db->addfield("created_ip");			$db->addvalue($_SERVER["REMOTE_ADDR"]);
@@ -57,38 +57,38 @@
 		}
 	}
 	
-	$txt_company 				= $f->input("company_name",$_POST["company_name"],"style='width:300px;' autocomplete='off' onkeyup='loadSelectCompanies(this.value,event.keyCode);'").$f->input("company_id",$_POST["company_id"],"type='hidden'");
+	$txt_company 				= $f->input("company_name",@$_POST["company_name"],"style='width:300px;' autocomplete='off' onkeyup='loadSelectCompanies(this.value,event.keyCode);'").$f->input("company_id",@$_POST["company_id"],"type='hidden'");
 	$txt_company 				.= "	<div style=\"position:absolute;display:none;\" id=\"div_select_company\">
 										<table style=\"border:grey solid 1px; background-color:#EFEFEF;\">
 											<tr><td id=\"select_company\"></td></tr>
 										</table>
 										</div>";
-	$txt_title_id 				= $f->input("title_id",$_POST["title_id"]);
-	$txt_title_en 				= $f->input("title_en",$_POST["title_en"]);
-	$sel_job_type 				= $f->select("job_type_id",$db->fetch_select_data("job_type","id","name_en"),$_POST["job_type_id"]);
-	$sel_category				= $f->select("job_category_id",$db->fetch_select_data("job_categories","id","name_en"),$_POST["job_category_id"]);
-	$sel_industry				= $f->select("industry_id",$db->fetch_select_data("industries","id","name_en"),$_POST["industry_id"]);
-	$txt_web	 				= $f->input("web",$_POST["web"]);
-	$txt_company_description	= $f->textarea("company_description",$_POST["company_description"]);
-	$sel_location 				= $f->select("location",$db->fetch_select_data("locations","concat(province_id,':',location_id) as location_id","name_en"),$_POST["location"]);
-	$sm_job_levels 				= $f->select_multiple("job_level_ids",$db->fetch_select_data("job_level","id","name_en"),$_POST["job_level_ids"]);
-	$sel_function				= $f->select("job_function_id",$db->fetch_select_data("job_functions","id","name_en"),$_POST["job_function_id"]);
-	$sel_degree					= $f->select("degree_id",$db->fetch_select_data("degree","id","name_en"),$_POST["degree_id"]);
+	$txt_title_id 				= $f->input("title_id",@$_POST["title_id"]);
+	$txt_title_en 				= $f->input("title_en",@$_POST["title_en"]);
+	$sel_job_type 				= $f->select("job_type_id",$db->fetch_select_data("job_type","id","name_en"),@$_POST["job_type_id"]);
+	$sel_category				= $f->select("job_category_id",$db->fetch_select_data("job_categories","id","name_en"),@$_POST["job_category_id"]);
+	$sel_industry				= $f->select("industry_id",$db->fetch_select_data("industries","id","name_en"),@$_POST["industry_id"]);
+	$txt_web	 				= $f->input("web",@$_POST["web"]);
+	$txt_company_description	= $f->textarea("company_description",@$_POST["company_description"]);
+	$sel_location 				= $f->select("location",$db->fetch_select_data("locations","concat(province_id,':',location_id) as location_id","name_en"),@$_POST["location"]);
+	$sm_job_levels 				= $f->select_multiple("job_level_ids",$db->fetch_select_data("job_level","id","name_en"),@$_POST["job_level_ids"]);
+	$sel_function				= $f->select("job_function_id",$db->fetch_select_data("job_functions","id","name_en"),@$_POST["job_function_id"]);
+	$sel_degree					= $f->select("degree_id",$db->fetch_select_data("degree","id","name_en"),@$_POST["degree_id"]);
 	$majors = $db->fetch_select_data("majors","id","name_en"); asort($majors);
-	$sm_majors	 				= $f->select_multiple("major_ids",$majors,$_POST["major_ids"]);
-	$txt_experience				= $f->input("experience_years",$_POST["experience_years"]);
-	$txt_email					= $f->input("email",$_POST["email"]);
-	$txt_name					= $f->input("name",$_POST["name"]);
+	$sm_majors	 				= $f->select_multiple("major_ids",$majors,@$_POST["major_ids"]);
+	$txt_experience				= $f->input("experience_years",@$_POST["experience_years"]);
+	$txt_email					= $f->input("email",@$_POST["email"]);
+	$txt_name					= $f->input("name",@$_POST["name"]);
 	
 	$salaries					= $db->fetch_select_data("salaries","id","salary");
-	$salary_range 				= $f->select("salary_min",$salaries,$_POST["salary_min"]) ." - ". 
-								  $f->select("salary_max",$salaries,$_POST["salary_max"]);
+	$salary_range 				= $f->select("salary_min",$salaries,@$_POST["salary_min"]) ." - ". 
+								  $f->select("salary_max",$salaries,@$_POST["salary_max"]);
 								  
-	$txt_requirement			= $f->textarea("requirement",$_POST["requirement"]);
-	$txt_contact_person			= $f->input("contact_person",$_POST["contact_person"]);
-	$txt_description			= $f->textarea("description",$_POST["description"]);
-	$date_closing_date			= $f->input_tanggal("closing_date",$_POST["closing_date"]);
-	$date_posted_at				= $f->input_tanggal("posted_at",$_POST["posted_at"]);
+	$txt_requirement			= $f->textarea("requirement",@$_POST["requirement"]);
+	$txt_contact_person			= $f->input("contact_person",@$_POST["contact_person"]);
+	$txt_description			= $f->textarea("description",@$_POST["description"]);
+	$date_closing_date			= $f->input_tanggal("closing_date",@$_POST["closing_date"]);
+	$date_posted_at				= $f->input_tanggal("posted_at",@$_POST["posted_at"]);
 	$txt_logo 					= $f->input("logo","","type='file'");
 ?>
 <?=$f->start("","POST","","enctype='multipart/form-data'");?>

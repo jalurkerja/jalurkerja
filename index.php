@@ -184,5 +184,5 @@
 		<?=$t->end();?>
 	</td></tr></table>
 	<!--END FHE-->
-<?php if($_SESSION["errormessage"] != "") { javascript("popup_message('".$_SESSION["errormessage"]."');"); $_SESSION["errormessage"] = ""; } ?>
+<?php if(isset($_SESSION["errormessage"]) && $_SESSION["errormessage"] != "") { javascript("popup_message('".$_SESSION["errormessage"]."');"); $_SESSION["errormessage"] = ""; } ?>
 <?php include_once "footer.php"; ?>

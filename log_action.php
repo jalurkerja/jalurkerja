@@ -54,7 +54,7 @@ if(isset($_POST["login_action"])){
 			$db->where("user_id",$users["id"]);
 			$db->limit(1);
 			$seeker_profiles = $db->fetch_data();
-			$_SESSION["first_name"] = $seeker_profiles["first_name"];
+			$_SESSION["first_name"] = @$seeker_profiles["first_name"];
 			
 			if($users["company_profiles_id"]!=""){
 				$db->addtable("company_profiles");
@@ -118,7 +118,7 @@ if(isset($_POST["login_action"])){
 				$db->insert(); 
 			}
 
-			if($_POST["opportunity_id"] == "") {
+			if(!isset($_POST["opportunity_id"]) || $_POST["opportunity_id"] == "") {
 				?> <script language="javascript"> window.location='<?=basename($_SERVER["PHP_SELF"]);?>?<?=$_SERVER["QUERY_STRING"];?>'; </script><?php
 			} else {
 				echo $f->start("form_apply_after_login","POST",basename($_SERVER["PHP_SELF"])); echo $f->input("apply_after_login",$_POST["opportunity_id"],"type='hidden'"); echo $f->end();

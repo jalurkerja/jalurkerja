@@ -7,17 +7,17 @@
 		<?=$f->start("filter","GET");?>
 			<?=$t->start();?>
 			<?php
-				$txt_id = $f->input("txt_id",$_GET["txt_id"]);
-				$txt_name = $f->input("txt_name",$_GET["txt_name"]);
-				$txt_address = $f->input("txt_address",$_GET["txt_address"]);
+				$txt_id = $f->input("txt_id",@$_GET["txt_id"]);
+				$txt_name = $f->input("txt_name",@$_GET["txt_name"]);
+				$txt_address = $f->input("txt_address",@$_GET["txt_address"]);
 				$locations = $db->fetch_select_data("locations","concat(province_id,':',location_id) as location_id","name_en");
-				$sm_locations = $f->select_multiple("sm_locations",$locations,$_GET["sm_locations"]);
-				$txt_phone = $f->input("txt_phone",$_GET["txt_phone"]);
-				$txt_cellphone = $f->input("txt_cellphone",$_GET["txt_cellphone"]);
+				$sm_locations = $f->select_multiple("sm_locations",$locations,@$_GET["sm_locations"]);
+				$txt_phone = $f->input("txt_phone",@$_GET["txt_phone"]);
+				$txt_cellphone = $f->input("txt_cellphone",@$_GET["txt_cellphone"]);
 				$genders = $db->fetch_select_data("gender","id","name_en");$genders[null] = ""; ksort($genders);
-				$sel_gender = $f->select("sel_gender",$genders,$_GET["sel_gender"],"style='height:20px;'");
+				$sel_gender = $f->select("sel_gender",$genders,@$_GET["sel_gender"],"style='height:20px;'");
 				$marital_status = $db->fetch_select_data("marital_status","id","name_en");$marital_status[null] = ""; ksort($marital_status);
-				$sel_marital_status = $f->select("sel_marital_status",$marital_status,$_GET["sel_marital_status"],"style='height:20px;'");
+				$sel_marital_status = $f->select("sel_marital_status",$marital_status,@$_GET["sel_marital_status"],"style='height:20px;'");
 			?>
 			<?=$t->row(array("ID",$txt_id));?>
 			<?=$t->row(array("Name",$txt_name));?>
@@ -29,7 +29,7 @@
 			<?=$t->row(array("Marital Status",$sel_marital_status));?>
 			<?=$t->end();?>
 			<?=$f->input("page","1","type='hidden'");?>
-			<?=$f->input("sort",$_GET["sort"],"type='hidden'");?>
+			<?=$f->input("sort",@$_GET["sort"],"type='hidden'");?>
 			<?=$f->input("do_filter","Load","type='submit'");?>
 			<?=$f->input("reset","Reset","type='button' onclick=\"window.location='?';\"");?>
 		<?=$f->end();?>
@@ -38,12 +38,12 @@
 
 <?php
 	$whereclause = "";
-	if($_GET["txt_id"]!="") $whereclause .= "id = '".$_GET["txt_name"]."' AND ";
-	if($_GET["txt_name"]!="") $whereclause .= "name LIKE '"."%".str_replace(" ","%",$_GET["txt_name"])."%"."' AND ";
-	if($_GET["txt_address"]!="") $whereclause .= "address LIKE '"."%".str_replace(" ","%",$_GET["txt_address"])."%"."' AND ";
-	if(count($_GET["sm_locations"]) > 0){
+	if(@$_GET["txt_id"]!="") $whereclause .= "id = '".@$_GET["txt_name"]."' AND ";
+	if(@$_GET["txt_name"]!="") $whereclause .= "name LIKE '"."%".str_replace(" ","%",@$_GET["txt_name"])."%"."' AND ";
+	if(@$_GET["txt_address"]!="") $whereclause .= "address LIKE '"."%".str_replace(" ","%",@$_GET["txt_address"])."%"."' AND ";
+	if(count(@$_GET["sm_locations"]) > 0){
 		$innerwhere = "";
-		foreach($_GET["sm_locations"] as $selected){ 
+		foreach(@$_GET["sm_locations"] as $selected){ 
 			$arrselected = explode(":",$selected);
 			if($arrselected[1] == 0){
 				$innerwhere .= "(province_id = '".$arrselected[0]."' AND location_id = '".$arrselected[1]."') OR "; 
@@ -53,20 +53,20 @@
 		}
 		$whereclause .= "(".substr($innerwhere,0,-3).") AND ";
 	}
-	if($_GET["txt_phone"]!="") $whereclause .= "phone LIKE '%".$_GET["txt_phone"]."%' AND ";
-	if($_GET["txt_cellphone"]!="") $whereclause .= "cellphone LIKE '%".$_GET["txt_cellphone"]."%' AND ";
-	if($_GET["sel_gender"] != ""){ $whereclause .= "gender_id = '".$_GET["sel_gender"]."' AND "; }
-	if($_GET["sel_marital_status"] != ""){ $whereclause .= "marital_status_id = '".$_GET["sel_marital_status"]."' AND "; }
+	if(@$_GET["txt_phone"]!="") $whereclause .= "phone LIKE '%".@$_GET["txt_phone"]."%' AND ";
+	if(@$_GET["txt_cellphone"]!="") $whereclause .= "cellphone LIKE '%".@$_GET["txt_cellphone"]."%' AND ";
+	if(@$_GET["sel_gender"] != ""){ $whereclause .= "gender_id = '".@$_GET["sel_gender"]."' AND "; }
+	if(@$_GET["sel_marital_status"] != ""){ $whereclause .= "marital_status_id = '".@$_GET["sel_marital_status"]."' AND "; }
 	
 	$db->addtable("seeker_profiles");
 	if($whereclause != "") $db->awhere(substr($whereclause,0,-4));$db->limit($_max_counting);
 	$maxrow = count($db->fetch_data(true));
-	$start = getStartRow($_GET["page"],$_rowperpage);
-	$paging = paging($_rowperpage,$maxrow,$_GET["page"],"paging");
+	$start = getStartRow(@$_GET["page"],$_rowperpage);
+	$paging = paging($_rowperpage,$maxrow,@$_GET["page"],"paging");
 	
 	$db->addtable("seeker_profiles");
 	if($whereclause != "") $db->awhere(substr($whereclause,0,-4));$db->limit($start.",".$_rowperpage);
-	if($_GET["sort"] != "") $db->order($_GET["sort"]);
+	if(@$_GET["sort"] != "") $db->order(@$_GET["sort"]);
 	$seeker_profiles = $db->fetch_data(true);
 ?>
 	<?=$paging;?>

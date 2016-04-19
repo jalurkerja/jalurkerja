@@ -1,7 +1,7 @@
 <?php 
 	include_once "../common.php"; 
 	
-	$_mode = $_GET["mode"];
+	if(isset($_GET["mode"])){ $_mode = $_GET["mode"]; } else { $_mode = ""; }
 	
 	if($_mode == "isapplied"){ echo $js->is_applied($_GET["user_id"],$_GET["opportunity_id"]); }
 	if($_mode == "issaved"){ echo $js->is_saved($_GET["user_id"],$_GET["opportunity_id"]); }
