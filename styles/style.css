@@ -66,9 +66,9 @@ body {
 
 .txt_login{
 	padding-left:5px;
+	height:21px;
 	width:165px;
 	border:2px solid #0CB31D;
-	width:165px;
 }
 
 .btn_sign{
@@ -239,8 +239,8 @@ body {
 	min-height:40px;
 	overflow-y:auto;
 	overflow-x:hidden;
-	width:250px;
-	height:550px;
+	width:800px;
+	height:460px;
 }
 
 .opportunities_list #title{

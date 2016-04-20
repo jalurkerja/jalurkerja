@@ -83,11 +83,17 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 		?>
 		<?php if(@filesize("seekers_photo/".@$arr_seeker_profile["photo"])>4096){ ?>
 			<div id="photo"><img id="photo" src="seekers_photo/<?=@$arr_seeker_profile["photo"];?>" style="height:150px;"></div>
+		<?php } else if(@file_exists("seekers_photo/nophoto.png")) { ?>
+			<div id="photo"><img id="photo" src="seekers_photo/nophoto.png" style="height:150px;"></div>
 		<?php } ?>
+		
 		<?php if(@filesize("../seekers_photo/".@$arr_seeker_profile["photo"])>4096){ ?>
 			<div id="photo"><img id="photo" src="seekers_photo/<?=@$arr_seeker_profile["photo"];?>" style="height:150px;"></div>
-			<div id="photo_nav"><?=$f->input("photo_nav",$v->w("edit"),"type='button' onclick=\"edit_photo('".$__user_id."');\"","btn_post");?></div>
+		<?php } else if(@file_exists("../seekers_photo/nophoto.png")) { ?>
+			<div id="photo"><img id="photo" src="seekers_photo/nophoto.png" style="height:150px;"></div>
 		<?php } ?>
+		<div id="photo_nav"><?=$f->input("photo_nav",$v->w("edit"),"type='button' onclick=\"edit_photo('".$__user_id."');\"","btn_post");?></div>
+		
 		<table width="100%"><tr><td align="center">
 			<?=(!$edit_personal_data && !isset($_print_view)) ? $nav_personal_data : "";?>
 			<?=$f->start("personal_data_form");?>
@@ -111,7 +117,8 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 				$btn_save_cancel_add_work_experience = $t->row(
 													array(
 														$f->input("save",$v->words("save"),"type='button' onclick=\"save_add_work_experience();\"","btn_post")." ".
-														$f->input("cancel",$v->words("cancel"),"type='button' onclick=\"load_profile();\"","btn_post")
+														$f->input("cancel",$v->words("cancel"),"type='button' onclick=\"load_profile();\"","btn_post").
+														"<div style='height:20px;'></div>"
 													),
 													array("align='right'")
 												);
@@ -260,7 +267,8 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 				$btn_save_cancel_add_certification = $t->row(
 													array(
 														$f->input("save",$v->words("save"),"type='button' onclick=\"save_add_certification();\"","btn_post")." ".
-														$f->input("cancel",$v->words("cancel"),"type='button' onclick=\"load_profile();\"","btn_post")
+														$f->input("cancel",$v->words("cancel"),"type='button' onclick=\"load_profile();\"","btn_post").
+														"<div style='height:20px;'></div>"
 													),
 													array("align='right'")
 												);
@@ -356,7 +364,8 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 				$btn_save_cancel_add_education = $t->row(
 													array(
 														$f->input("save",$v->words("save"),"type='button' onclick=\"save_add_education();\"","btn_post")." ".
-														$f->input("cancel",$v->words("cancel"),"type='button' onclick=\"load_profile();\"","btn_post")
+														$f->input("cancel",$v->words("cancel"),"type='button' onclick=\"load_profile();\"","btn_post").
+														"<div style='height:20px;'></div>"
 													),
 													array("align='right'")
 												);
@@ -499,7 +508,8 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 				$btn_save_cancel_add_language = $t->row(
 													array(
 														$f->input("save",$v->words("save"),"type='button' onclick=\"save_add_language();\"","btn_post")." ".
-														$f->input("cancel",$v->words("cancel"),"type='button' onclick=\"load_profile();\"","btn_post")
+														$f->input("cancel",$v->words("cancel"),"type='button' onclick=\"load_profile();\"","btn_post").
+														"<div style='height:20px;'></div>"
 													),
 													array("align='right'")
 												);
@@ -629,7 +639,8 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 				$btn_save_cancel_add_skill = $t->row(
 													array(
 														$f->input("save",$v->words("save"),"type='button' onclick=\"save_add_skill();\"","btn_post")." ".
-														$f->input("cancel",$v->words("cancel"),"type='button' onclick=\"load_profile();\"","btn_post")
+														$f->input("cancel",$v->words("cancel"),"type='button' onclick=\"load_profile();\"","btn_post").
+														"<div style='height:20px;'></div>"
 													),
 													array("align='right'")
 												);
@@ -735,7 +746,8 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 							$t->row(
 								array(
 									$f->input("save",$v->words("save"),"type='button' onclick=\"save_edit_summary('".$id_seeker_summary."');\"","btn_post")." ".
-									$f->input("cancel",$v->words("cancel"),"type='button' onclick=\"load_profile();\"","btn_post")
+									$f->input("cancel",$v->words("cancel"),"type='button' onclick=\"load_profile();\"","btn_post").
+														"<div style='height:20px;'></div>"
 								),
 								array("align='right'")
 							);

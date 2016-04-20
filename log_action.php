@@ -93,6 +93,19 @@ if(isset($_POST["login_action"])){
 			$db->addfield("log_ip");$db->addvalue($_SERVER["REMOTE_ADDR"]);
 			$db->insert(); 
 			
+			$db->addtable("seeker_profiles");$db->where("user_id",$users["id"]);$db->limit(1);
+			if(count($db->fetch_data(true)) == 0) { 
+				$db->addtable("seeker_profiles");
+				$db->addfield("user_id");$db->addvalue($users["id"]);
+				$db->addfield("created_at");$db->addvalue(date("Y-m-d H:i:s"));
+				$db->addfield("created_by");$db->addvalue($_POST["username"]);
+				$db->addfield("created_ip");$db->addvalue($_SERVER["REMOTE_ADDR"]);
+				$db->addfield("updated_at");$db->addvalue(date("Y-m-d H:i:s"));
+				$db->addfield("updated_by");$db->addvalue($_POST["username"]);
+				$db->addfield("updated_ip");$db->addvalue($_SERVER["REMOTE_ADDR"]);
+				$db->insert(); 
+			}
+			
 			$db->addtable("seeker_summary");$db->where("user_id",$users["id"]);$db->limit(1);
 			if(count($db->fetch_data(true)) == 0) { 
 				$db->addtable("seeker_summary");

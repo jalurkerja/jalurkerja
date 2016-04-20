@@ -97,11 +97,11 @@
 		global $db;
 		$db->addtable("locations"); $db->addfield("province_id,location_id");$db->where("id",$id);
 		$temp = $db->fetch_data();
-		return $temp[0].":".$temp[1];				
+		if(isset($temp[0]) && isset($temp[1])) return $temp[0].":".$temp[1];				
 	}
 	
 	function pipetoarray($data){
-		if(!is_array($data)) return "";
+		if(!is_array($data)) return array();
 		$arr = explode("|",$data);
 		foreach($arr as $data){ 
 			$data = str_replace("|","",$data);
