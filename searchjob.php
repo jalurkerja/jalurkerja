@@ -12,7 +12,7 @@
 		$rightarea  = "<div class='whitecard' style='text-align:right'>";
 		$rightarea .= $v->w("sort_by")." ".$f->select("sort_by",$arr_sort_by,@$_GET["sort_by"]);
 		$rightarea .= "</div><br>";
-		$rightarea .= "<div class='whitecard'>";
+		$rightarea .= "<div class='whitecard' style='min-height:400px;'>";
 		$rightarea .= "<div class='opportunities_viewing' id='opportunities_viewing'></div><br>";
 		$rightarea .= "<div class='opportunities_list' id='opportunities_list'></div>";
 		$rightarea .= "</div>";
