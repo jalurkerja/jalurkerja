@@ -1,6 +1,6 @@
+<?php include_once "common.php"; ?>
 <script src="scripts/jquery-1.10.1.min.js"></script>
 <?php 
-	include_once "common.php";
 	if(!$__user_id) javascript("window.close();");
 	
 	if(isset($_POST["save"])){
