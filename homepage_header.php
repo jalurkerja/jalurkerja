@@ -2,7 +2,7 @@
 <?php include_once "head.php"; ?>
 <!--HEADER-->
 <header class="fixedHeader">
-	<table width="100%">
+	<table id="tableHeader" width="100%">
 		<tr>
 			<td>&nbsp;</td>
 			<td align="center" width="1100">

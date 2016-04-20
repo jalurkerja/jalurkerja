@@ -1,6 +1,7 @@
 body {
     font-family: Helvetica,Arial,sans-serif;
 	font-size:12px;
+	background-color:#E5E5E5;
 }
 
 .page_title {
@@ -165,6 +166,13 @@ body {
 	color:#0CB31D;
 }
 
+.common_title {
+	font-size:20px;
+	color:#0CB31D;
+	font-weight:bolder;
+	margin-bottom:10px;
+}
+
 .fhe_title {
 	font-size:20px;
 	color:#0CB31D;
@@ -236,27 +244,32 @@ body {
 }
 
 .opportunities_list {
+	position:relative;
 	min-height:40px;
-	overflow-y:auto;
-	overflow-x:hidden;
-	width:800px;
-	height:460px;
+	width:500px;
 }
 
 .opportunities_list #title{
 	padding-bottom:5px;	
-	width:220px;
+	width:500px;
 	cursor:pointer;
 	font-weight:bolder;
 	font-size:16px;
 	text-decoration:underline;
 	color:#0CB31D;
 }
+
+.opportunities_list #logo{
+	position:absolute;
+	left:380px;
+}
+
 .opportunities_list #detail {
 	padding-bottom:7px;	
 }
 
 .opportunities_list #container{
+	min-height:130px;
 	cursor:pointer;
 }
 
@@ -264,8 +277,13 @@ body {
 	background-color: rgba(12, 179, 29, 0.3);
 }
 
+.opportunities_list #container table{
+	padding: 0px;
+	border-spacing: 0px;
+}
+
 .opportunities_list #ending {
-	width:220px;
+	width:500px;
 	border-bottom:2px solid grey;
 }
 
@@ -505,6 +523,14 @@ body {
 .homepage_greeting  a{
 	color:#FF6808;
 	font-size:13px;
+}
+
+.whitecard {
+	position:relative;
+	padding:10px;
+	background-color:white;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
 }
 
 .card {

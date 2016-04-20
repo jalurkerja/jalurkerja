@@ -77,4 +77,5 @@
 	</head>
 	<body id="bodyid" style="margin:0px;">
 		<?php include_once "menu.php";?>
+		<script> $("body").css({"background-color":"white"});</script>
 <div style="width:95%;margin-top:20px;margin-left:20px;margin-right:20px;">

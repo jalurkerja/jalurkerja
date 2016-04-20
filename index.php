@@ -68,9 +68,10 @@
 		<?=$f->end();?>
 	</td></tr></table>
 	<!--END SEARCH AREA -->
-	<br><br><br>
+	<br>
 	<!--CATEGORY SEARCH-->
 	<table width="100%"><tr><td align="center" nowrap>
+		<table width="700" class="whitecard"><tr><td align="center" nowrap><br>
 	<?php
 		$tab = new Tabular("index");
 		$tab->set_tab_width(120);
@@ -143,11 +144,13 @@
 		$tab->set_bordercolor("#0CB31D");
 		echo $tab->draw();
 	?>
+		<br></td></tr></table>
 	</td></tr></table>
 	<!--END CATEGORY SEARCH-->
-	<br><br><br>
+	<br>
 	<!--FHE-->
 	<table width="100%"><tr><td align="center" nowrap>
+		<table width="700" class = "whitecard"><tr><td align="center" nowrap><br>
 	<?php
 		$db->addtable("fhe");
 		$db->addfield("slot");
@@ -182,6 +185,7 @@
 			<?=$t->row(array("&nbsp;"));?>
 			<?=$t->row($banners[1]);?>
 		<?=$t->end();?>
+		<br></td></tr></table>
 	</td></tr></table>
 	<!--END FHE-->
 <?php if(isset($_SESSION["errormessage"]) && $_SESSION["errormessage"] != "") { javascript("popup_message('".$_SESSION["errormessage"]."');"); $_SESSION["errormessage"] = ""; } ?>

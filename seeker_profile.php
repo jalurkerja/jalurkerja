@@ -5,6 +5,7 @@
 <?php include_once "scripts/seeker_profile_js.php"; ?>
 <?php include_once "scripts/seeker_general_setting_js.php"; ?>
 <?php include_once "scripts/seeker_setting_desires_js.php"; ?>
+<script> $("body").css({"background-color":"white"});</script>
 <div style="height:100px;"></div>
 	<table width="100%" height="100%"><tr><td align="center" nowrap>
 	<table width="1000"><tr><td class="page_title"><?=$v->words("job_seeker_setting");?></td></tr></table>

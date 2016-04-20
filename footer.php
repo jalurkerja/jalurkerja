@@ -1,5 +1,4 @@
-		<br>
-		<br>
+
 		<br>
 		<div class="footer_area" id="footer_area">
 			<div>

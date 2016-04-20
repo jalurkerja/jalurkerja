@@ -41,8 +41,7 @@
 	}
 	
 	if($_mode == "list"){
-		$db->addtable("opportunities"); $db->addfield("id");$db->addfield("title_".$__locale); $db->addfield("name"); $db->addfield("province_id");
-		$db->addfield("location_id"); $db->addfield("experience_years"); $db->addfield("salary_min"); $db->addfield("salary_max");
+		$db->addtable("opportunities"); 
 		$db->limit($db->searchjob_limit);
 		$opportunities = $db->fetch_data();
 		$return = "";
@@ -52,12 +51,42 @@
 			$db->where("province_id",$opportunity["province_id"]);
 			$db->where("location_id",$opportunity["location_id"]);
 			$location = $db->fetch_data(false,0);
+			if($__isloggedin) { 
+				$db->addtable("seeker_desires");$db->where("user_id",$__user_id);$db->limit(1);
+				$seeker_desires = $db->fetch_data();
+				if($seeker_desires["salary_max"] > 0 && $seeker_desires["salary_min"] <= $seeker_desires["salary_max"]){
+					if($seeker_desires["salary_min"] > $opportunity["salary_max"]) {
+						$salaries = "<font style='font-size:10px;color:grey;'>".$v->w("below_expectation")."</font>";
+					} else if($seeker_desires["salary_max"] < $opportunity["salary_min"]) {
+						$salaries = "<font style='font-weight:bolder;color:#FF6808;'>".$v->w("above_expectation")."</font>";
+					} else {
+						$salaries = "<font style='font-weight:bolder;'>".$v->w("meet_expectation")."</font>";
+					}
+				} else {
+					$salaries = "<i>".$v->w("please_update_your_salary_expectation")."</i>";
+				}
+			} else {
+				$salaries = $v->w("login_for_find_out_salary");
+			}
+			$industry = $db->fetch_single_data("industries","name_".$__locale,array("id" => $opportunity["industry_id"]));
+			$job_function = $db->fetch_single_data("job_functions","name_".$__locale,array("id" => $opportunity["job_function_id"]));
+			$company_profile_logo = $db->fetch_single_data("company_profiles","logo",array("id" => $opportunity["company_id"]));
+			
+			if($opportunity["logo"]!="" && @file_exists("../opportunity_logo/".$opportunity["logo"])){
+				$logo = "<img src='opportunity_logo/".$opportunity["logo"]."' height='120'>";
+			} elseif($company_profile_logo != "" && @file_exists("../company_logo/".$company_profile_logo)){
+				$logo = "<img src='company_logo/".$company_profile_logo."' height='120'>";
+			} else {
+				$logo = "<img src='company_logo/no_logo.png' height='120'>";
+			}
 			
 			$return .= "<div id='container' onclick='load_detail_opportunity(\"".$opportunity["id"]."\");'>";
-				$return .= "<div id='title'>".$opportunity["title_".$__locale]."</div>";
-				$return .= "<div id='detail'><u>".$opportunity["name"]."</u> - ".$location."</div>";
-				$return .= "<div id='detail'>".$v->words("work_experience")." : ".$opportunity["experience_years"]." ".$v->words("years")."</div>";
-				$return .= "<div id='detail'>".$v->words("salary_offer")." : <br>".salary_min_max($opportunity["salary_min"],$opportunity["salary_max"])."</div>";
+			$return .= "	<div id='logo'>".$logo."</div>";
+			$return .= "	<div id='title'><table><tr><td width='360'>".$opportunity["title_".$__locale]."</td></tr></table></div>";
+			$return .= "	<div id='detail'><u>".$opportunity["name"]."</u> - ".$location."</div>";
+			$return .= "	<div id='detail'>".$v->words("work_experience")." : ".$opportunity["experience_years"]." ".$v->words("years")."</div>";
+			$return .= "	<div id='detail'><table><tr><td width='360'>".$v->words("salary_offer")." : ".$salaries."</td></tr></table></div>";
+			$return .= "	<div id='detail'>".$v->words("industry")." : ".$industry."&nbsp;&nbsp;&bull;&nbsp;&nbsp;".$job_function."</div>";
 			$return .= "</div>";
 			$return .= "<div id='ending'></div><br>";
 		}

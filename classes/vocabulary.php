@@ -193,6 +193,14 @@ class Vocabulary{
 		$arr[$l]["others"]									= "Others";
 		$arr[$l]["get_job_alert"]							= "Receive Job Alert";
 		$arr[$l]["get_newsletter"]							= "Receive Newsletter";
+		$arr[$l]["ultimate_search"]							= "Ultimate Search";
+		$arr[$l]["login_for_find_out_salary"]				= "Login to find out salary";
+		$arr[$l]["below_expectation"]						= "Below Expectation";
+		$arr[$l]["meet_expectation"]						= "Meet Expectation";
+		$arr[$l]["above_expectation"]						= "Above Expectation";
+		$arr[$l]["please_update_your_salary_expectation"] 	= "Please update your salary expectation on profile setting menu";
+		$arr[$l]["show_only_syariah_opportunities"] 		= "Show only syariah opportunities";
+		$arr[$l]["show_fresh_graduate_opportunities"] 		= "Show fresh graduate opportunities";
 		/*==================================================================================================================================*/
 		/*==================================================================================================================================*/
 		$l = "id";
@@ -241,7 +249,7 @@ class Vocabulary{
 		$arr[$l]["advice_center"]							= "Pusat Saran";
 		$arr[$l]["advanced_search"]							= "Pencarian Lebih Detail";
 		$arr[$l]["register_as_employer"]					= "Daftar Sebagai Perusahaan";
-		$arr[$l]["search_all_candidates"]					= "Cari Semia Kandidat";
+		$arr[$l]["search_all_candidates"]					= "Cari Semua Kandidat";
 		$arr[$l]["products_and_prices"]						= "Produk dan Harga";
 		$arr[$l]["contactus"]								= "Hubungi Kami";
 		$arr[$l]["please_click_update_button"]				= "Harap klik tombol Update untuk perbaharui hasil pencarian";
@@ -250,7 +258,7 @@ class Vocabulary{
 		$arr[$l]["sort_by"]									= "Urut Berdasarkan";
 		$arr[$l]["posting_date"]							= "Tanggal Pasang";
 		$arr[$l]["salary_asc"]								= "Gaji (Rendah - Tinggi)";
-		$arr[$l]["salary_desc"]								= "Salary (Tinggi - Rendah)";
+		$arr[$l]["salary_desc"]								= "Gaji (Tinggi - Rendah)";
 		$arr[$l]["viewing"]									= "Menampilkan";
 		$arr[$l]["out_of"]									= "dari";
 		$arr[$l]["go_to_page"]								= "Ke Halaman";
@@ -372,6 +380,14 @@ class Vocabulary{
 		$arr[$l]["others"]									= "Lainnya";
 		$arr[$l]["get_job_alert"]							= "Menerima email lowongan";
 		$arr[$l]["get_newsletter"]							= "Menerima email berita";
+		$arr[$l]["ultimate_search"]							= "Pencarian Utama";
+		$arr[$l]["login_for_find_out_salary"]				= "Login untuk mengetahui gaji";
+		$arr[$l]["below_expectation"]						= "Dibawah Harapan";
+		$arr[$l]["meet_expectation"]						= "Sesuai Harapan";
+		$arr[$l]["above_expectation"]						= "Melebihi Harapan";
+		$arr[$l]["please_update_your_salary_expectation"] 	= "Harap update data gaji yang di harapkan di menu Pengaturan Profil";
+		$arr[$l]["show_only_syariah_opportunities"] 		= "Tampilkan hanya lowongan syariah";
+		$arr[$l]["show_fresh_graduate_opportunities"] 		= "Tampilkan lowongan Fresh Graduate";
 		
 		return $arr[$this->locale][$index];
 	}
