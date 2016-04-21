@@ -46,7 +46,7 @@
 						try{ $("#"+target_elm).val(result); } catch(e){}
 						try{ global_respon[target_elm] = result; } catch(e){}
 						try{ eval(done_function || ""); } catch(e){}
-						/* try{ $.fancybox.close(); } catch(e){} */
+						try{ $.fancybox.close(); } catch(e){} 
 					}});
 				});
 			}
