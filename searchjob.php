@@ -20,8 +20,9 @@
 		$keyword_placeholder = $v->words("keyword")." (".$v->words("job_level").", ".$v->words("company_name").", ".$v->words("etc");
 		$txt_keyword = $f->input("keyword","","placeholder='".$keyword_placeholder.")' style='width:217px;'","search_area_input");
 		
-		$arrjob_functions = $db->fetch_select_data("job_functions","id","name_".$__locale,array("id" => "0:>"),array(),10);
-		$sb_job_function = $f->select_box("job_function",$v->words("job_function"),$arrjob_functions,array(),220,200,999,5,26,12,"grey");
+		$f->add_config_selectbox("table","job_functions");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);$f->add_config_selectbox("where",array("id" => "0:>"));
+		$sb_job_function = $f->select_box_ajax("job_function",$v->words("job_function"),array(),220,200,999,5,26,12,"grey");
+		
 		
 		$db->addtable("locations"); 
 		$db->addfield("province_id");$db->addfield("location_id");$db->addfield("name_".$__locale); $db->limit(10);
@@ -35,22 +36,22 @@
 		}
 		$sb_work_location = $f->select_box("work_location",$v->words("work_location"),$arrlocations,array(),220,200,998,5,26,12,"grey");
 		
-		$arrjob_level = $db->fetch_select_data("job_level","id","name_".$__locale,array("id" => "0:>"),array(),10);
-		$sb_job_level = $f->select_box("job_level",$v->words("job_level"),$arrjob_level,array(),220,200,997,5,26,12,"grey");
+		$f->add_config_selectbox("table","job_level");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);$f->add_config_selectbox("where",array("id" => "0:>"));
+		$sb_job_level = $f->select_box_ajax("job_level",$v->words("job_level"),array(),220,200,997,5,26,12,"grey");
 		
-		$arrindustries = $db->fetch_select_data("industries","id","name_".$__locale,array("id" => "0:>"),array(),10);
-		$sb_industry = $f->select_box("industries",$v->words("industry"),$arrindustries,array(),220,200,996,5,26,12,"grey");
+		$f->add_config_selectbox("table","industries");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);$f->add_config_selectbox("where",array("id" => "0:>"));
+		$sb_industry = $f->select_box_ajax("industries",$v->words("industry"),array(),220,200,996,5,26,12,"grey");
 		
-		$arrdegree = $db->fetch_select_data("degree","id","name_".$__locale,array("id" => "0:>"),array(),10);
-		$sb_degree = $f->select_box("education_level",$v->words("education_level"),$arrdegree,array(),220,80,995,5,26,12,"grey");
+		$f->add_config_selectbox("table","degree");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);$f->add_config_selectbox("where",array("id" => "0:>"));
+		$sb_degree = $f->select_box_ajax("education_level",$v->words("education_level"),array(),220,200,995,5,26,12,"grey");
 		
 		for($xx = 0;$xx <= 30;$xx++){
 			if($xx == 0) $arrexperience_level[$xx] = "0.5 ".$v->words("years"); else $arrexperience_level[$xx] = $xx." ".$v->words("years");
 		}
 		$sb_experience = $f->select_box("work_experience",$v->words("work_experience"),$arrexperience_level,array(),220,200,994,5,26,12,"grey");
 		
-		$arrjob_type= $db->fetch_select_data("job_type","id","name_".$__locale);
-		$sb_job_type = $f->select_box("job_type",$v->words("job_type"),$arrjob_type,array(),220,80,995,5,26,12,"grey");
+		$f->add_config_selectbox("table","job_type");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);$f->add_config_selectbox("where",array("id" => "0:>"));
+		$sb_job_type = $f->select_box_ajax("job_type",$v->words("job_type"),array(),220,200,993,5,26,12,"grey");
 		
 		$db->addtable("salaries"); 
 		$db->addfield("id");$db->addfield("salary"); $db->order("id");

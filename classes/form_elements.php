@@ -12,7 +12,9 @@
     select_box($name,$caption,$values,$selecteds=array(),$width,$height,$z_index=0,$maxselects=5,$border_color="#0CB31D",$title_color="#000",$contains_color="grey",$backcolor="white",$attr="",$class="")
  ******************************************************************************/
 
-class FormElements {
+class FormElements extends Database {
+	protected $config_selectbox = array();
+	
     public function start($name="",$method="POST",$action="",$attr=""){
         return "<form method='$method' action='$action' name='$name' id='$name' $attr>";
     }
@@ -249,6 +251,61 @@ class FormElements {
                 </div>
             ';
         }
+
+        $return .='
+                </div>
+            </div>
+			<script> select_box_json_'.$name.'(); </script>
+        ';
+        return $return;
+    }
+	
+	public function add_config_selectbox($index,$value){
+		$this->config_selectbox[$index] = $value;
+	}
+
+	public function clear_config_selectbox(){
+		$this->config_selectbox = array();
+	}
+	
+    public function select_box_ajax($name,$title,$selecteds=array(),$width,$height,$z_index=0,$maxselects=5,$title_height=12,$font_size=12,$title_color="#000",$border_color="#0CB31D",$contains_color="grey",$backcolor="white",$attr="",$class=""){
+		$this->config_selectbox["name"] = $name;
+		$this->config_selectbox["selecteds"] = $selecteds;
+		$this->config_selectbox["maxselects"] = $maxselects;
+		$data = base64_encode(serialize($this->config_selectbox));
+		$this->clear_config_selectbox();
+        
+        $return ='
+            <script>
+				var select_box_'.$name.'_loaded = false;
+				function loading_select_box_'.$name.'(){
+					get_ajax("ajax/select_box_content.php?data='.$data.'","select_box_return_area_'.$name.'");
+				}
+				
+                function select_box_toggle_'.$name.'(){
+					if(select_box_'.$name.'_loaded == false){ loading_select_box_'.$name.'(); }
+					select_box_'.$name.'_loaded = true;
+					
+                    if(document.getElementById("select_box_values_'.$name.'").style.display == "none"){
+                        $("#select_box_values_'.$name.'").fadeIn(500);
+						select_box_active_id = "select_box_values_'.$name.'";
+                    } else {
+                        $("#select_box_values_'.$name.'").fadeOut(500);
+						select_box_active_id = "";
+                    }
+                }
+            </script>
+			'.$this->input("int_".$name,"","type='hidden'").'
+			'.$this->input("chr_".$name,"","type='hidden'").'
+            <div style="position:relative;width:'.($width+17).'px;height:5px;z-index:'.$z_index.';">
+                <div onmouseover="try{ hiding_select_box(\'select_box_values_'.$name.'\'); } catch(e){}" style="display: flex;align-items: center;width:'.($width+17).'px;font-size:'.$font_size.'px;height:'.$title_height.'px;border:solid '.$border_color.' 1px;position:absolute;z-index:'.$z_index.';background-color:'.$backcolor.';">
+                    <div style="margin:0px 0px 0px 5px;float:left;width:'.($width-7).'px;color:'.$title_color.';" id="select_box_'.$name.'" onclick="select_box_toggle_'.$name.'();">'.$title.'</div>
+                    <div style="margin:0px 5px 0px 0px;float:right;cursor:pointer;background-image: url(icons/arrow_down.png);height:17px;width:17px;" onclick="select_box_toggle_'.$name.'();"></div>
+                </div>
+                <div id="select_box_values_'.$name.'" style="width:'.($width+17).'px;height:'.$height.'px;border:solid '.$border_color.' 1px;position:absolute;top:'.$title_height.'px;display:none;z-index:'.$z_index.';background-color:'.$backcolor.';overflow-y:auto;">
+        ';
+
+		$return .='<div id="select_box_return_area_'.$name.'"></div>';
 
         $return .='
                 </div>

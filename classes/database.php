@@ -82,6 +82,7 @@
 
         protected function execute($sql){
 			mysql_select_db($this->dbname,$this->db);
+			//mysql_query("INSERT INTO sql_log VALUES (NULL,'".str_replace("'","''",$sql)."','".@$_SESSION["user_id"]."',NOW(),'".$_SERVER["REMOTE_ADDR"]."',NULL)",$this->db);
             return mysql_query($sql,$this->db);
             $this->close();
         }

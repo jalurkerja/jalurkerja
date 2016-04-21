@@ -54,10 +54,10 @@
 			if($__isloggedin) { 
 				$db->addtable("seeker_desires");$db->where("user_id",$__user_id);$db->limit(1);
 				$seeker_desires = $db->fetch_data();
-				if($seeker_desires["salary_max"] > 0 && $seeker_desires["salary_min"] <= $seeker_desires["salary_max"]){
-					if($seeker_desires["salary_min"] > $opportunity["salary_max"]) {
+				if(@$seeker_desires["salary_max"] > 0 && @$seeker_desires["salary_min"] <= @$seeker_desires["salary_max"]){
+					if(@$seeker_desires["salary_min"] > $opportunity["salary_max"]) {
 						$salaries = "<font style='font-size:10px;color:grey;'>".$v->w("below_expectation")."</font>";
-					} else if($seeker_desires["salary_max"] < $opportunity["salary_min"]) {
+					} else if($seeker_desires["salary_max"] < @$opportunity["salary_min"]) {
 						$salaries = "<font style='font-weight:bolder;color:#FF6808;'>".$v->w("above_expectation")."</font>";
 					} else {
 						$salaries = "<font style='font-weight:bolder;'>".$v->w("meet_expectation")."</font>";
