@@ -20,11 +20,11 @@
 		$keyword_placeholder = $v->words("keyword")." (".$v->words("job_level").", ".$v->words("company_name").", ".$v->words("etc");
 		$txt_keyword = $f->input("keyword","","placeholder='".$keyword_placeholder.")' style='width:217px;'","search_area_input");
 		
-		$arrjob_functions = $db->fetch_select_data("job_functions","id","name_".$__locale,array("id" => "0:>"));
+		$arrjob_functions = $db->fetch_select_data("job_functions","id","name_".$__locale,array("id" => "0:>"),array(),10);
 		$sb_job_function = $f->select_box("job_function",$v->words("job_function"),$arrjob_functions,array(),220,200,999,5,26,12,"grey");
 		
 		$db->addtable("locations"); 
-		$db->addfield("province_id");$db->addfield("location_id");$db->addfield("name_".$__locale); 
+		$db->addfield("province_id");$db->addfield("location_id");$db->addfield("name_".$__locale); $db->limit(10);
 		$db->where("id",1,"i",">");$db->order("seqno");
 		foreach ($db->fetch_data() as $key => $arrlocation){
 			if($arrlocation[1]>0){
@@ -35,13 +35,13 @@
 		}
 		$sb_work_location = $f->select_box("work_location",$v->words("work_location"),$arrlocations,array(),220,200,998,5,26,12,"grey");
 		
-		$arrjob_level = $db->fetch_select_data("job_level","id","name_".$__locale,array("id" => "0:>"));
+		$arrjob_level = $db->fetch_select_data("job_level","id","name_".$__locale,array("id" => "0:>"),array(),10);
 		$sb_job_level = $f->select_box("job_level",$v->words("job_level"),$arrjob_level,array(),220,200,997,5,26,12,"grey");
 		
-		$arrindustries = $db->fetch_select_data("industries","id","name_".$__locale,array("id" => "0:>"));
+		$arrindustries = $db->fetch_select_data("industries","id","name_".$__locale,array("id" => "0:>"),array(),10);
 		$sb_industry = $f->select_box("industries",$v->words("industry"),$arrindustries,array(),220,200,996,5,26,12,"grey");
 		
-		$arrdegree = $db->fetch_select_data("degree","id","name_".$__locale,array("id" => "0:>"));
+		$arrdegree = $db->fetch_select_data("degree","id","name_".$__locale,array("id" => "0:>"),array(),10);
 		$sb_degree = $f->select_box("education_level",$v->words("education_level"),$arrdegree,array(),220,80,995,5,26,12,"grey");
 		
 		for($xx = 0;$xx <= 30;$xx++){
