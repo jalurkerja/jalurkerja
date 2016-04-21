@@ -117,6 +117,12 @@
 		return $return;
 	}
 	
+	function array_swap($data){
+		$return = array();
+		if(is_array($data)){ foreach($data as $key => $value) { $return[] = $key; } }
+		return $return;
+	}
+	
 	function sel_to_pipe($data){
 		if(!is_array($data)) return "";
 		sort($data);

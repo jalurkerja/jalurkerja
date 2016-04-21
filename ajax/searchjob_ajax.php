@@ -3,6 +3,8 @@
 	
 	if(isset($_GET["mode"])){ $_mode = $_GET["mode"]; } else { $_mode = ""; }
 	
+	if(isset($_POST["post_data"])){ parse_str($_POST["post_data"],$_POST); }
+	
 	if($_mode == "isapplied"){ echo $js->is_applied($_GET["user_id"],$_GET["opportunity_id"]); }
 	if($_mode == "issaved"){ echo $js->is_saved($_GET["user_id"],$_GET["opportunity_id"]); }
 	
@@ -39,102 +41,161 @@
 		$opportunity_id = $_GET["opportunity_id"];
 		echo $js->save_opportunity($__user_id,$opportunity_id);
 	}
-	
-	if($_mode == "list"){
-		$db->addtable("opportunities"); 
-		$db->limit($db->searchjob_limit);
-		$opportunities = $db->fetch_data();
-		$return = "";
-		foreach($opportunities as $key => $opportunity){
-			$db->addtable("locations");
-			$db->addfield("name_".$__locale);
-			$db->where("province_id",$opportunity["province_id"]);
-			$db->where("location_id",$opportunity["location_id"]);
-			$location = $db->fetch_data(false,0);
-			if($__isloggedin) { 
-				$db->addtable("seeker_desires");$db->where("user_id",$__user_id);$db->limit(1);
-				$seeker_desires = $db->fetch_data();
-				if(@$seeker_desires["salary_max"] > 0 && @$seeker_desires["salary_min"] <= @$seeker_desires["salary_max"]){
-					if(@$seeker_desires["salary_min"] > $opportunity["salary_max"]) {
-						$salaries = "<font style='font-size:10px;color:grey;'>".$v->w("below_expectation")."</font>";
-					} else if($seeker_desires["salary_max"] < @$opportunity["salary_min"]) {
-						$salaries = "<font style='font-weight:bolder;color:#FF6808;'>".$v->w("above_expectation")."</font>";
-					} else {
-						$salaries = "<font style='font-weight:bolder;'>".$v->w("meet_expectation")."</font>";
-					}
-				} else {
-					$salaries = "<i>".$v->w("please_update_your_salary_expectation")."</i>";
-				}
-			} else {
-				$salaries = $v->w("login_for_find_out_salary");
-			}
-			$industry = $db->fetch_single_data("industries","name_".$__locale,array("id" => $opportunity["industry_id"]));
-			$job_function = $db->fetch_single_data("job_functions","name_".$__locale,array("id" => $opportunity["job_function_id"]));
-			$company_profile_logo = $db->fetch_single_data("company_profiles","logo",array("id" => $opportunity["company_id"]));
-			
-			if($opportunity["logo"]!="" && @file_exists("../opportunity_logo/".$opportunity["logo"])){
-				$logo = "<img src='opportunity_logo/".$opportunity["logo"]."' height='120'>";
-			} elseif($company_profile_logo != "" && @file_exists("../company_logo/".$company_profile_logo)){
-				$logo = "<img src='company_logo/".$company_profile_logo."' height='120'>";
-			} else {
-				$logo = "<img src='company_logo/no_logo.png' height='120'>";
-			}
-			
-			$return .= "<div id='container' onclick='load_detail_opportunity(\"".$opportunity["id"]."\");'>";
-			$return .= "	<div id='logo'>".$logo."</div>";
-			$return .= "	<div id='title'><table><tr><td width='360'>".$opportunity["title_".$__locale]."</td></tr></table></div>";
-			$return .= "	<div id='detail'><u>".$opportunity["name"]."</u> - ".$location."</div>";
-			$return .= "	<div id='detail'>".$v->words("work_experience")." : ".$opportunity["experience_years"]." ".$v->words("years")."</div>";
-			$return .= "	<div id='detail'><table><tr><td width='360'>".$v->words("salary_offer")." : ".$salaries."</td></tr></table></div>";
-			$return .= "	<div id='detail'>".$v->words("industry")." : ".$industry."&nbsp;&nbsp;&bull;&nbsp;&nbsp;".$job_function."</div>";
+
+	if($_mode == "loading_paging"){
+		if($_GET["maxrow"] > 0){
+			$return  = "<div class='whitecard' style='text-align:center'>";
+			$return .= paging($db->searchjob_limit,$_GET["maxrow"],1,"paging");
 			$return .= "</div>";
-			$return .= "<div id='ending'></div><br>";
+			echo $return;
 		}
-		echo $return;
 	}
 	
-	if($_mode == "detail"){
-		$opportunity_id = $_GET["opportunity_id"];
-		$db->addtable("opportunities"); $db->where("id",$opportunity_id);$db->limit(1);
-		$opportunity = $db->fetch_data();
-		$return = "";
-		if(isset($opportunity[0])){
-			foreach($opportunity as $field => $value){ 
-				if(!is_numeric($field)) $return .= "<div id='opportunity__".$field."'>".$value."</div>"; 
-			}
-			
-			$db->addtable("industries"); $db->addfield("name_".$__locale);$db->where("id",$opportunity["industry_id"]);$db->limit(1);
-			$return .= "<div id='opportunity__industry'>".$db->fetch_data(false,0)."</div>";
-			
-			$db->addtable("job_functions"); $db->addfield("name_".$__locale);$db->where("id",$opportunity["job_function_id"]);$db->limit(1);
-			$return .= "<div id='opportunity__job_function'>".$db->fetch_data(false,0)."</div>";
-			
-			$db->addtable("job_level"); $db->addfield("name_".$__locale); $db->where("id",$opportunity["job_level_ids"],"i","in");
-			$job_levels = $db->fetch_data();
-			$return .= "<div id='opportunity__job_levels'>";
-				if(is_array($job_levels[0])){ foreach($job_levels as $job_level){ $return .= $job_level[0].", "; } $return = substr($return,0,-2);
-				} else { $return .= $job_levels[0]; }
-			$return .= "</div>";
-			
-			$db->addtable("degree"); $db->addfield("name_".$__locale);$db->where("id",$opportunity["degree_id"]);$db->limit(1);
-			$return .= "<div id='opportunity__degree'>".$db->fetch_data(false,0)."</div>";
-			
-			$db->addtable("majors"); $db->addfield("name_".$__locale); $db->where("id",$opportunity["major_ids"],"i","in");
-			$majors = $db->fetch_data();
-			$return .= "<div id='opportunity__majors'>";
-				if(is_array($majors[0])){ foreach($majors as $job_level){ $return .= $job_level[0].", "; } $return = substr($return,0,-2);
-				} else { $return .= $majors[0]; }
-			$return .= "</div>";
-			
-			$return .= "<div id='opportunity__salary_offer'>".salary_min_max($opportunity["salary_min"],$opportunity["salary_max"])."</div>";
-			$return .= "<div id='opportunity__posted_date'>".format_tanggal($opportunity["posted_at"],"dMY")."</div>";
-			$return .= "<div id='opportunity__closing_date2'>".format_tanggal($opportunity["closing_date"],"dMY")."</div>";
-			$return .= "<div id='opportunity__descriptions'>".str_replace(array(chr(13).chr(10),chr(13)),"<br>",$opportunity["description"])."</div>";
-			$return .= "<div id='opportunity__requirements'>".str_replace(array(chr(13).chr(10),chr(13)),"<br>",$opportunity["requirement"])."</div>";
-			
-		} else {
-			$return .= "<div id='opportunity__id'>NULL</div>";
+	if($_mode == "list" || $_POST["searchjobpage_searching"]){
+		$whereclause = "";
+		if(isset($_POST["keyword"]) && $_POST["keyword"]!=""){
+			$keyword = $_POST["keyword"];
+			$whereclause .= "(
+								title_id LIKE '%$keyword%' OR
+								title_en LIKE '%$keyword%' OR
+								web LIKE '%$keyword%' OR
+								company_description LIKE '%$keyword%' OR
+								name LIKE '%$keyword%' OR
+								requirement LIKE '%$keyword%' OR
+								description LIKE '%$keyword%'
+							) AND ";
 		}
-		echo $return;
+		
+		if(isset($_POST["job_function"])){
+			$whereclauseinner = "";
+			foreach($_POST["job_function"] as $job_function_id => $val){ $whereclauseinner .= "job_function_id = $job_function_id OR "; }
+			if($whereclauseinner !="" ) $whereclause .= "(".substr($whereclauseinner,0,-3).") AND ";
+		}
+
+		if(isset($_POST["work_location"])){
+			$whereclauseinner = "";
+			foreach($_POST["work_location"] as $location_id => $val){
+				$location_id = explode(":",$location_id);
+				$whereclauseinner .= "(province_id = ".$location_id[0]." AND location_id = ".$location_id[1].") OR "; 
+			}
+			if($whereclauseinner !="" ) $whereclause .= "(".substr($whereclauseinner,0,-3).") AND ";
+		}
+		
+		if(isset($_POST["job_level"])){
+			$whereclauseinner = "";
+			foreach($_POST["job_level"] as $job_level_id => $val){ $whereclauseinner .= "job_level_ids LIKE '%|".$job_level_id."|%' OR "; }
+			if($whereclauseinner !="" ) $whereclause .= "(".substr($whereclauseinner,0,-3).") AND ";
+		}
+		
+		if(isset($_POST["industries"])){
+			$whereclauseinner = "";
+			foreach($_POST["industries"] as $industry_id => $val){ $whereclauseinner .= "industry_id = $industry_id OR "; }
+			if($whereclauseinner !="" ) $whereclause .= "(".substr($whereclauseinner,0,-3).") AND ";
+		}
+		
+		if(isset($_POST["education_level"])){
+			$whereclauseinner = "";
+			foreach($_POST["education_level"] as $degree_id => $val){ $whereclauseinner .= "degree_id = $degree_id OR "; }
+			if($whereclauseinner !="" ) $whereclause .= "(".substr($whereclauseinner,0,-3).") AND ";
+		}
+		
+		if(isset($_POST["work_experience"])){
+			$whereclauseinner = "";
+			foreach($_POST["work_experience"] as $work_experience => $val){ $whereclauseinner .= "experience_years = $work_experience OR "; }
+			if($whereclauseinner !="" ) $whereclause .= "(".substr($whereclauseinner,0,-3).") AND ";
+		}
+		
+		if(isset($_POST["job_type"])){
+			$whereclauseinner = "";
+			foreach($_POST["job_type"] as $job_type_id => $val){ $whereclauseinner .= "job_type_id = $job_type_id OR "; }
+			if($whereclauseinner !="" ) $whereclause .= "(".substr($whereclauseinner,0,-3).") AND ";
+		}
+
+		if(isset($_POST["salary_from"]) && $_POST["salary_from"] > 0){ $whereclause .= "salary_min >= '".$_POST["salary_from"]."' AND ";}
+		if(isset($_POST["salary_to"]) && $_POST["salary_to"] > 0){ $whereclause .= "salary_max <= '".$_POST["salary_to"]."' AND ";}
+		if(isset($_POST["chk_syariah"])){ $whereclause .= "is_syariah = '1' AND "; }
+		if(isset($_POST["chk_fresh_graduate"])){ $whereclause .= "is_freshgraduate = '1' AND "; }
+		
+		
+		if($whereclause != "") $whereclause = substr($whereclause,0,-4);
+		
+		//echo $whereclause;
+
+		$return = "";
+		//counting//
+		$db->addtable("opportunities");
+		if($whereclause != "") $db->awhere($whereclause);
+		$db->limit(300);//di kasih limit biar ga kepanjangan pagingnya
+		$maxrow = count($db->fetch_data(true)) * 1;
+		$return = "<div id='opportunities_maxrow' style='display:none'>".$maxrow."</div>";
+		
+		if(isset($_POST["searchjob_page"])) $searchjob_page = $_POST["searchjob_page"] * 1;
+		if($searchjob_page == 0) $searchjob_page = 1;
+		$return .= "<div id='opportunities_page' style='display:none'>$searchjob_page</div>";
+		
+		//end counting//
+		if($maxrow > 0){
+			//loading//
+			$db->addtable("opportunities");
+			if($whereclause != "") $db->awhere($whereclause);
+			$start = getStartRow($_POST["searchjob_page"],$db->searchjob_limit);
+			$db->limit($start.",".$db->searchjob_limit);
+			if($_POST["searchjob_order"] == "" || !isset($_POST["searchjob_order"])) $_POST["searchjob_order"] = "posted_at DESC";
+			$db->order($_POST["searchjob_order"]);
+			$opportunities = $db->fetch_data(true);
+			//end loading//
+			
+			foreach($opportunities as $key => $opportunity){
+				$db->addtable("locations");
+				$db->addfield("name_".$__locale);
+				$db->where("province_id",$opportunity["province_id"]);
+				$db->where("location_id",$opportunity["location_id"]);
+				$location = $db->fetch_data(false,0);
+				if($__isloggedin) { 
+					$db->addtable("seeker_desires");$db->where("user_id",$__user_id);$db->limit(1);
+					$seeker_desires = $db->fetch_data();
+					if(@$seeker_desires["salary_max"] > 0 && @$seeker_desires["salary_min"] <= @$seeker_desires["salary_max"]){
+						if(@$seeker_desires["salary_min"] > $opportunity["salary_max"]) {
+							$salaries = "<font style='font-size:10px;color:grey;'>".$v->w("below_expectation")."</font>";
+						} else if($seeker_desires["salary_max"] < @$opportunity["salary_min"]) {
+							$salaries = "<font style='font-weight:bolder;color:#FF6808;'>".$v->w("above_expectation")."</font>";
+						} else {
+							$salaries = "<font style='font-weight:bolder;'>".$v->w("meet_expectation")."</font>";
+						}
+					} else {
+						$salaries = "<i>".$v->w("please_update_your_salary_expectation")."</i>";
+					}
+				} else {
+					$salaries = $v->w("login_for_find_out_salary");
+				}
+				$industry = $db->fetch_single_data("industries","name_".$__locale,array("id" => $opportunity["industry_id"]));
+				$job_function = $db->fetch_single_data("job_functions","name_".$__locale,array("id" => $opportunity["job_function_id"]));
+				$company_profile_logo = $db->fetch_single_data("company_profiles","logo",array("id" => $opportunity["company_id"]));
+				
+				if($opportunity["logo"]!="" && @file_exists("../opportunity_logo/".$opportunity["logo"])){
+					$logo = "<img src='opportunity_logo/".$opportunity["logo"]."' height='120' style='max-width:120px;'>";
+				} elseif($company_profile_logo != "" && @file_exists("../company_logo/".$company_profile_logo)){
+					$logo = "<img src='company_logo/".$company_profile_logo."' height='120' style='max-width:120px;'>";
+				} else {
+					$logo = "<img src='company_logo/no_logo.png' height='120'>";
+				}
+				
+				$return .= "<div id='container' onclick='load_detail_opportunity(\"".$opportunity["id"]."\");'>";
+				$return .= "	<div id='logo'>".$logo."</div>";
+				$return .= "	<div id='title'><table><tr><td width='360'>".$opportunity["title_".$__locale]."</td></tr></table></div>";
+				$return .= "	<div id='detail'><u>".$opportunity["name"]."</u> - ".$location."</div>";
+				$return .= "	<div id='detail'>".$v->words("work_experience")." : ".$opportunity["experience_years"]." ".$v->words("years")."</div>";
+				$return .= "	<div id='detail'><table><tr><td width='360'>".$v->words("salary_offer")." : ".$salaries."</td></tr></table></div>";
+				$return .= "	<div id='detail'>".$v->words("industry")." : ".$industry."&nbsp;&nbsp;&bull;&nbsp;&nbsp;".$job_function."</div>";
+				$return .= "</div>";
+				$return .= "<div id='ending'></div><br>";
+			}
+			echo $return;
+		} else {
+			echo "<div id='opportunities_maxrow' style='display:none'>0</div>
+				  <div id='opportunities_page' style='display:none'>1</div>
+				  <div class='empty_result'>".$v->w("empty_result")."</div>
+				 ";
+		}
 	}
 ?>

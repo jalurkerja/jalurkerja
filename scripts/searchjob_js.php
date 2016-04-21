@@ -1,8 +1,42 @@
 <script> 
-	get_ajax("ajax/searchjob_ajax.php?mode=list","opportunities_list"); 
+	get_ajax("ajax/searchjob_ajax.php?mode=list","opportunities_list","loading_paging()"); 
 	
-	function load_detail_opportunity(opportunity_id){
-		get_ajax("ajax/searchjob_ajax.php?mode=detail&opportunity_id="+opportunity_id,"opportunity_temp","opportunity_detail_parsing();"); 
+	function changepage(page){
+		document.getElementById("searchjob_page").value = page;		
+		$.post( "ajax/searchjob_ajax.php", { post_data: $("#searchjob_form").serialize() }).done(function( data ) { searching_result(data); }); 
+	}
+	
+	function changeorder(order){
+		document.getElementById("searchjob_order").value = order;
+		$.post( "ajax/searchjob_ajax.php", { post_data: $("#searchjob_form").serialize() }).done(function( data ) { searching_result(data);changepage(1) }); 
+	}
+	
+	function serach_btn_click() {
+		document.getElementById("searchjob_page").value = 1;
+		document.getElementById("searchjob_order").value = "posted_at DESC";
+		document.getElementById("sort_by").value = "posted_at DESC";
+		popup_message("<img src='icons/loading.gif' width='100'><br><div style='width:100px;height:5px;background-color:white;position:relative;top:-5px;left:100px;'></div>");
+		$.post( "ajax/searchjob_ajax.php", { post_data: $("#searchjob_form").serialize() }).done(function( data ) { searching_result(data); }); 
+	}
+	
+	function searching_result(data){
+		try{ $.fancybox.close(); } catch(e){} 
+		document.getElementById("opportunities_list").innerHTML = data;
+		$('html, body').animate({scrollTop : 0},800);
+		loading_paging();
+	}
+	
+	function activate_pagenum(){
+		var maxrow = document.getElementById("opportunities_maxrow").innerHTML;
+		var page = document.getElementById("opportunities_page").innerHTML;
+		var list = document.getElementsByClassName("paging")[0];
+		for(var i = 0 ; i < maxrow ; i++){ try{ list.getElementsByTagName("a")[i].id = ""; }catch(e){} }
+		list.getElementsByTagName("a")[page - 1].id = "a_active";
+	}
+	
+	function loading_paging(){
+		var maxrow = document.getElementById("opportunities_maxrow").innerHTML;
+		get_ajax("ajax/searchjob_ajax.php?mode=loading_paging&maxrow="+maxrow,"paging_area","activate_pagenum()"); 
 	}
 	
 	function update_applybtn_class(respondval){
@@ -20,44 +54,6 @@
 			$("#savebtn").removeClass('jobtools_btn').addClass('jobtools_btn_disabled');
 		} else {
 			$("#savebtn").removeClass('jobtools_btn_disabled').addClass('jobtools_btn');
-		}
-	}
-	
-	function opportunity_detail_parsing(){
-		var opportunity__id = document.getElementById("opportunity__id").innerHTML || "";
-		var returnval = "";
-		if(opportunity__id != "NULL"){
-			get_ajax("ajax/searchjob_ajax.php?mode=isapplied&user_id=<?=$__user_id;?>&opportunity_id="+opportunity__id,"isapplied","update_applybtn_class(global_respon['isapplied']);");
-			get_ajax("ajax/searchjob_ajax.php?mode=issaved&user_id=<?=$__user_id;?>&opportunity_id="+opportunity__id,"issaved","update_savebtn_class(global_respon['issaved']);");
-			
-			document.getElementById("opportunity_detail_empty").style.display = "none";
-			document.getElementById("opportunity_detail").style.display = "block";
-			
-			if(opportunity__logo.innerHTML != "") {
-				opportunity___logo.innerHTML 		= "<img src='company_logo/" + opportunity__logo.innerHTML + "'>";
-			} else {
-				opportunity___logo.innerHTML 		= "";
-			}
-			opportunity___name.innerHTML 			= opportunity__name.innerHTML;
-			opportunity___industry.innerHTML 		= opportunity__industry.innerHTML;
-			opportunity___web.innerHTML 			= "<a href='" + opportunity__web.innerHTML + "' target='_BLANK'>" + opportunity__web.innerHTML + "</a>";
-			opportunity___contact_person.innerHTML 	= opportunity__contact_person.innerHTML;
-			opportunity___description.innerHTML 	= opportunity__description.innerHTML;
-			opportunity___title.innerHTML 			= document.getElementById("opportunity__title_<?=$__locale;?>").innerHTML;
-			opportunity___job_function.innerHTML 	= opportunity__job_function.innerHTML;
-			opportunity___job_levels.innerHTML 		= opportunity__job_levels.innerHTML;
-			opportunity___degree.innerHTML 			= opportunity__degree.innerHTML;
-			opportunity___majors.innerHTML 			= opportunity__majors.innerHTML;
-			opportunity___work_experience.innerHTML = opportunity__experience_years.innerHTML + " <?=$v->words("years");?>";
-			opportunity___salary_offer.innerHTML 	= opportunity__salary_offer.innerHTML;
-			opportunity___posted_date.innerHTML 	= opportunity__posted_date.innerHTML;
-			opportunity___closing_date.innerHTML 	= opportunity__closing_date2.innerHTML;
-			opportunity___descriptions.innerHTML 	= opportunity__descriptions.innerHTML;
-			if(!opportunity__descriptions.innerHTML) opportunity___descriptions.innerHTML 	= "{<?=$v->words("empty_description");?>}";
-			opportunity___requirements.innerHTML 	= opportunity__requirements.innerHTML;
-		} else {
-			document.getElementById("opportunity_detail_empty").style.display = "block";
-			document.getElementById("opportunity_detail").style.display = "none";
 		}
 	}
 	

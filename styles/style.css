@@ -4,6 +4,28 @@ body {
 	background-color:#E5E5E5;
 }
 
+.paging{
+	margin-top:5px;
+	margin-bottom:5px;
+}
+
+.paging a{
+	text-decoration:none;
+	font-weight:bolder;
+	margin:2px;
+	padding:3px;
+	color:#0CB31D;
+	border:1px solid lightgrey;
+}
+
+.paging a:hover{
+	background-color:#aaa;
+}
+
+.paging #a_active{
+	background-color:#aaa;
+}
+
 .page_title {
 	font-size:24px;
 	font-weight:bolder;
