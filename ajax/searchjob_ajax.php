@@ -208,7 +208,7 @@
 			$return .= $t->row(array("&nbsp;",$job_type_criteria),array(""));
 		}
 		
-		if(isset($_POST["salary_from"]) || isset($_POST["salary_to"])){
+		if($_POST["salary_from"] > 0 || $_POST["salary_to"] > 0){
 			$return .= $t->row(array("<b>".$v->w("salary").":</b>"),array("colspan='2'"));
 			$salaries = salary_min_max($_POST["salary_from"],$_POST["salary_to"]*1);
 			$return .= $t->row(array("&nbsp;",$salaries),array("style='white-space:pre-wrap;'"));
