@@ -5,7 +5,10 @@
 			$(document).ready(function() { 
 				<?php if(isset($_GET["job_function"]))	{ ?> loading_select_box_job_function("serach_btn_click()"); <?php } ?>
 				<?php if(isset($_GET["job_level"]))		{ ?> loading_select_box_job_level("serach_btn_click()"); <?php } ?>
-				<?php if(isset($_GET["work_location"]))	{ ?> loading_select_box_work_location("serach_btn_click()"); <?php } ?>
+				<?php if(isset($_GET["industries"]))		{ ?> loading_select_box_industries("serach_btn_click()"); <?php } ?>
+				<?php if(isset($_GET["education_level"]))		{ ?> loading_select_box_education_level("serach_btn_click()"); <?php } ?>
+				loading_select_box_job_type("serach_btn_click()");
+				serach_btn_click();
 			}); 
 			<?php
 		}
@@ -34,6 +37,7 @@
 		try{ $.fancybox.close(); } catch(e){} 
 		document.getElementById("opportunities_list").innerHTML = data;
 		$('html, body').animate({scrollTop : 0},800);
+		loading_search_criteria();
 		loading_paging();
 	}
 	
@@ -48,6 +52,11 @@
 	function loading_paging(){
 		var maxrow = document.getElementById("opportunities_maxrow").innerHTML;
 		get_ajax("ajax/searchjob_ajax.php?mode=loading_paging&maxrow="+maxrow,"paging_area","activate_pagenum()"); 
+	}
+	
+	function loading_search_criteria(){
+		if(document.getElementById("opportunities_search_criteria").innerHTML != "NULL")
+			document.getElementById("search_criteria").innerHTML = document.getElementById("opportunities_search_criteria").innerHTML;
 	}
 	
 	function update_applybtn_class(respondval){

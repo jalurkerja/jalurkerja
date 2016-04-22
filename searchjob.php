@@ -13,14 +13,13 @@
 		$rightarea .= $v->w("sort_by")." ".$f->select("sort_by",$arr_sort_by,"","onchange='changeorder(this.value);'");
 		$rightarea .= "</div><br>";
 		$rightarea .= "<div class='whitecard' style='min-height:340px;'>";
-		$rightarea .= "<div class='opportunities_viewing' id='opportunities_viewing'></div><br>";
 		$rightarea .= "<div class='opportunities_list' id='opportunities_list'></div>";
 		$rightarea .= "</div><br>";
 		$rightarea .= "<div id='paging_area'>";
 		$rightarea .= "</div>";
 		
 		$keyword_placeholder = $v->words("keyword")." (".$v->words("job_level").", ".$v->words("company_name").", ".$v->words("etc");
-		$txt_keyword = $f->input("keyword","","placeholder='".$keyword_placeholder.")' style='width:217px;'","search_area_input");
+		$txt_keyword = $f->input("keyword",$_GET["keyword"],"placeholder='".$keyword_placeholder.")' style='width:217px;'","search_area_input");
 		
 		$f->add_config_selectbox("table","job_functions");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);
 		$f->add_config_selectbox("where",array("id" => "0:>"));$f->add_config_selectbox("order",array("name_".$__locale));
@@ -51,7 +50,7 @@
 		for($xx = 0;$xx <= 30;$xx++){
 			if($xx == 0) $arrexperience_level[$xx] = "0.5 ".$v->words("years"); else $arrexperience_level[$xx] = $xx." ".$v->words("years");
 		}
-		$sb_experience = $f->select_box("work_experience",$v->words("work_experience"),$arrexperience_level,array(),220,200,994,5,26,12,"grey");
+		$sb_experience = $f->select_box("work_experience",$v->words("work_experience"),$arrexperience_level,array_swap($_GET["work_experience"]),220,200,994,5,26,12,"grey");
 		
 		$f->add_config_selectbox("table","job_type");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);$f->add_config_selectbox("where",array("id" => "0:>"));
 		$sb_job_type = $f->select_box_ajax("job_type",$v->words("job_type"),array_swap($_GET["job_type"]),220,200,993,5,26,12,"grey");
@@ -65,15 +64,17 @@
 			$arrsalariesto[$arrsalary[1]] = number_format($arrsalary[1],0,",",".");
 		}
 		
-		$sel_salaries  = $f->select("salary_from",$arrsalariesfrom,"","","search_area_select");
-		$sel_salaries .= " - ".$f->select("salary_to",$arrsalariesto,"","","search_area_select");
+		$sel_salaries  = $f->select("salary_from",$arrsalariesfrom,$_GET["salary_from"],"","search_area_select");
+		$sel_salaries .= " - ".$f->select("salary_to",$arrsalariesto,$_GET["salary_to"],"","search_area_select");
 		
-		$box_syariah = $v->w("show_only_syariah_opportunities")." ".$f->input("chk_syariah","1","type='checkbox'");
-		$box_fresh_graduate = $v->w("show_fresh_graduate_opportunities")." ".$f->input("chk_fresh_graduate","1","type='checkbox'");
+		$checked = ($_GET["chk_syariah"] == 1) ? "checked" : "";
+		$box_syariah = $v->w("show_only_syariah_opportunities")." ".$f->input("chk_syariah","1","type='checkbox' $checked");
+		$checked = ($_GET["chk_fresh_graduate"] == 1) ? "checked" : "";
+		$box_fresh_graduate = $v->w("show_fresh_graduate_opportunities")." ".$f->input("chk_fresh_graduate","1","type='checkbox' $checked");
 		$btn_search = $f->input("search",$v->w("search"),'type="button" onclick="serach_btn_click();"',"btn_sign");
 		
-		$leftarea  = "<div style='position: fixed;'>";
-		$leftarea .= 	"<div class='whitecard'>";
+		$leftarea  = "<div style='position:fixed;'>";
+		$leftarea .= 	"<div class='whitecard' style='position:relative;left:-35px;'>";
 		$leftarea .= 		$f->start("searchjob_form","","","onsubmit='return false;'");
 		$leftarea .= 			$f->input("searchjobpage_searching","1","type='hidden'");
 		$leftarea .= 			$f->input("searchjob_page","1","type='hidden'");
@@ -96,9 +97,12 @@
 		$leftarea .= 		$f->end();
 		$leftarea .= 	"</div>";
 		$leftarea .= "</div>";
+		
+		$search_criteria  = "<div style='position:relative;' id='search_criteria'>";
+		$search_criteria .= "</div>";
 	?>
 	<?=$t->start("style='width:1000px;' cellpadding='0' cellspacing='0'");?>
-		<?=$t->row(array($leftarea,"<div style='width:15px;'></div>",$rightarea,""),array("valign='top' style='width:250px'","","valign='top' style='width:500px'","valign='top' style='width:200px'"));?>
+		<?=$t->row(array($leftarea,"<div style='width:15px;'></div>",$rightarea,"<div style='width:15px;'></div>",$search_criteria),array("valign='top' style='width:250px'","","valign='top' style='width:500px'","","valign='top' style='width:200px'"));?>
 	<?=$t->end();?>
 </td></tr></table>
 <?php if(isset($_SESSION["errormessage"]) && $_SESSION["errormessage"] != "") { javascript("popup_message('".$_SESSION["errormessage"]."');"); $_SESSION["errormessage"] = ""; } ?>

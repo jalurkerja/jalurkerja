@@ -41,11 +41,17 @@
 							$arrlocations[$arrlocation[0].":".$arrlocation[1]] = "<b>".$arrlocation[2]."</b>";
 						}
 					}
-					$arrfields[0][1] = $f->select_box("work_location",$v->words("choose")." ".$v->words("work_location"),$arrlocations,array(),200,300,999,5,26,12,"grey");
+					$arrfields[0][1] = $f->select_box("work_location",$v->words("choose")." ".$v->words("work_location"),$arrlocations,array(),200,200,999,5,26,12,"grey");
 					$f->add_config_selectbox("table","job_level");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);$f->add_config_selectbox("where",array("id" => "0:>"));
-					$arrfields[0][2] = $f->select_box_ajax("job_level",$v->words("job_level"),array(),200,300,999,5,26,12,"grey");
+					$arrfields[0][2] = $f->select_box_ajax("job_level",$v->words("job_level"),array(),212,200,999,5,26,12,"grey");
 					
-					/* $db->addtable("salaries"); 
+					$f->add_config_selectbox("table","degree");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);$f->add_config_selectbox("where",array("id" => "0:>"));
+					$arrfields[1][0] = $f->select_box_ajax("education_level",$v->words("education_level"),array_swap($_GET["education_level"]),305,100,998,5,26,12,"grey");
+					
+					$f->add_config_selectbox("table","industries");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);$f->add_config_selectbox("where",array("id" => "0:>"));
+					$arrfields[1][1] = $f->select_box_ajax("industries",$v->words("industry"),array_swap($_GET["industries"]),200,200,998,5,26,12,"grey");
+					
+					$db->addtable("salaries"); 
 					$db->addfield("id");$db->addfield("salary"); $db->order("id");
 					$arrsalariesfrom[0] = $v->words("salary")." ".$v->words("from");
 					$arrsalariesto[0] = $v->words("salary")." ".$v->words("to");
@@ -53,13 +59,20 @@
 						$arrsalariesfrom[$arrsalary[1]] = number_format($arrsalary[1],0,",",".");
 						$arrsalariesto[$arrsalary[1]] = number_format($arrsalary[1],0,",",".");
 					}
-					$arrfields[] = $f->select("salary_from",$arrsalariesfrom,"","","search_area_select");
-					$arrfields[] = $v->words("to");
-					$arrfields[] = $f->select("salary_to",$arrsalariesto,"","","search_area_select"); */
+					
+					$arrfields[1][2]  = $f->select("salary_from",$arrsalariesfrom,"","","search_area_select");
+					$arrfields[1][2] .= " - ".$f->select("salary_to",$arrsalariesto,"","","search_area_select");
+					
+					$arrfields[2][0] = $v->w("show_only_syariah_opportunities")." ".$f->input("chk_syariah","1","type='checkbox'");
+					$arrfields[2][0] .= "&nbsp;&nbsp;";
+					$arrfields[2][0] .= $v->w("show_fresh_graduate_opportunities")." ".$f->input("chk_fresh_graduate","1","type='checkbox'");
+					
 				?>
 				<?php $arr_attr[] = "";$arr_attr[] = "";$arr_attr[] = "";$arr_attr[] = "style='vertical-align:middle;'";?>
 				<?php $arrfields[0][3] = $f->input("",$v->words("search"),'type="submit"',"btn_sign"); ?>
 				<?=$t->row($arrfields[0],$arr_attr);?>
+				<?=$t->row($arrfields[1],$arr_attr);?>
+				<?=$t->row($arrfields[2],array("nowrap align='right' colspan='3'"));?>
 			<?=$t->end();?>
 		<?=$f->end();?>
 	</td></tr></table>

@@ -201,6 +201,8 @@ class Vocabulary{
 		$arr[$l]["please_update_your_salary_expectation"] 	= "Please update your salary expectation on profile setting menu";
 		$arr[$l]["show_only_syariah_opportunities"] 		= "Show only syariah opportunities";
 		$arr[$l]["show_fresh_graduate_opportunities"] 		= "Show fresh graduate opportunities";
+		$arr[$l]["your_search_criteria"] 					= "Your Search Criteria";
+		$arr[$l]["infinite"] 								= "Infinite";
 		/*==================================================================================================================================*/
 		/*==================================================================================================================================*/
 		$l = "id";
@@ -388,6 +390,8 @@ class Vocabulary{
 		$arr[$l]["please_update_your_salary_expectation"] 	= "Harap update data gaji yang di harapkan di menu Pengaturan Profil";
 		$arr[$l]["show_only_syariah_opportunities"] 		= "Tampilkan hanya lowongan syariah";
 		$arr[$l]["show_fresh_graduate_opportunities"] 		= "Tampilkan lowongan Fresh Graduate";
+		$arr[$l]["your_search_criteria"] 					= "Kriteria Pencarian Anda";
+		$arr[$l]["infinite"] 								= "Tak terhingga";
 		
 		return $arr[$this->locale][$index];
 	}

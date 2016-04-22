@@ -111,8 +111,8 @@
 			if($whereclauseinner !="" ) $whereclause .= "(".substr($whereclauseinner,0,-3).") AND ";
 		}
 
-		if(isset($_POST["salary_from"]) && $_POST["salary_from"] > 0){ $whereclause .= "salary_min >= '".$_POST["salary_from"]."' AND ";}
-		if(isset($_POST["salary_to"]) && $_POST["salary_to"] > 0){ $whereclause .= "salary_max <= '".$_POST["salary_to"]."' AND ";}
+		if(isset($_POST["salary_from"]) && $_POST["salary_from"] > 0){ $whereclause .= "salary_max >= '".$_POST["salary_from"]."' AND ";}
+		if(isset($_POST["salary_to"]) && $_POST["salary_to"] > 0){ $whereclause .= "salary_min <= '".$_POST["salary_to"]."' AND ";}
 		if(isset($_POST["chk_syariah"])){ $whereclause .= "is_syariah = '1' AND "; }
 		if(isset($_POST["chk_fresh_graduate"])){ $whereclause .= "is_freshgraduate = '1' AND "; }
 		
@@ -131,9 +131,97 @@
 		
 		if(isset($_POST["searchjob_page"])) $searchjob_page = $_POST["searchjob_page"] * 1;
 		if($searchjob_page == 0) $searchjob_page = 1;
-		$return .= "<div id='opportunities_page' style='display:none'>$searchjob_page</div>";
-		
+		$return .= "<div id='opportunities_page' style='display:none'>$searchjob_page</div>";		
 		//end counting//
+		
+		//SEARCH CRITERIA
+		$return .= "<div id='opportunities_search_criteria' style='display:none;'>";
+		$return .= "<div class='whitecard' style='width:200px;min-height:100px;'>";
+		$return .= "<h3><b>".$v->w("your_search_criteria")." :</b></h3>";
+		$return .= $t->start();
+		
+		if(isset($_POST["keyword"]) && $_POST["keyword"]!=""){
+			$return .= $t->row(array("<b>".$v->w("keyword").":</b>"),array("colspan='2'"));
+			$return .= $t->row(array("&nbsp;",$_POST["keyword"]),array(""));
+		}
+		
+		if(isset($_POST["job_function"])){
+			$job_function_criteria = "";
+			foreach($_POST["job_function"] as $job_function_id => $val){ 
+				$job_function_criteria .= $db->fetch_single_data("job_functions","name_".$__locale,array("id" => $job_function_id)).", ";
+			}
+			$return .= $t->row(array("<b>".$v->w("job_function").":</b>"),array("colspan='2'"));
+			$return .= $t->row(array("&nbsp;",$job_function_criteria),array("style='white-space:pre-wrap;'"));
+		}
+		
+		if(isset($_POST["work_location"])){
+			$work_location_criteria = "";
+			foreach($_POST["work_location"] as $work_location => $val){ 
+				$location = explode(":",$work_location);
+				$work_location_criteria .= $db->fetch_single_data("locations","name_".$__locale,array("province_id" => $location[0],"location_id" => $location[1])).", ";
+			}
+			$return .= $t->row(array("<b>".$v->w("work_location").":</b>"),array("colspan='2'"));
+			$return .= $t->row(array("&nbsp;",$work_location_criteria),array("style='white-space:pre-wrap;'"));
+		}
+		
+		if(isset($_POST["job_level"])){
+			$job_level_criteria = "";
+			foreach($_POST["job_level"] as $job_level => $val){ 
+				$job_level_criteria .= $db->fetch_single_data("job_level","name_".$__locale,array("id" => $job_level)).", ";
+			}
+			$return .= $t->row(array("<b>".$v->w("job_level").":</b>"),array("colspan='2'"));
+			$return .= $t->row(array("&nbsp;",$job_level_criteria),array("style='white-space:pre-wrap;'"));
+		}
+		
+		if(isset($_POST["industries"])){
+			$industries_criteria = "";
+			foreach($_POST["industries"] as $industry => $val){ 
+				$industries_criteria .= $db->fetch_single_data("industries","name_".$__locale,array("id" => $industry)).", ";
+			}
+			$return .= $t->row(array("<b>".$v->w("industry").":</b>"),array("colspan='2'"));
+			$return .= $t->row(array("&nbsp;",$industries_criteria),array("style='white-space:pre-wrap;'"));
+		}
+		
+		if(isset($_POST["education_level"])){
+			$education_level_criteria = "";
+			foreach($_POST["education_level"] as $education_level => $val){ 
+				$education_level_criteria .= $db->fetch_single_data("degree","name_".$__locale,array("id" => $education_level)).", ";
+			}
+			$return .= $t->row(array("<b>".$v->w("education_level").":</b>"),array("colspan='2'"));
+			$return .= $t->row(array("&nbsp;",$education_level_criteria),array("style='white-space:pre-wrap;'"));
+		}
+		
+		if(isset($_POST["work_experience"])){
+			$work_experience_criteria = "";
+			foreach($_POST["work_experience"] as $work_experience => $val){ $work_experience_criteria .= $work_experience." ".$v->w("years").", "; }
+			$work_experience_criteria = substr($work_experience_criteria,0,-2);
+			$return .= $t->row(array("<b>".$v->w("work_experience").":</b>"),array("colspan='2'"));
+			$return .= $t->row(array("&nbsp;",$work_experience_criteria),array("style='white-space:pre-wrap;'"));
+		}
+		
+		if(isset($_POST["job_type"])){
+			$job_type_criteria = "";
+			foreach($_POST["job_type"] as $job_type => $val){ 
+				$job_type_criteria .= $db->fetch_single_data("degree","name_".$__locale,array("id" => $job_type)).", ";
+			}
+			$return .= $t->row(array("<b>".$v->w("job_type").":</b>"),array("colspan='2'"));
+			$return .= $t->row(array("&nbsp;",$job_type_criteria),array(""));
+		}
+		
+		if(isset($_POST["salary_from"]) || isset($_POST["salary_to"])){
+			$return .= $t->row(array("<b>".$v->w("salary").":</b>"),array("colspan='2'"));
+			$salaries = salary_min_max($_POST["salary_from"],$_POST["salary_to"]*1);
+			$return .= $t->row(array("&nbsp;",$salaries),array("style='white-space:pre-wrap;'"));
+		}
+
+		if($_POST["chk_syariah"] == 1){ $return .= $t->row(array("<i>- ".$v->w("show_only_syariah_opportunities")."</i>"),array("colspan='2'")); }
+		if($_POST["chk_fresh_graduate"] == 1){ $return .= $t->row(array("<i>- ".$v->w("show_fresh_graduate_opportunities")."</i>"),array("colspan='2'")); }
+		
+		$return .= $t->end();
+		$return .= "</div>";
+		$return .= "</div>";
+		//END SEARCH CRITERIA
+		
 		if($maxrow > 0){
 			//loading//
 			$db->addtable("opportunities");
@@ -196,6 +284,7 @@
 				  <div id='opportunities_page' style='display:none'>1</div>
 				  <div class='empty_result'>".$v->w("empty_result")."</div>
 				 ";
+			echo $return;
 		}
 	}
 ?>

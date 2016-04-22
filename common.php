@@ -40,7 +40,8 @@
 	function javascript($script){  ?> <script> $( document ).ready(function() { <?=$script;?> }); </script> <?php }
 	
 	function salary_min_max($min,$max){
-		global $__locale;
+		global $__locale,$v;
+		$_max = $max;
 		if($__locale == "en") {
 			$min = number_format($min);
 			$max = number_format($max);
@@ -48,7 +49,7 @@
 			$min = number_format($min,0,",",".");
 			$max = number_format($max,0,",",".");
 		}
-		return "Rp.".$min." - Rp.".$max;
+		if($_max > 0){return "Rp.".$min." - Rp.".$max;} else {return "Rp.".$min." - ".$v->w("infinite");}
 	}
 	
 	function format_tanggal ($tanggal,$mode="dmY",$withtime=false) {
