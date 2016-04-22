@@ -119,7 +119,7 @@
 		
 		if($whereclause != "") $whereclause = substr($whereclause,0,-4);
 		
-		//echo $whereclause;
+		/////echo $whereclause;
 
 		$return = "";
 		//counting//

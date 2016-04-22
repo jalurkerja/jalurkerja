@@ -1,4 +1,15 @@
 <script> 
+	<?php
+		if($_GET["get_search"]){
+			?>  
+			$(document).ready(function() { 
+				<?php if(isset($_GET["job_function"]))	{ ?> loading_select_box_job_function("serach_btn_click()"); <?php } ?>
+				<?php if(isset($_GET["job_level"]))		{ ?> loading_select_box_job_level("serach_btn_click()"); <?php } ?>
+				<?php if(isset($_GET["work_location"]))	{ ?> loading_select_box_work_location("serach_btn_click()"); <?php } ?>
+			}); 
+			<?php
+		}
+	?>
 	get_ajax("ajax/searchjob_ajax.php?mode=list","opportunities_list","loading_paging()"); 
 	
 	function changepage(page){

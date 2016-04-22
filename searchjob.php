@@ -1,11 +1,6 @@
 <?php include_once "searchjob_header.php"; ?>
 <?php include_once "searchjob_detail.php"; ?>
 <?php include_once "scripts/searchjob_js.php"; ?>
-<?php
-// echo "<pre>";
-// print_r($_GET);
-// echo "</pre>";
-?>
 <div style="height:80px;"></div>
 <table width="100%"><tr><td align="center">
 	<?php
@@ -27,7 +22,8 @@
 		$keyword_placeholder = $v->words("keyword")." (".$v->words("job_level").", ".$v->words("company_name").", ".$v->words("etc");
 		$txt_keyword = $f->input("keyword","","placeholder='".$keyword_placeholder.")' style='width:217px;'","search_area_input");
 		
-		$f->add_config_selectbox("table","job_functions");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);$f->add_config_selectbox("where",array("id" => "0:>"));
+		$f->add_config_selectbox("table","job_functions");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);
+		$f->add_config_selectbox("where",array("id" => "0:>"));$f->add_config_selectbox("order",array("name_".$__locale));
 		$sb_job_function = $f->select_box_ajax("job_function",$v->words("job_function"),array_swap($_GET["job_function"]),220,200,999,5,26,12,"grey");
 		
 		

@@ -278,13 +278,14 @@ class FormElements extends Database {
         $return ='
             <script>
 				var select_box_'.$name.'_loaded = false;
-				function loading_select_box_'.$name.'(){
-					get_ajax("ajax/select_box_content.php?data='.$data.'","select_box_return_area_'.$name.'");
+				function loading_select_box_'.$name.'(after_done){
+					after_done = after_done || "";
+					get_ajax("ajax/select_box_content.php?data='.$data.'","select_box_return_area_'.$name.'",after_done);
+					select_box_'.$name.'_loaded = true;
 				}
 				
                 function select_box_toggle_'.$name.'(){
 					if(select_box_'.$name.'_loaded == false){ loading_select_box_'.$name.'(); }
-					select_box_'.$name.'_loaded = true;
 					
                     if(document.getElementById("select_box_values_'.$name.'").style.display == "none"){
                         $("#select_box_values_'.$name.'").fadeIn(500);

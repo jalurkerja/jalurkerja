@@ -25,12 +25,12 @@
 	<!--END MAIN IMAGE-->
 	<!--SEARCH AREA -->
 	<table width="100%" style="height:70px;box-shadow: 0px 1px 3px #000;background-color: rgba(255, 255, 255, 0.80);"><tr><td height="70" align="center" nowrap>
-		<?=$f->start();?>
+		<?=$f->start("","GET","searchjob.php");?>
+			<?=$f->input("get_search","1","type='hidden'");?>
 			<?=$t->start();?>
-				<?php $keyword_placeholder = $v->words("keyword")." (".$v->words("job_level").", ".$v->words("company_name").", ".$v->words("etc"); ?>
-				<?php $arrfields[] = $f->input("keyword","","placeholder='".$keyword_placeholder.")'","search_area_input");?>
-				<?php $arrfields[] = "&nbsp;"; ?>
 				<?php 
+					$keyword_placeholder = $v->words("keyword")." (".$v->words("job_level").", ".$v->words("company_name").", ".$v->words("etc");
+					$arrfields[0][0] = $f->input("keyword","","placeholder='".$keyword_placeholder.")'","search_area_input");
 					$db->addtable("locations"); 
 					$db->addfield("province_id");$db->addfield("location_id");$db->addfield("name_".$__locale); 
 					$db->where("id",1,"i",">");$db->order("seqno");
@@ -41,11 +41,11 @@
 							$arrlocations[$arrlocation[0].":".$arrlocation[1]] = "<b>".$arrlocation[2]."</b>";
 						}
 					}
-				?>
-				<?php $arrfields[] = $f->select_box("location",$v->words("choose")." ".$v->words("work_location"),$arrlocations,array(),200,300,999,5,26,12,"grey");?>
-				<?php $arrfields[] = "&nbsp;"; ?>
-				<?php 
-					$db->addtable("salaries"); 
+					$arrfields[0][1] = $f->select_box("work_location",$v->words("choose")." ".$v->words("work_location"),$arrlocations,array(),200,300,999,5,26,12,"grey");
+					$f->add_config_selectbox("table","job_level");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);$f->add_config_selectbox("where",array("id" => "0:>"));
+					$arrfields[0][2] = $f->select_box_ajax("job_level",$v->words("job_level"),array(),200,300,999,5,26,12,"grey");
+					
+					/* $db->addtable("salaries"); 
 					$db->addfield("id");$db->addfield("salary"); $db->order("id");
 					$arrsalariesfrom[0] = $v->words("salary")." ".$v->words("from");
 					$arrsalariesto[0] = $v->words("salary")." ".$v->words("to");
@@ -53,17 +53,13 @@
 						$arrsalariesfrom[$arrsalary[1]] = number_format($arrsalary[1],0,",",".");
 						$arrsalariesto[$arrsalary[1]] = number_format($arrsalary[1],0,",",".");
 					}
+					$arrfields[] = $f->select("salary_from",$arrsalariesfrom,"","","search_area_select");
+					$arrfields[] = $v->words("to");
+					$arrfields[] = $f->select("salary_to",$arrsalariesto,"","","search_area_select"); */
 				?>
-				<?php $arrfields[] = $f->select("salary_from",$arrsalariesfrom,"","","search_area_select"); ?>
-				<?php $arrfields[] = $v->words("to"); ?>
-				<?php $arrfields[] = $f->select("salary_to",$arrsalariesto,"","","search_area_select"); ?>
-				<?php 
-					$arr_attr[] = "";$arr_attr[] = "";$arr_attr[] = "";$arr_attr[] = "";$arr_attr[] = "";
-					$arr_attr[] = "style='vertical-align:middle;'";
-				?>
-				<?php $arrfields[] = "&nbsp;"; ?>
-				<?php $arrfields[] = $f->input("",$v->words("search"),'type="button"',"btn_sign"); ?>
-				<?=$t->row($arrfields,$arr_attr);?>
+				<?php $arr_attr[] = "";$arr_attr[] = "";$arr_attr[] = "";$arr_attr[] = "style='vertical-align:middle;'";?>
+				<?php $arrfields[0][3] = $f->input("",$v->words("search"),'type="submit"',"btn_sign"); ?>
+				<?=$t->row($arrfields[0],$arr_attr);?>
 			<?=$t->end();?>
 		<?=$f->end();?>
 	</td></tr></table>
@@ -77,29 +73,29 @@
 		$tab->set_tab_width(120);
 		$tab->set_area_width(650);
 		$tab->set_area_height(500);
-		$tab->add_tab_title($v->words("job_category"));
+		$tab->add_tab_title($v->words("job_function"));
 		$tab->add_tab_title($v->words("job_level"));
 		$tab->add_tab_title($v->words("work_location"));
 		
-		/**JOB CATEGORIES**/
-		$db->addtable("job_categories");
+		/**JOB FUNCTIONS**/
+		$db->addtable("job_functions");
 		$db->addfield("id");
 		$db->addfield("name_".$__locale);
-		$db->where("parent_id",0);
+		$db->where("id",0,"i",">");
 		$db->order("name_".$__locale);
-		$categories = $db->fetch_data();
-		$maxrows = round(count($categories)/2);
+		$job_functions = $db->fetch_data();
+		$maxrows = round(count($job_functions)/2);
 		$arrcontainer = array();
 		$cols=1;
 		$arrcontainer[0] = "&nbsp;&nbsp;&nbsp;";
-		foreach($categories as $key => $category){
+		foreach($job_functions as $key => $job_function){
 			if($key >= $maxrows) $cols = 2;
 			if(!isset($arrcontainer[$cols])) $arrcontainer[$cols] = "";
-			$arrcontainer[$cols] .= "<div class='category_search_link'><a href='searchjob.php?category_id=".$category["id"]."'>".$category["name_".$__locale]."</a></div><br>";
+			$arrcontainer[$cols] .= "<div class='category_search_link'><a href='searchjob.php?get_search=1&job_function[".$job_function["id"]."]=1'>".$job_function["name_".$__locale]."</a></div><br>";
 		}
 		$containers = $t->start() . $t->row($arrcontainer) . $t->end();
 		$tab->add_tab_container($containers);
-		/**END JOB CATEGORIES**/
+		/**END JOB FUNCTIONS**/
 		
 		/**JOB JOB LEVEL**/
 		$db->addtable("job_level");
@@ -115,7 +111,7 @@
 		foreach($joblevels as $key => $joblevel){
 			if($key >= $maxrows) $cols = 2;
 			if(!isset($arrcontainer[$cols])) $arrcontainer[$cols] = "";
-			$arrcontainer[$cols] .= "<div class='category_search_link'><a href='searchjob.php?job_level_id=".$joblevel["id"]."'>".$joblevel["name_".$__locale]."</a></div><br>";
+			$arrcontainer[$cols] .= "<div class='category_search_link'><a href='searchjob.php?get_search=1&job_level[".$joblevel["id"]."]=1'>".$joblevel["name_".$__locale]."</a></div><br>";
 		}
 		$containers = $t->start() . $t->row($arrcontainer) . $t->end();
 		$tab->add_tab_container($containers);
@@ -123,7 +119,8 @@
 		
 		/**JOB LOCATION**/
 		$db->addtable("locations");
-		$db->addfield("id");
+		$db->addfield("province_id");
+		$db->addfield("location_id");
 		$db->addfield("name_".$__locale);
 		$db->where("province_id",0,"i",">");
 		$db->where("location_id",0,"i");
@@ -136,7 +133,7 @@
 		foreach($locations as $key => $location){
 			if($key >= $maxrows) $cols = 2;
 			if(!isset($arrcontainer[$cols])) $arrcontainer[$cols] = "";
-			$arrcontainer[$cols] .= "<div class='category_search_link'><a href='searchjob.php?location_id=".$location["id"]."'>".$location["name_".$__locale]."</a></div><br>";
+			$arrcontainer[$cols] .= "<div class='category_search_link'><a href='searchjob.php?get_search=1&work_location[".$location["province_id"].":".$location["location_id"]."]=1'>".$location["name_".$__locale]."</a></div><br>";
 		}
 		$containers = $t->start() . $t->row($arrcontainer) . $t->end();
 		$tab->add_tab_container($containers);
