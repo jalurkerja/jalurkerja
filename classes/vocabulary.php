@@ -51,7 +51,7 @@ class Vocabulary{
 		$arr[$l]["location"]								= "Location";
 		$arr[$l]["job_level"]								= "Job Level";
 		$arr[$l]["search"]									= "Search";
-		$arr[$l]["featured_hiring_employers"]				= "Featured Hiring Employers";
+		$arr[$l]["featured_hiring_employers"]				= "Most Popular Companies";
 		$arr[$l]["advertising_info"]						= "Advertising Info";
 		$arr[$l]["office_day"]								= "Mon - Fri";
 		$arr[$l]["office_hour"]								= "8:00am - 5:00pm";
@@ -203,6 +203,9 @@ class Vocabulary{
 		$arr[$l]["show_fresh_graduate_opportunities"] 		= "Show fresh graduate opportunities";
 		$arr[$l]["your_search_criteria"] 					= "Your Search Criteria";
 		$arr[$l]["infinite"] 								= "Infinite";
+		$arr[$l]["age_limit"] 								= "Age Limit";
+		$arr[$l]["available_for_fresh_graduate"] 			= "Available for fresh graduate";
+		$arr[$l]["reason_join_our_company"]			 		= "Reason join our company";
 		/*==================================================================================================================================*/
 		/*==================================================================================================================================*/
 		$l = "id";
@@ -240,7 +243,7 @@ class Vocabulary{
 		$arr[$l]["location"]								= "Lokasi";
 		$arr[$l]["job_level"]								= "Jenjang Karir";
 		$arr[$l]["search"]									= "Cari";
-		$arr[$l]["featured_hiring_employers"]				= "Fitur Minggu Ini";
+		$arr[$l]["featured_hiring_employers"]				= "Perusahaan Terpopuler";
 		$arr[$l]["advertising_info"]						= "Info Iklan";
 		$arr[$l]["office_day"]								= "Senin - Jumat";
 		$arr[$l]["office_hour"]								= "8:00 - 17:00";
@@ -274,8 +277,8 @@ class Vocabulary{
 		$arr[$l]["contact_person"]							= "Nama Kontak";
 		$arr[$l]["description"]								= "Deskripsi";
 		$arr[$l]["work_descriptions"]						= "Deskripsi Pekerjaan";
-		$arr[$l]["job_description"]							= "Deskripsi Pekerjaan";
-		$arr[$l]["requirements"]							= "Persyaratan";
+		$arr[$l]["job_description"]							= "Tanggung Jawab";
+		$arr[$l]["requirements"]							= "Kualifikasi";
 		$arr[$l]["apply"]									= "Lamar";
 		$arr[$l]["applied"]									= "Sudah Dilamar";
 		$arr[$l]["save"]									= "Simpan";
@@ -392,6 +395,9 @@ class Vocabulary{
 		$arr[$l]["show_fresh_graduate_opportunities"] 		= "Tampilkan lowongan Fresh Graduate";
 		$arr[$l]["your_search_criteria"] 					= "Kriteria Pencarian Anda";
 		$arr[$l]["infinite"] 								= "Tak terhingga";
+		$arr[$l]["age_limit"] 								= "Batasan Umur";
+		$arr[$l]["available_for_fresh_graduate"] 			= "Terbuka untuk lulusan baru";
+		$arr[$l]["reason_join_our_company"]			 		= "Alasan bergabung di perusahaan Kami";
 		
 		return $arr[$this->locale][$index];
 	}

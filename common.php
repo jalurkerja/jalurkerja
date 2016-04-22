@@ -102,7 +102,7 @@
 	}
 	
 	function pipetoarray($data){
-		if(!is_array($data)) return array();
+		if(!isset($data) || $data == "") return array();
 		$arr = explode("|",$data);
 		foreach($arr as $data){ 
 			$data = str_replace("|","",$data);

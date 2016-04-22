@@ -71,15 +71,19 @@
 	
 	function update_savebtn_class(respondval){
 		if(respondval > 0){
-			$("#savebtn").removeClass('jobtools_btn').addClass('jobtools_btn_disabled');
+			$("#savebtn1").removeClass('jobtools_btn').addClass('jobtools_btn_disabled');
+			$("#savebtn2").removeClass('jobtools_btn').addClass('jobtools_btn_disabled');
 		} else {
-			$("#savebtn").removeClass('jobtools_btn_disabled').addClass('jobtools_btn');
+			$("#savebtn1").removeClass('jobtools_btn_disabled').addClass('jobtools_btn');
+			$("#savebtn2").removeClass('jobtools_btn_disabled').addClass('jobtools_btn');
 		}
 	}
 	
 	function applying_on_company_page(respondval,opportunity_id) {
 		if (respondval > 0){
-			$.fancybox.open("<div style='overflow:auto;'>" + applying_on_company_form(opportunity_id) + "</div>");
+			setTimeout(function() {
+				$.fancybox.open("<div style='overflow:auto;'>" + applying_on_company_form(opportunity_id) + "</div>");
+			}, 1000);
 		} else {
 			popup_message("<?=$v->words("error_company_cannot_apply");?>","error_message");
 		}
@@ -104,8 +108,9 @@
 	}
 	
 	function save(opportunity_id){
-		var savebtn = document.getElementById("savebtn");
-		if(savebtn.className == "jobtools_btn"){
+		var savebtn1 = document.getElementById("savebtn1");
+		var savebtn2 = document.getElementById("savebtn2");
+		if(savebtn1.className == "jobtools_btn" && savebtn2.className == "jobtools_btn"){
 			<?php if (!$__isloggedin) { ?>
 				show_login_form(opportunity_id);
 			<?php } else { ?>
@@ -115,22 +120,24 @@
 	}
 	
 	function success_applied(valrespond){
-		if(valrespond == "1"){
-			update_applybtn_class(valrespond);
-			popup_message("<?=$v->words("apply_success");?>");
-		} else if (valrespon.substr(0,10) == "need_email"){
-			alert("butuh isi email");
-		} else if (valrespon.substr(0,5) == "error"){
-			alert("error : " + valrespon);
-		}
+		setTimeout(function() {
+			if(valrespond == "1"){
+				update_applybtn_class(valrespond);
+				popup_message("<?=$v->words("apply_success");?>");
+			} else if (valrespond.substr(0,10) == "need_email"){
+				alert("butuh isi email");
+			} else if (valrespond.substr(0,5) == "error"){
+				alert(valrespond);
+			}
+		}, 500);
 	}
 	
 	function success_saved(valrespond){
 		if(valrespond == "1"){
 			update_savebtn_class(valrespond);
 			popup_message("<?=$v->words("save_success");?>");
-		} else if (valrespon.substr(0,5) == "error"){
-			alert("error : " + valrespon);
+		} else if (valrespond.substr(0,5) == "error"){
+			alert("error : " + valrespond);
 		}
 	}
 		
@@ -182,5 +189,9 @@
 		retval += "</div>";//login_form_area
 		
 		return retval;
+	}
+	
+	function load_detail_opportunity(opportunity_id){
+		get_ajax("ajax/searchjob_ajax.php?mode=generate_token&opportunity_id="+opportunity_id,"return_generate_token","openwindow('opportunity_detail.php?id="+opportunity_id+"&token='+global_respon['return_generate_token']);");
 	}
 </script>

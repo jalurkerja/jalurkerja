@@ -50,6 +50,8 @@
 			echo $return;
 		}
 	}
+
+	if($_mode == "generate_token"){ echo $db->generate_token($_GET["opportunity_id"]); }
 	
 	if($_mode == "list" || $_POST["searchjobpage_searching"]){
 		$whereclause = "";

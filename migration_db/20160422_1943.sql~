@@ -1,0 +1,2 @@
+ALTER TABLE `tokens` ADD `id_key` INT NOT NULL AFTER `token`;
+ALTER TABLE `tokens` ADD UNIQUE( `id_key`, `ip`);

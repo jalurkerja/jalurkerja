@@ -59,6 +59,8 @@
 					afterClose: function(){ try{ eval(actionAfterClose); } catch(e){} }
 				});
 			}
+			
+			function openwindow(url){ window.open(url,"","width=1100 height=800"); }
 		</script>
 	</head>
 	<body id="bodyid" style="margin:0px;">

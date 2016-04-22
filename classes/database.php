@@ -82,7 +82,7 @@
 
         protected function execute($sql){
 			mysql_select_db($this->dbname,$this->db);
-			//mysql_query("INSERT INTO sql_log VALUES (NULL,'".str_replace("'","''",$sql)."','".@$_SESSION["user_id"]."',NOW(),'".$_SERVER["REMOTE_ADDR"]."',NULL)",$this->db);
+			mysql_query("INSERT INTO sql_log VALUES (NULL,'".str_replace("'","''",$sql)."','".@$_SESSION["user_id"]."',NOW(),'".$_SERVER["REMOTE_ADDR"]."',NULL)",$this->db);
             return mysql_query($sql,$this->db);
             $this->close();
         }
@@ -418,5 +418,23 @@
 			$this->fetch_data_clear();
             return $arr_return;
         }
+
+        public function generate_token($id_key){
+			$ip = $this->fetch_single_data("tokens","ip",array("ip" => $_SERVER["REMOTE_ADDR"],"id_key" => $id_key));
+			$token = "";
+			for($i=0 ; $i<40; $i++){ $token .= rand(0,9); }
+			$this->addtable("tokens");
+			$this->addfield("token");$this->addvalue($token);
+			if($ip == "" || !isset($ip)){
+				$this->addfield("id_key");$this->addvalue($id_key);
+				$this->addfield("ip");$this->addvalue($_SERVER["REMOTE_ADDR"]);
+				$this->insert();
+			} else {
+				$this->where("ip",$_SERVER["REMOTE_ADDR"]);
+				$this->where("id_key",$id_key);
+				$this->update();
+			}
+			return $token;
+		}
     }
 ?>
