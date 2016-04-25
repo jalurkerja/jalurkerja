@@ -6,7 +6,10 @@
 	$db->addtable("company_profiles");$db->where("id",$_GET["id"]);$db->limit(1);$company_profile = $db->fetch_data();
 	if(@filesize("../company_logo/".@$company_profile["logo"])>4096) 
 		$logo = "<img src='../company_logo/".@$company_profile["logo"]."' width='150'><br>"; 
-	else $logo = "";
+	else $logo = "";	
+	if(@filesize("../company_header/".@$company_profile["header_image"])>4096) 
+		$header_image = "<img src='../company_header/".@$company_profile["header_image"]."' height='100'><br>"; 
+	else $header_image = "";
 	$industry = $db->fetch_single_data("industries","name_en",array("id" => @$company_profile["industry_id"]));
 	$location = $db->fetch_single_data("locations","name_en",array("province_id" => @$company_profile["province_id"],"location_id" => @$company_profile["location_id"]));
 	$status = $db->fetch_single_data("status","name",array("id" => @$company_profile["status_id"]));
@@ -29,6 +32,7 @@
 	<?=$t->row(array("First Name",@$company_profile["first_name"]));?>
 	<?=$t->row(array("Middle Name",@$company_profile["middle_name"]));?>
 	<?=$t->row(array("Last Name",@$company_profile["last_name"]));?>
+	<?=$t->row(array("Reason Join Us",@$company_profile["join_reason"]));?>
 	<?=$t->row(array("Expired Post",@$company_profile["expired_post_at"]));?>
 	<?=$t->row(array("Expired Search",@$company_profile["expired_search_at"]));?>
 	<?=$t->row(array("Maximum Opportunity",@$company_profile["max_opportunity"]));?>
@@ -46,6 +50,7 @@
 	<?=$t->row(array("Status",$sel_status));?>
 	<?=$t->row(array("CSO",$cso));?>
 	<?=$t->row(array("Logo",$logo));?>
+	<?=$t->row(array("Company Header Image",$header_image));?>
 <?=$t->end();?>
 <?=$f->input("back","Back","type='button' onclick=\"window.location='".str_replace("_view","_list",$_SERVER["PHP_SELF"])."';\"");?>
 <?php include_once "footer.php";?>

@@ -18,6 +18,7 @@
 		$db->addfield("first_name");		$db->addvalue($_POST["first_name"]);
 		$db->addfield("middle_name");		$db->addvalue($_POST["middle_name"]);
 		$db->addfield("last_name");			$db->addvalue($_POST["last_name"]);
+		$db->addfield("join_reason");		$db->addvalue($_POST["join_reason"]);
 		$db->addfield("expired_post_at");	$db->addvalue($_POST["expired_post_at"]);
 		$db->addfield("expired_search_at");	$db->addvalue($_POST["expired_search_at"]);
 		$db->addfield("max_opportunity");	$db->addvalue($_POST["max_opportunity"]);
@@ -44,6 +45,11 @@
 				$db->addtable("company_profiles");$db->where("id",$insert_id);
 				$db->addfield("logo");$db->addvalue($insert_id.".".pathinfo($_FILES['logo']['name'],PATHINFO_EXTENSION));$db->update();
 			}
+			if($_FILES['header_image']['tmp_name']) {
+				move_uploaded_file($_FILES['header_image']['tmp_name'], "../company_header/".$insert_id.".".pathinfo($_FILES['header_image']['name'],PATHINFO_EXTENSION));
+				$db->addtable("company_profiles");$db->where("id",$insert_id);
+				$db->addfield("header_image");$db->addvalue($insert_id.".".pathinfo($_FILES['header_image']['name'],PATHINFO_EXTENSION));$db->update();
+			}
 			javascript("alert('Data Berhasil tersimpan');");
 			javascript("window.location='".str_replace("_add","_list",$_SERVER["PHP_SELF"])."';");
 		} else {
@@ -64,6 +70,7 @@
 	$txt_first_name = $f->input("first_name",$_POST["first_name"]);
 	$txt_middle_name = $f->input("middle_name",$_POST["middle_name"]);
 	$txt_last_name = $f->input("last_name",$_POST["last_name"]);
+	$txt_join_reason = $f->textarea("join_reason",$_POST["join_reason"]);
 	$date_expired_post_at = $f->input_tanggal("expired_post_at",$_POST["expired_post_at"]);
 	$date_expired_search_at = $f->input_tanggal("expired_search_at",$_POST["expired_search_at"]);
 	$txt_maximum_opportunity = $f->input("max_opportunity",$_POST["max_opportunity"]);
@@ -76,7 +83,8 @@
 	$txt_npwp_address = $f->textarea("npwp_address",$_POST["npwp_address"]);
 	$txt_npwp_zipcode = $f->input("npwp_zipcode",$_POST["npwp_zipcode"]);
 	$txt_nppkp = $f->input("nppkp",$_POST["nppkp"]);
-	$txt_logo = $logo.$f->input("logo","","type='file'");
+	$txt_logo = $f->input("logo","","type='file'");
+	$txt_header_image = $f->input("header_image","","type='file'");
 ?>
 <?=$f->start("","POST","","enctype='multipart/form-data'");?>
 	<?=$t->start("","editor_content");?>
@@ -93,6 +101,7 @@
 		<?=$t->row(array("First Name",$txt_first_name));?>
 		<?=$t->row(array("Middle Name",$txt_middle_name));?>
 		<?=$t->row(array("Last Name",$txt_last_name));?>
+		<?=$t->row(array("Reason Join Us",$txt_join_reason));?>
 		<?=$t->row(array("Expired Post",$date_expired_post_at));?>
 		<?=$t->row(array("Expired Search",$date_expired_search_at));?>
 		<?=$t->row(array("Maximum Opportunity",$txt_maximum_opportunity));?>
@@ -106,6 +115,7 @@
 		<?=$t->row(array("NPWP Zipcode",$txt_npwp_zipcode));?>
 		<?=$t->row(array("NPPKP",$txt_nppkp));?>
 		<?=$t->row(array("Logo",$txt_logo));?>
+		<?=$t->row(array("Company Header Image",$txt_header_image));?>
 	<?=$t->end();?>
 	<?=$f->input("save","Save","type='submit'");?> <?=$f->input("back","Back","type='button' onclick=\"window.location='".str_replace("_add","_list",$_SERVER["PHP_SELF"])."';\"");?>
 <?=$f->end();?>
