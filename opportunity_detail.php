@@ -59,6 +59,7 @@
 				<div style="font-size:13px;"><?=$salaries;?></div>
 			</td>
 			<td width="350" valign="middle">
+				<?php if($opportunity["is_syariah"] == 1){ ?> <img style="position:absolute;left:550px;" src='icons/syariah_stamp.png' height='80'> <?php } ?>
 				<?php $apply_classname = ($js->is_applied($__user_id,$_GET["id"]) > 0) ? "jobtools_btn_disabled" : "jobtools_btn"; ?>
 				<input id="applybtn1" type="button" value="<?=$v->w("apply");?>" class="<?=$apply_classname;?>" onclick="apply('<?=$_GET["id"];?>');">
 				<div style="height:10px;"></div>

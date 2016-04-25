@@ -269,9 +269,12 @@
 				} else {
 					$logo = "<img src='company_logo/no_logo.png' height='120'>";
 				}
+
+				$syariah_stamp = "<img src='icons/syariah_stamp.png' height='80'>";
 				
 				$return .= "<div id='container' onclick='load_detail_opportunity(\"".$opportunity["id"]."\");'>";
 				$return .= "	<div id='logo'>".$logo."</div>";
+				if($opportunity["is_syariah"] == 1) $return .= "	<div id='syariah_stamp'>".$syariah_stamp."</div>";
 				$return .= "	<div id='title'><table><tr><td width='360'>".$opportunity["title_".$__locale]."</td></tr></table></div>";
 				$return .= "	<div id='detail'><u>".$opportunity["name"]."</u> - ".$location."</div>";
 				$return .= "	<div id='detail'>".$v->words("work_experience")." : ".$opportunity["experience_years"]." ".$v->words("years")."</div>";

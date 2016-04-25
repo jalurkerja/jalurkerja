@@ -286,6 +286,12 @@ body {
 	left:380px;
 }
 
+.opportunities_list #syariah_stamp{
+	position:absolute;
+	left:280px;
+	padding-top:20px;
+}
+
 .opportunities_list #detail {
 	padding-bottom:7px;	
 }
