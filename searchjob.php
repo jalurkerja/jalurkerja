@@ -41,7 +41,7 @@
 		$f->add_config_selectbox("table","job_level");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);$f->add_config_selectbox("where",array("id" => "0:>"));
 		$sb_job_level = $f->select_box_ajax("job_level",$v->words("job_level"),array_swap($_GET["job_level"]),220,200,997,5,26,12,"grey");
 		
-		$f->add_config_selectbox("table","industries");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);$f->add_config_selectbox("where",array("id" => "0:>"));
+		$f->add_config_selectbox("table","industries");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);$f->add_config_selectbox("where",array("id" => "0:>"));$f->add_config_selectbox("order",array("name_".$__locale));
 		$sb_industry = $f->select_box_ajax("industries",$v->words("industry"),array_swap($_GET["industries"]),220,200,996,5,26,12,"grey");
 		
 		$f->add_config_selectbox("table","degree");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);$f->add_config_selectbox("where",array("id" => "0:>"));

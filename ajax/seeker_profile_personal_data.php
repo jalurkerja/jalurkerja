@@ -150,7 +150,6 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 					$rows[] = array($v->words("job_type"),$f->select("job_type_id",$jobtypes));
 					$rows[] = array($v->words("job_level"),$f->select("job_level_id",$joblevels));
 					$rows[] = array($v->words("job_function"),$f->select("job_function_id",$jobfunctions));
-					$rows[] = array($v->words("job_category"),$f->select("job_category_id",$jobcategories));
 					$rows[] = array($v->words("industry"),$f->select("industry_id",$industries));
 					$rows[] = array($v->words("work_descriptions"),$f->textarea("description"));
 					
@@ -216,7 +215,6 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 							$rows[] = array($v->words("job_type"),$f->select("job_type_id",$jobtypes,$arr_we["job_type_id"]));
 							$rows[] = array($v->words("job_level"),$f->select("job_level_id",$joblevels,$arr_we["job_level_id"]));
 							$rows[] = array($v->words("job_function"),$f->select("job_function_id",$jobfunctions,$arr_we["job_function_id"]));
-							$rows[] = array($v->words("job_category"),$f->select("job_category_id",$jobcategories,$arr_we["job_category_id"]));
 							$rows[] = array($v->words("industry"),$f->select("industry_id",$industries,$arr_we["industry_id"]));
 							$rows[] = array($v->words("work_descriptions"),$f->textarea("description",$arr_we["description"]));
 							
@@ -233,7 +231,6 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 							$job_type 		= $db->fetch_single_data("job_type","name_".$__locale,array("id" => $arr_seeker_experiences["job_type_id"]));
 							$job_level 		= $db->fetch_single_data("job_level","name_".$__locale,array("id" => $arr_seeker_experiences["job_level_id"]));
 							$job_function 	= $db->fetch_single_data("job_functions","name_".$__locale,array("id" => $arr_seeker_experiences["job_function_id"]));
-							$job_category 	= $db->fetch_single_data("job_categories","name_".$__locale,array("id" => $arr_seeker_experiences["job_category_id"]));
 							$industry 		= $db->fetch_single_data("industries","name_".$__locale,array("id" => $arr_seeker_experiences["industry_id"]));
 							
 							$_wk  = "<div class='seeker_profile_sp_detail'>";
@@ -243,7 +240,7 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 							$_wk .= "		<div id='sp_range_date'>".format_range_tanggal($arr_seeker_experiences["startdate"],$arr_seeker_experiences["enddate"])."</div>";
 							$_wk .= "		<div id='sp_salary'>".salary_min_max($arr_seeker_experiences["salary_min"],$arr_seeker_experiences["salary_max"])."</div>";
 							$_wk .= "		<div id='sp_job_type_level'>".$job_type." - ".$job_level."</div>";
-							$_wk .= "		<div id='sp_job_fucntion_category'>".$job_function." - ".$job_category."</div>";
+							$_wk .= "		<div id='sp_job_fucntion_category'>".$job_function."</div>";
 							$_wk .= "		<div id='sp_description'>".chr13tobr($arr_seeker_experiences["description"])."</div>";
 							$_wk .= "	</div>";
 							$_wk .= "</div><div style='height:20px;'></div>";

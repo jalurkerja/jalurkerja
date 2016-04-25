@@ -18,11 +18,7 @@
 				$sb_job_functions = $f->select_box("job_functions",$v->w("job_function"),$job_functions,pipetoarray($seeker_desires["job_function_ids"]),220,200,997,5,26,12,"grey");
 				$sb_job_functions_selected = $db->selected_to_string("job_functions","id","name_".$__locale,$seeker_desires["job_function_ids"],"<br>");
 				
-				$job_categories = $db->fetch_select_data("job_categories","id","name_".$__locale);
-				$sb_job_categories = $f->select_box("job_categories",$v->w("job_category"),$job_categories,pipetoarray($seeker_desires["job_category_ids"]),220,200,996,5,26,12,"grey");
-				$sb_job_categories_selected = $db->selected_to_string("job_categories","id","name_".$__locale,$seeker_desires["job_category_ids"],"<br>");
-				
-				$industries = $db->fetch_select_data("industries","id","name_".$__locale);
+				$industries = $db->fetch_select_data("industries","id","name_".$__locale); asort($industries);
 				$sb_industries = $f->select_box("industries",$v->w("industry"),$industries,pipetoarray($seeker_desires["industry_ids"]),220,200,995,5,26,12,"grey");
 				$sb_industries_selected = $db->selected_to_string("industries","id","name_".$__locale,$seeker_desires["industry_ids"],"<br>");
 				
@@ -62,7 +58,6 @@
 				$rows[] = array( $v->w("job_type"),$sb_job_types."<br><br>".$sb_job_types_selected );
 				$rows[] = array( $v->w("job_level"),$sb_job_levels."<br><br>".$sb_job_levels_selected );
 				$rows[] = array( $v->w("job_function"),$sb_job_functions."<br><br>".$sb_job_functions_selected );
-				$rows[] = array( $v->w("job_category"),$sb_job_categories."<br><br>".$sb_job_categories_selected );
 				$rows[] = array( $v->w("industry"),$sb_industries."<br><br>".$sb_industries_selected );
 				$rows[] = array( $v->w("location"),$sb_locations."<br><br>".$sb_locations_selected );
 				$rows[] = array( $v->w("salary"),$salary_range );

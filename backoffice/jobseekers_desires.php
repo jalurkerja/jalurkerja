@@ -9,7 +9,6 @@
 				$sb_job_types_selected = $db->selected_to_string("job_type","id","name_".$__locale,$seeker_desires["job_type_ids"],"<br>");
 				$sb_job_levels_selected = $db->selected_to_string("job_level","id","name_".$__locale,$seeker_desires["job_level_ids"],"<br>");
 				$sb_job_functions_selected = $db->selected_to_string("job_functions","id","name_".$__locale,$seeker_desires["job_function_ids"],"<br>");
-				$sb_job_categories_selected = $db->selected_to_string("job_categories","id","name_".$__locale,$seeker_desires["job_category_ids"],"<br>");
 				$sb_industries_selected = $db->selected_to_string("industries","id","name_".$__locale,$seeker_desires["industry_ids"],"<br>");
 				$sb_locations_selected = "";
 				$arr_location_ids = pipetoarray($seeker_desires["location_ids"]);
@@ -23,7 +22,6 @@
 				$rows[] = array( $v->w("job_type"),$sb_job_types_selected );
 				$rows[] = array( $v->w("job_level"),$sb_job_levels_selected );
 				$rows[] = array( $v->w("job_function"),$sb_job_functions_selected );
-				$rows[] = array( $v->w("job_category"),$sb_job_categories_selected );
 				$rows[] = array( $v->w("industry"),$sb_industries_selected );
 				$rows[] = array( $v->w("location"),$sb_locations_selected );
 				$rows[] = array( $v->w("salary"),salary_min_max($seeker_desires["salary_min"],$seeker_desires["salary_min"]) );

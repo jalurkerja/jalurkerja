@@ -1,6 +1,6 @@
 <?php include_once "head.php";?>
 <?php include_once "opportunities_js.php";?>
-<div class="bo_title">Add Opportunity</div>
+<div class="bo_title">Edit Opportunity</div>
 <?php
 	if(isset($_POST["save"])){
 		$db->addtable("opportunities");			$db->where("id",$_GET["id"]);
@@ -8,7 +8,6 @@
 		$db->addfield("title_id");				$db->addvalue(@$_POST["title_id"]);
 		$db->addfield("title_en");				$db->addvalue(@$_POST["title_en"]);
 		$db->addfield("job_type_id");			$db->addvalue(@$_POST["job_type_id"]);
-		$db->addfield("job_category_id");		$db->addvalue(@$_POST["job_category_id"]);
 		$db->addfield("industry_id");			$db->addvalue(@$_POST["industry_id"]);
 		$db->addfield("web");					$db->addvalue(@$_POST["web"]);
 		$db->addfield("company_description");	$db->addvalue(@$_POST["company_description"]);
@@ -20,10 +19,15 @@
 		$db->addfield("degree_id");				$db->addvalue(@$_POST["degree_id"]);
 		$db->addfield("major_ids");				$db->addvalue(sel_to_pipe(@$_POST["major_ids"]));
 		$db->addfield("experience_years");		$db->addvalue(@$_POST["experience_years"]);
+		$db->addfield("gender");				$db->addvalue(sel_to_pipe(@$_POST["gender"]));
+		$db->addfield("age_min");				$db->addvalue(@$_POST["age_min"]);
+		$db->addfield("age_max");				$db->addvalue(@$_POST["age_max"]);
 		$db->addfield("email");					$db->addvalue(@$_POST["email"]);
 		$db->addfield("name");					$db->addvalue(@$_POST["company_name"]);
 		$db->addfield("salary_min");			$db->addvalue(@$_POST["salary_min"]);
 		$db->addfield("salary_max");			$db->addvalue(@$_POST["salary_max"]);
+		$db->addfield("is_syariah");			$db->addvalue(@$_POST["is_syariah"]);
+		$db->addfield("is_freshgraduate");		$db->addvalue(@$_POST["is_freshgraduate"]);
 		$db->addfield("requirement");			$db->addvalue(@$_POST["requirement"]);
 		$db->addfield("contact_person");		$db->addvalue(@$_POST["contact_person"]);
 		$db->addfield("description");			$db->addvalue(@$_POST["description"]);
@@ -44,10 +48,16 @@
 		$db->addfield("updated_ip");			$db->addvalue($_SERVER["REMOTE_ADDR"]);
 		$updating = $db->update();
 		if($updating["affected_rows"] >= 0){
-			if($_FILES['logo']['tmp_name']) {
-				move_uploaded_file($_FILES['logo']['tmp_name'], "../opportunity_logo/".$_GET["id"].".".pathinfo($_FILES['logo']['name'],PATHINFO_EXTENSION));
+			if(isset($_POST["use_company_logo"])){
+				unlink("../opportunity_logo/".$db->fetch_single_data("opportunities","logo",array("id" => $_GET["id"])));
 				$db->addtable("opportunities");$db->where("id",$_GET["id"]);
-				$db->addfield("logo");$db->addvalue($_GET["id"].".".pathinfo($_FILES['logo']['name'],PATHINFO_EXTENSION));$db->update();
+				$db->addfield("logo");$db->addvalue("");$db->update();
+			} else {
+				if($_FILES['logo']['tmp_name']) {
+					move_uploaded_file($_FILES['logo']['tmp_name'], "../opportunity_logo/".$_GET["id"].".".pathinfo($_FILES['logo']['name'],PATHINFO_EXTENSION));
+					$db->addtable("opportunities");$db->where("id",$_GET["id"]);
+					$db->addfield("logo");$db->addvalue($_GET["id"].".".pathinfo($_FILES['logo']['name'],PATHINFO_EXTENSION));$db->update();
+				}
 			}
 			javascript("alert('Data Berhasil tersimpan');");
 		} else {
@@ -67,7 +77,6 @@
 	$txt_title_id 				= $f->input("title_id",$opportunity["title_id"]);
 	$txt_title_en 				= $f->input("title_en",$opportunity["title_en"]);
 	$sel_job_type 				= $f->select("job_type_id",$db->fetch_select_data("job_type","id","name_en"),$opportunity["job_type_id"]);
-	$sel_category				= $f->select("job_category_id",$db->fetch_select_data("job_categories","id","name_en"),$opportunity["job_category_id"]);
 	$sel_industry				= $f->select("industry_id",$db->fetch_select_data("industries","id","name_en"),$opportunity["industry_id"]);
 	$txt_web	 				= $f->input("web",$opportunity["web"]);
 	$txt_company_description	= $f->textarea("company_description",$opportunity["company_description"]);
@@ -78,13 +87,25 @@
 	$majors = $db->fetch_select_data("majors","id","name_en"); asort($majors);
 	$sm_majors	 				= $f->select_multiple("major_ids",$majors,pipetoarray($opportunity["major_ids"]));
 	$txt_experience				= $f->input("experience_years",$opportunity["experience_years"]);
+	
+	$arrgender[1] = "Male";$arrgender[2] = "Female";
+	$sm_gender 					= $f->select_multiple("gender",$arrgender,pipetoarray($opportunity["gender"]));
+	
+	for($xx = 14 ; $xx < 75 ; $xx++) { $arrage[$xx] = $xx; }
+	$sel_ages 					= $f->select("age_min",$arrage,$opportunity["age_min"])." - ".$f->select("age_max",$arrage,$opportunity["age_max"]);
+	
 	$txt_email					= $f->input("email",$opportunity["email"]);
 	$txt_name					= $f->input("name",$opportunity["name"]);
 	
 	$salaries					= $db->fetch_select_data("salaries","id","salary");
 	$salary_range 				= $f->select("salary_min",$salaries,$opportunity["salary_min"]) ." - ". 
 								  $f->select("salary_max",$salaries,$opportunity["salary_max"]);
-								  
+	
+	$checked = ($opportunity["is_syariah"] == "1") ? "checked":"";
+	$chk_syariah				= $f->input("is_syariah","1","type='checkbox' ".$checked);
+	$checked = ($opportunity["is_freshgraduate"] == "1") ? "checked":"";
+	$chk_freshgraduate			= $f->input("is_freshgraduate","1","type='checkbox' ".$checked);
+	
 	$txt_requirement			= $f->textarea("requirement",$opportunity["requirement"]);
 	$txt_contact_person			= $f->input("contact_person",$opportunity["contact_person"]);
 	$txt_description			= $f->textarea("description",$opportunity["description"]);
@@ -95,6 +116,7 @@
 		$logo = "<img src='../opportunity_logo/".$opportunity["logo"]."' width='150'><br>"; 
 	else $logo = "";
 	$txt_logo = $logo.$f->input("logo","","type='file'");
+	$txt_logo .= "<br>".$f->input("use_company_logo","1","type='checkbox'")." Gunakan logo Company";
 ?>
 <?=$f->start("","POST","","enctype='multipart/form-data'");?>
 	<?=$t->start("","editor_content");?>
@@ -102,7 +124,6 @@
 		<?=$t->row(array("Title (Indonesia)",$txt_title_id));?>
 		<?=$t->row(array("Title (English)",$txt_title_en));?>
 		<?=$t->row(array("Job Type",$sel_job_type));?>
-		<?=$t->row(array("Category",$sel_category));?>
 		<?=$t->row(array("Industry",$sel_industry));?>
 		<?=$t->row(array("Web",$txt_web));?>
 		<?=$t->row(array("Company Description",$txt_company_description));?>
@@ -112,8 +133,12 @@
 		<?=$t->row(array("Degree",$sel_degree));?>
 		<?=$t->row(array("Majors",$sm_majors));?>
 		<?=$t->row(array("Experiences year",$txt_experience));?>
+		<?=$t->row(array("Gender",$sm_gender));?>
+		<?=$t->row(array("Ages",$sel_ages));?>
 		<?=$t->row(array("Email",$txt_email));?>
 		<?=$t->row(array("Salaries",$salary_range));?>
+		<?=$t->row(array("Is Syariah",$chk_syariah));?>
+		<?=$t->row(array("Is Fresh Graduate",$chk_freshgraduate));?>
 		<?=$t->row(array("Requirement",$txt_requirement));?>
 		<?=$t->row(array("Contact Person",$txt_contact_person));?>
 		<?=$t->row(array("Description",$txt_description));?>

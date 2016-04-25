@@ -11,21 +11,27 @@
 				$txt_company_id 	= $f->input("txt_company_id",@$_GET["txt_company_id"]);
 				$txt_title 			= $f->input("txt_title",@$_GET["txt_title"]);
 				$sm_job_types 		= $f->select_multiple("sm_job_types",$db->fetch_select_data("job_type","id","name_en"),@$_GET["sm_job_types"]);
-				$sm_job_categories	= $f->select_multiple("sm_job_categories",$db->fetch_select_data("job_categories","id","name_en",array("parent_id" => "0:>")),@$_GET["sm_job_categories"]);
-				$sm_industries = $f->select_multiple("sm_industries",$db->fetch_select_data("industries","id","name_en"),@$_GET["sm_industries"]);
+				$sm_industries 		= $f->select_multiple("sm_industries",$db->fetch_select_data("industries","id","name_en"),@$_GET["sm_industries"]);
 				$db->addtable("locations");$db->addfield("province_id,location_id,name_en");
 				foreach($db->fetch_data() as $location){ $locations[$location[0].":".$location[1]] = $location[2]; }
-				$sm_locations = $f->select_multiple("sm_locations",$locations,@$_GET["sm_locations"]);
-				$sm_job_functions = $f->select_multiple("sm_job_functions",$db->fetch_select_data("job_functions","id","name_en"),@$_GET["sm_job_functions"]);
+				$sm_locations 		= $f->select_multiple("sm_locations",$locations,@$_GET["sm_locations"]);
+				$sm_job_functions 	= $f->select_multiple("sm_job_functions",$db->fetch_select_data("job_functions","id","name_en"),@$_GET["sm_job_functions"]);
+				$sm_gender 			= $f->select_multiple("sm_gender",array("1"=>"Male","2"=>"Female"),@$_GET["sm_gender"],"style='height:50px;'");
+				$checked			= (@$_GET["chk_is_syariah"]) ? "checked" : "";
+				$chk_is_syariah 	= $f->input("chk_is_syariah","1","type='checkbox' ".$checked);
+				$checked			= (@$_GET["chk_is_freshgraduate"]) ? "checked" : "";
+				$chk_is_freshgraduate = $f->input("chk_is_freshgraduate","1","type='checkbox' ".$checked);
 			?>
 			<?=$t->row(array("Opportunity Id",$txt_opportunity_id));?>
 			<?=$t->row(array("Company Id",$txt_company_id));?>
 			<?=$t->row(array("Title",$txt_title));?>
 			<?=$t->row(array("Job Types",$sm_job_types));?>
-			<?=$t->row(array("Job Categories",$sm_job_categories));?>
 			<?=$t->row(array("Industries",$sm_industries));?>
 			<?=$t->row(array("Locations",$sm_locations));?>
 			<?=$t->row(array("Job Fucntions",$sm_job_functions));?>
+			<?=$t->row(array("Gender",$sm_gender));?>
+			<?=$t->row(array("Is Syariah",$chk_is_syariah));?>
+			<?=$t->row(array("Is Fresh Graduate",$chk_is_freshgraduate));?>
 			<?=$t->end();?>
 			<?=$f->input("page","1","type='hidden'");?>
 			<?=$f->input("sort",@$_GET["sort"],"type='hidden'");?>
@@ -43,11 +49,6 @@
 	if(count(@$_GET["sm_job_types"]) > 0){
 		$innerwhere = "";
 		foreach($_GET["sm_job_types"] as $selected){ $innerwhere .= "job_type_id = '".$selected."' OR "; }
-		$whereclause .= "(".substr($innerwhere,0,-3).") AND ";
-	}	
-	if(count(@$_GET["sm_job_categories"]) > 0){
-		$innerwhere = "";
-		foreach($_GET["sm_job_categories"] as $selected){ $innerwhere .= "job_category_id = '".$selected."' OR "; }
 		$whereclause .= "(".substr($innerwhere,0,-3).") AND ";
 	}	
 	if(count(@$_GET["sm_industries"]) > 0){
@@ -72,6 +73,13 @@
 		foreach($_GET["sm_job_functions"] as $selected){ $innerwhere .= "job_function_id = '".$selected."' OR "; }
 		$whereclause .= "(".substr($innerwhere,0,-3).") AND ";
 	}
+	if(count(@$_GET["sm_gender"]) > 0){
+		$innerwhere = "";
+		foreach($_GET["sm_gender"] as $selected){ $innerwhere .= "gender LIKE '%|".$selected."|%' OR "; }
+		$whereclause .= "(".substr($innerwhere,0,-3).") AND ";
+	}
+	if(isset($_GET["chk_is_syariah"])){ $whereclause .= "is_syariah = 1 AND "; 	}
+	if(isset($_GET["chk_is_freshgraduate"])){ $whereclause .= "is_freshgraduate = 1 AND "; 	}
 	
 	$db->addtable("opportunities");
 	if($whereclause != "") $db->awhere(substr($whereclause,0,-4));$db->limit($_max_counting);
@@ -93,10 +101,12 @@
 						"<div onclick=\"sorting('company_id');\">Company Name</div>",
 						"<div onclick=\"sorting('title_en');\">Title</div>",
 						"<div onclick=\"sorting('job_type_id');\">Job Type</div>",
-						"<div onclick=\"sorting('job_category_id');\">Job Category</div>",
 						"<div onclick=\"sorting('industry_id');\">Industry</div>",
 						"<div onclick=\"sorting('province_id');\">Location</div>",
 						"<div onclick=\"sorting('job_function_id');\">Job Function</div>",
+						"Gender",
+						"<div onclick=\"sorting('is_syariah');\">Syariah</div>",
+						"<div onclick=\"sorting('is_freshgraduate');\">Fresh Graduate</div>",
 						"<div onclick=\"sorting('posted_at');\">Posted At</div>",
 						"<div onclick=\"sorting('closing_date');\">Closing Date</div>",
 						"<div onclick=\"sorting('created_at');\">Created At</div>",
@@ -105,11 +115,15 @@
 	<?php foreach($opportunities as $no => $opportunity){ ?>
 		<?php
 			$job_type = $db->fetch_single_data("job_type","name_en",array("id" => $opportunity["job_type_id"]));
-			$job_category = $db->fetch_single_data("job_categories","name_en",array("id" => $opportunity["job_category_id"]));
 			$industry = $db->fetch_single_data("industries","name_en",array("id" => $opportunity["industry_id"]));
 			$location = $db->fetch_single_data("locations","name_en",array("province_id" => $opportunity["province_id"],"location_id" => $opportunity["location_id"]));
 			$job_function = $db->fetch_single_data("job_functions","name_en",array("id" => $opportunity["job_function_id"]));
 			$company_name = $db->fetch_single_data("company_profiles","name",array("id" => $opportunity["company_id"]));
+			$gender = "";
+			foreach(pipetoarray($opportunity["gender"]) as $gender_id){ $gender .= $db->fetch_single_data("gender","name_en",array("id" => $gender_id)).", "; }
+			if($gender != "") $gender = substr($gender,0,-2);
+			$is_syariah = ($opportunity["is_syariah"] == 1) ? "Yes" : "No";
+			$is_freshgraduate = ($opportunity["is_freshgraduate"] == 1) ? "Yes" : "No";
 			
 			$actions = "<a href=\"opportunities_view.php?id=".$opportunity["id"]."\">View</a> | 
 						<a href=\"opportunities_edit.php?id=".$opportunity["id"]."\">Edit</a>
@@ -122,10 +136,12 @@
 						$company_name,
 						$opportunity["title_en"],
 						$job_type,
-						$job_category,
 						$industry,
 						$location,
 						$job_function,
+						$gender,
+						$is_syariah,
+						$is_freshgraduate,
 						format_tanggal($opportunity["posted_at"],"dMY"),
 						format_tanggal($opportunity["closing_date"],"dMY"),
 						format_tanggal($opportunity["created_at"],"dMY"),

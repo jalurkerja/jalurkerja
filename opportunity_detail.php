@@ -12,7 +12,7 @@
 	$db->addtable("opportunities"); $db->where("id",$_GET["id"]); $opportunity = $db->fetch_data();
 	$db->addtable("company_profiles"); $db->where("id",$opportunity["company_id"]); $company_profile = $db->fetch_data();
 	if($company_profile["header_image"] != "" && file_exists("company_header/".$company_profile["header_image"])){
-		$company_header = $opportunity["header_image"];
+		$company_header = $company_profile["header_image"];
 	} else {
 		$company_header = "nocompanyheader.jpg";
 	}

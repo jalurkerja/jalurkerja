@@ -48,7 +48,7 @@
 					$f->add_config_selectbox("table","degree");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);$f->add_config_selectbox("where",array("id" => "0:>"));
 					$arrfields[1][0] = $f->select_box_ajax("education_level",$v->words("education_level"),array_swap($_GET["education_level"]),305,100,998,5,26,12,"grey");
 					
-					$f->add_config_selectbox("table","industries");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);$f->add_config_selectbox("where",array("id" => "0:>"));
+					$f->add_config_selectbox("table","industries");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);$f->add_config_selectbox("where",array("id" => "0:>"));$f->add_config_selectbox("order",array("name_".$__locale));
 					$arrfields[1][1] = $f->select_box_ajax("industries",$v->words("industry"),array_swap($_GET["industries"]),200,200,998,5,26,12,"grey");
 					
 					$db->addtable("salaries"); 
