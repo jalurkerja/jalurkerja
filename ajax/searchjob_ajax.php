@@ -33,7 +33,14 @@
 			} else { 
 				$user_id = $__user_id;
 			}
-			echo $js->apply_opportunity($user_id,$opportunity_id);
+			
+			$created_at = $db->fetch_single_data("users","created_at",array("id" => $user_id));			
+			$interval = date_diff(date_create($created_at),date_create(date("Y-m-d H:i:s")));
+			if($db->fetch_single_data("users","is_confirmed",array("id" => $user_id)) == "0" && $interval->format("%d") > 1){
+				echo "need_confirmation";
+			} else {
+				echo $js->apply_opportunity($user_id,$opportunity_id);
+			}
 		}
 	}
 

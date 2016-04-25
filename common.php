@@ -148,5 +148,18 @@
 		$return .= "</div>";
 		return $return;
 	}
+	
+	function validate_domain_email($email){
+        $exp = "^[a-z\'0-9]+([._-][a-z\'0-9]+)*@([a-z0-9]+([._-][a-z0-9]+))+$";
+        if(eregi($exp,$email)){
+            if(checkdnsrr(array_pop(explode("@",$email)),"MX")){
+                return "1";
+            }else{
+                return "0";
+            }
+        }else{
+            return "0";
+        }
+    }
 ?>
 <?php include_once "log_action.php"; ?>

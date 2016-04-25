@@ -1,5 +1,28 @@
 <?php 
 	include_once "common.php";
+	if(isset($_GET["just_signup"]) || $_GET["just_signup"] != "" ){
+		$signup_email = $db->fetch_single_data("users","email",array("id" => $__user_id));
+		
+		if($db->fetch_single_data("users","token",array("id" => $__user_id)) == ""){
+			$token = ""; for($xx = 0;$xx < 40; $xx++){ $token .= rand(0,9); }
+			$signup_email_token = base64_encode($signup_email."|".$token);
+			
+			$db->addtable("users");$db->where("id",$__user_id);
+			$db->addfield("token");$db->addvalue($token);$db->update();
+
+			include_once "func.sendingmail.php";
+			$body = "Dear Pencari Kerja,<br><br>
+	Terima Kasih atas registrasi Anda di website JalurKerja.com.<br>
+	Silakan klik link berikut untuk verifikasi email Anda:<br><br>
+	<a href='http://www.jalurkerja.com/verification.php?token=".$signup_email_token."'>www.jalurkerja.com/verification.php?token=".$signup_email_token."</a><br><br><br>
+	Salah Hangat,<br><br><br>
+	Customer Service<br>
+	JalurKerja.com";
+
+			sendingmail("Email Konfirmasi - JalurKerja.com",$signup_email,$body);
+		}
+	}
+	
 	if(isset($_POST["save_just_signup"])){
 		$birthplace = explode(":",$_POST["birthplace"]);
 		
@@ -38,7 +61,6 @@
 		} else {
 			?> <script> popup_message("<?=$v->words("your_profile_fails_to_be_saved");?>","error_message","window.location='<?=$_SERVER["PHP_SELF"];?>';"); </script><?php
 		}
-		?> <script> </script><?php
 	}
 	
 ?>

@@ -1,6 +1,6 @@
 <script> 
 	<?php
-		if($_GET["get_search"]){
+		if(isset($_GET["get_search"]) && $_GET["get_search"]!=""){
 			?>  
 			$(document).ready(function() { 
 				<?php if(isset($_GET["job_function"]))	{ ?> loading_select_box_job_function("serach_btn_click()"); <?php } ?>
@@ -11,9 +11,10 @@
 				serach_btn_click();
 			}); 
 			<?php
+		} else {
+			?> get_ajax("ajax/searchjob_ajax.php?mode=list","opportunities_list","loading_paging()"); <?php
 		}
 	?>
-	get_ajax("ajax/searchjob_ajax.php?mode=list","opportunities_list","loading_paging()"); 
 	
 	function changepage(page){
 		document.getElementById("searchjob_page").value = page;		
@@ -119,6 +120,11 @@
 		}
 	}
 	
+	function resend_confirmation(){
+		popup_message("<?=$v->w("sending_confirmation");?>");
+		window.location = "resend_confirmation.php";
+	}
+	
 	function success_applied(valrespond){
 		setTimeout(function() {
 			if(valrespond == "1"){
@@ -126,6 +132,10 @@
 				popup_message("<?=$v->words("apply_success");?>");
 			} else if (valrespond.substr(0,10) == "need_email"){
 				alert("butuh isi email");
+			} else if (valrespond == "need_confirmation"){
+				var message = "<div style='widht:500px;'><?=$v->w("need_confirmation");?><br><br><?=$v->w("click_resend_confirmation");?><div>";
+				message += "<div class='language_notactive' onclick='resend_confirmation();'>[<?=$v->w("resend");?>]</div>";
+				popup_message(message,"error_message");
 			} else if (valrespond.substr(0,5) == "error"){
 				alert(valrespond);
 			}

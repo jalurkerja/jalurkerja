@@ -30,7 +30,8 @@ class Vocabulary{
 		$arr[$l]["password"]								= "Password";
 		$arr[$l]["repassword"]								= "Retype Password";
 		$arr[$l]["minimum_6_characters"]					= "Minimum 6 characters";
-		$arr[$l]["password_error"]							= "Password Error";
+		$arr[$l]["password_error"]							= "Password Invalid";
+		$arr[$l]["email_invalid"]							= "Email Invalid";
 		$arr[$l]["range_characters"]						= "6-8 characters";
 		$arr[$l]["by_signing_up_i_agree_to"]				= "By Signing Up, I agree to karir's";
 		$arr[$l]["terms_and_conditions"]					= "Terms and Conditions";
@@ -206,6 +207,11 @@ class Vocabulary{
 		$arr[$l]["age_limit"] 								= "Age Limit";
 		$arr[$l]["available_for_fresh_graduate"] 			= "Available for fresh graduate";
 		$arr[$l]["reason_join_our_company"]			 		= "Reason join our company";
+		$arr[$l]["need_confirmation"]			 			= "Your email address is not confirmed yet, <br>Please check your email.";
+		$arr[$l]["click_resend_confirmation"]			 	= "Click this link to resend email confirmation";
+		$arr[$l]["resend"]			 						= "Resend";
+		$arr[$l]["sending_confirmation"]			 		= "Sending Confirmation, Please wait";
+		$arr[$l]["email_confirmed"]			 				= "Thank you for verifying your email address";
 		/*==================================================================================================================================*/
 		/*==================================================================================================================================*/
 		$l = "id";
@@ -223,6 +229,7 @@ class Vocabulary{
 		$arr[$l]["repassword"]								= "Ketik Ulang Password";
 		$arr[$l]["minimum_6_characters"]					= "Minimal 6 karakter";
 		$arr[$l]["password_error"]							= "Kesalahan pada Kata Sandi";
+		$arr[$l]["email_invalid"]							= "Kesalahan pada email";
 		$arr[$l]["range_characters"]						= "6-8 Karakter";
 		$arr[$l]["by_signing_up_i_agree_to"]				= "Dengan mendaftar berarti Saya telah menyetujui";
 		$arr[$l]["terms_and_conditions"]					= "Syarat dan Ketentuan";
@@ -398,6 +405,11 @@ class Vocabulary{
 		$arr[$l]["age_limit"] 								= "Batasan Umur";
 		$arr[$l]["available_for_fresh_graduate"] 			= "Terbuka untuk lulusan baru";
 		$arr[$l]["reason_join_our_company"]			 		= "Alasan bergabung di perusahaan Kami";
+		$arr[$l]["need_confirmation"]			 			= "Alamat email Anda belum di verifikasi,<br>Silakan cek email Anda.";
+		$arr[$l]["click_resend_confirmation"]			 	= "Klik link berikut untuk mengirim ulang email verifikasi";
+		$arr[$l]["resend"]			 						= "Kirim Ulang";
+		$arr[$l]["sending_confirmation"]			 		= "Mengirim Email Verifikasi, Harap Tunggu.";
+		$arr[$l]["email_confirmed"]			 				= "Terima kasih telah memverifikasi alamat email Anda";
 		
 		return $arr[$this->locale][$index];
 	}
