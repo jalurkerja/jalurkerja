@@ -102,6 +102,7 @@ class Vocabulary{
 		$arr[$l]["salary_offer"]							= "Salary Offer";
 		$arr[$l]["posted_date"]								= "Posted Date";
 		$arr[$l]["closing_date"]							= "Closing Date";
+		$arr[$l]["created_at"]								= "Created Date";
 		$arr[$l]["empty_result"]							= "Your search produced no result. Please select a new set of criteria and search again.";
 		$arr[$l]["web"]										= "Web";
 		$arr[$l]["empty_description"]						= "No Description";
@@ -229,6 +230,15 @@ class Vocabulary{
 		$arr[$l]["company_header_image"]			 		= "Company Header Image";
 		$arr[$l]["you_already_registered"]			 		= "You already registered";
 		$arr[$l]["coming_soon"]			 					= "Coming Soon<br>Still in the development stage";
+		$arr[$l]["search_your_ads"]			 				= "Search Your ads";
+		$arr[$l]["total_applicant"]			 				= "Total Applicant";
+		$arr[$l]["days_before_closing"]			 			= "days before closing";
+		$arr[$l]["member_status"]			 				= "Member Status";
+		$arr[$l]["member_package"]			 				= "Member Package";
+		$arr[$l]["active_date"]			 					= "Active Date";
+		$arr[$l]["end_date"]			 					= "End Date";
+		$arr[$l]["opportunity_quota"]			 			= "Opportunity Quota";
+		$arr[$l]["used_quota"]			 					= "Used Quota";
 		/*==================================================================================================================================*/
 		/*==================================================================================================================================*/
 		$l = "id";
@@ -317,6 +327,7 @@ class Vocabulary{
 		$arr[$l]["salary_offer"]							= "Penawaran Gaji";
 		$arr[$l]["posted_date"]								= "Tanggal Pasang";
 		$arr[$l]["closing_date"]							= "Tanggal Tutup";
+		$arr[$l]["created_at"]								= "Tanggal Buat";
 		$arr[$l]["empty_result"]							= "Pencarian Anda tidak ada hasil. Silahkan pilih kriteria baru dan cari lagi.";
 		$arr[$l]["web"]										= "Situs";
 		$arr[$l]["empty_description"]						= "Tidak ada deskripsi";
@@ -444,6 +455,15 @@ class Vocabulary{
 		$arr[$l]["company_header_image"]			 		= "Header Image Perusahaan";
 		$arr[$l]["you_already_registered"]			 		= "Anda telah terdaftar";
 		$arr[$l]["coming_soon"]			 					= "Segera Hadir<br>Masih dalam tahap pengembangan";
+		$arr[$l]["search_your_ads"]			 				= "Cari lowongan Anda";
+		$arr[$l]["total_applicant"]			 				= "Total Pelamar";
+		$arr[$l]["days_before_closing"]			 			= "hari sebelum iklan berakhir";
+		$arr[$l]["member_status"]			 				= "Status Keanggotaan";
+		$arr[$l]["member_package"]			 				= "Paket Keanggotaan";
+		$arr[$l]["active_date"]			 					= "Tanggal Aktif";
+		$arr[$l]["end_date"]			 					= "Tanggal Berakhir";
+		$arr[$l]["opportunity_quota"]			 			= "Kuota iklan";
+		$arr[$l]["used_quota"]			 					= "Kuota iklan terpakai";
 		
 		return $arr[$this->locale][$index];
 	}

@@ -1,6 +1,10 @@
 <script> 	
 	function load_profile()					{ get_ajax("ajax/company_profile_ajax.php?mode=load_profile",				"profile","remove_footer('profile');"); }
-	function load_applicant_management()	{ get_ajax("ajax/company_profile_ajax.php?mode=load_applicant_management",	"applicant_management","remove_footer('applicant_management');"); }
+	function load_applicant_management(tabid,keyword,sort,page,key_id)	{
+		key_id = key_id || ""; tabid = tabid || ""; keyword = keyword || ""; sort = sort || ""; page = page || "";
+		var url_string = "?mode=load_applicant_management&key_id="+key_id+"&tabid="+tabid+"&keyword="+keyword+"&sort="+sort+"&page="+page;
+		get_ajax("ajax/company_profile_ajax.php"+url_string,"applicant_management","remove_footer('applicant_management');"); 
+	}
 	function load_advertising()				{ get_ajax("ajax/company_profile_ajax.php?mode=load_advertising",			"advertising","remove_footer('advertising');"); }
 	function load_candidate_search()		{ get_ajax("ajax/company_profile_ajax.php?mode=load_candidate_search",		"candidate_search","remove_footer('candidate_search');"); }
 	function load_report()					{ get_ajax("ajax/company_profile_ajax.php?mode=load_report",				"report","remove_footer('report');"); }

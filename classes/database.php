@@ -82,7 +82,7 @@
 
         protected function execute($sql){
 			mysql_select_db($this->dbname,$this->db);
-			mysql_query("INSERT INTO sql_log VALUES (NULL,'".str_replace("'","''",$sql)."','".@$_SESSION["user_id"]."',NOW(),'".$_SERVER["REMOTE_ADDR"]."',NULL)",$this->db);
+			//mysql_query("INSERT INTO sql_log VALUES (NULL,'".str_replace("'","''",$sql)."','".@$_SESSION["user_id"]."',NOW(),'".$_SERVER["REMOTE_ADDR"]."',NULL)",$this->db);
             return mysql_query($sql,$this->db);
             $this->close();
         }
@@ -124,7 +124,7 @@
         }
 
         public function addfield($field,$tablekey=0){
-			if(stripos(" ".$field,"concat(") == 0){
+			if(stripos(" ".$field,"concat(") == 0 && stripos(" ".$field,"count(") == 0){
 				$arrfield = explode(",",$field);
 				foreach($arrfield as $_field){
 					$this->fields[$_field]=$tablekey;
@@ -222,7 +222,7 @@
             $_fields = "";
 			if(count($this->fields) > 0){
 				foreach ($this->fields as $field => $tablekey){ 
-					if(stripos(" ".$field,"concat(") > 0){
+					if(stripos(" ".$field,"concat(") > 0 || stripos(" ".$field,"count(") > 0){
 						$_fields .= $field.",";
 					} else {
 						$_fields .= $this->tables[$tablekey].".`".$field."`,";

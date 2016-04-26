@@ -35,8 +35,8 @@
 			}
 			
 			$created_at = $db->fetch_single_data("users","created_at",array("id" => $user_id));			
-			$interval = date_diff(date_create($created_at),date_create(date("Y-m-d H:i:s")));
-			if($db->fetch_single_data("users","is_confirmed",array("id" => $user_id)) == "0" && $interval->format("%d") > 1){
+			$interval = date_diff(date_create($created_at),date_create(date("Y-m-d H:i:s")),true);
+			if($db->fetch_single_data("users","is_confirmed",array("id" => $user_id)) == "0" && $interval->days > 1){
 				echo "need_confirmation";
 			} else {
 				echo $js->apply_opportunity($user_id,$opportunity_id);

@@ -57,4 +57,7 @@
 		$_mode == "edit_company_description" || 
 		$_mode == "edit_company_join_reason"
 	){ include_once "company_profile_data.php"; }
+	
+	if( $_mode == "load_applicant_management"
+	){ include_once "company_profile_applicant_management.php"; }
 ?>

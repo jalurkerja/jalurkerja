@@ -679,6 +679,10 @@ body {
 	-webkit-border-radius: 5px;
 }
 
+.greencard_hover :hover{
+	background-color:rgba(255, 179, 29, 0.2);
+}
+
 .seeker_profile_sp_detail #sp_container{
 	position:relative;
 	top:-20px;
