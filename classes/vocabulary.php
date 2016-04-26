@@ -227,6 +227,8 @@ class Vocabulary{
 		$arr[$l]["report"]			 						= "Report";
 		$arr[$l]["setting"]			 						= "Setting";
 		$arr[$l]["company_header_image"]			 		= "Company Header Image";
+		$arr[$l]["you_already_registered"]			 		= "You already registered";
+		$arr[$l]["coming_soon"]			 					= "Coming Soon<br>Still in the development stage";
 		/*==================================================================================================================================*/
 		/*==================================================================================================================================*/
 		$l = "id";
@@ -440,6 +442,8 @@ class Vocabulary{
 		$arr[$l]["report"]			 						= "Laporan";
 		$arr[$l]["setting"]			 						= "Pengaturan";
 		$arr[$l]["company_header_image"]			 		= "Header Image Perusahaan";
+		$arr[$l]["you_already_registered"]			 		= "Anda telah terdaftar";
+		$arr[$l]["coming_soon"]			 					= "Segera Hadir<br>Masih dalam tahap pengembangan";
 		
 		return $arr[$this->locale][$index];
 	}
