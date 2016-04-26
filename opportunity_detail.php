@@ -3,7 +3,7 @@
 	include_once "scripts/searchjob_js.php";
 	$token = $db->fetch_single_data("tokens","token",array("id_key" => $_GET["id"],"ip" => $_SERVER["REMOTE_ADDR"]));
 	$db->generate_token($_GET["id"]);
-	if($token != $_GET["token"] && false){
+	if($token != $_GET["token"]){
 		echo "INVALID TOKEN!";
 		echo "<script> alert('INVALID TOKEN!'); </script>";
 		echo "<script> window.close(); </script>";
@@ -14,7 +14,7 @@
 	if($company_profile["header_image"] != "" && file_exists("company_header/".$company_profile["header_image"])){
 		$company_header = $company_profile["header_image"];
 	} else {
-		$company_header = "nocompanyheader.jpg";
+		$company_header = "nocompanyheader.png";
 	}
 	
 	if($opportunity["logo"] != "" && file_exists("opportunity_logo/".$opportunity["logo"])){

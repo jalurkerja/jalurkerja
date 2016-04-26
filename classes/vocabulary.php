@@ -41,6 +41,8 @@ class Vocabulary{
 		$arr[$l]["keyword"]									= "Keyword";
 		$arr[$l]["company"]									= "Company";
 		$arr[$l]["company_name"]							= "Company Name";
+		$arr[$l]["company_address"]							= "Company Address";
+		$arr[$l]["company_pic"]								= "Company PIC";
 		$arr[$l]["etc"]										= "etc";
 		$arr[$l]["salary"]									= "Salary";
 		$arr[$l]["expected_salary"]							= "Expected Salary";
@@ -131,6 +133,7 @@ class Vocabulary{
 		$arr[$l]["your_profile_successfully_saved"]			= "Your profile successfully saved";
 		$arr[$l]["your_profile_fails_to_be_saved"]			= "Your profile fails to be saved!";
 		$arr[$l]["please_login_as_job_seeker"]				= "Please login as job seeker";
+		$arr[$l]["please_login_as_company"]					= "Please login as company";
 		$arr[$l]["personal_data"]							= "Personal Data";
 		$arr[$l]["certification"]							= "Certification";
 		$arr[$l]["education"]								= "Education";
@@ -212,6 +215,18 @@ class Vocabulary{
 		$arr[$l]["resend"]			 						= "Resend";
 		$arr[$l]["sending_confirmation"]			 		= "Sending Confirmation, Please wait";
 		$arr[$l]["email_confirmed"]			 				= "Thank you for verifying your email address";
+		$arr[$l]["company_setting"]			 				= "Company Setting";
+		$arr[$l]["company_profile"]			 				= "Company Profile";
+		$arr[$l]["company_description"]			 			= "Company Description";
+		$arr[$l]["company_join_reason"]			 			= "Reasons to join in our company";
+		$arr[$l]["company_logo"]			 				= "Company Logo";
+		$arr[$l]["employer_pages"]			 				= "Employer Pages";
+		$arr[$l]["applicant_management"]			 		= "Applicant Management";
+		$arr[$l]["advertising"]			 					= "Advertising";
+		$arr[$l]["candidate_search"]			 			= "Candidate Search";
+		$arr[$l]["report"]			 						= "Report";
+		$arr[$l]["setting"]			 						= "Setting";
+		$arr[$l]["company_header_image"]			 		= "Company Header Image";
 		/*==================================================================================================================================*/
 		/*==================================================================================================================================*/
 		$l = "id";
@@ -239,6 +254,8 @@ class Vocabulary{
 		$arr[$l]["keyword"]									= "Kata Kunci";
 		$arr[$l]["company"]									= "Perusahaan";
 		$arr[$l]["company_name"]							= "Nama Perusahaan";
+		$arr[$l]["company_address"]							= "Alamat Perusahaan";
+		$arr[$l]["company_pic"]								= "Nama Kontak Perusahaan";
 		$arr[$l]["etc"]										= "dll";
 		$arr[$l]["salary"]									= "Gaji";
 		$arr[$l]["expected_salary"]							= "Gaji yang diharapkan";
@@ -329,6 +346,7 @@ class Vocabulary{
 		$arr[$l]["your_profile_successfully_saved"]			= "Profil Anda berhasil disimpan";
 		$arr[$l]["your_profile_fails_to_be_saved"]			= "Profil Anda gagal untuk disimpan!";
 		$arr[$l]["please_login_as_job_seeker"]				= "Silakan login sebagai pencari kerja";
+		$arr[$l]["please_login_as_company"]					= "Silakan login sebagai Perusahaan";
 		$arr[$l]["personal_data"]							= "Data Pribadi";
 		$arr[$l]["certification"]							= "Sertifikasi";
 		$arr[$l]["education"]								= "Pendidikan";
@@ -410,6 +428,18 @@ class Vocabulary{
 		$arr[$l]["resend"]			 						= "Kirim Ulang";
 		$arr[$l]["sending_confirmation"]			 		= "Mengirim Email Verifikasi, Harap Tunggu.";
 		$arr[$l]["email_confirmed"]			 				= "Terima kasih telah memverifikasi alamat email Anda";
+		$arr[$l]["company_setting"]			 				= "Pengaturan Perusahaan";
+		$arr[$l]["company_profile"]			 				= "Profil Perusahaan";
+		$arr[$l]["company_description"]			 			= "Deskripsi Perusahaan";
+		$arr[$l]["company_join_reason"]			 			= "Alasan bergabung di perusahaan Kami";
+		$arr[$l]["company_logo"]			 				= "Logo Perusahaan";
+		$arr[$l]["employer_pages"]			 				= "Halaman Employer";
+		$arr[$l]["applicant_management"]			 		= "Manajemen Lamaran";
+		$arr[$l]["advertising"]			 					= "Pasang Iklan";
+		$arr[$l]["candidate_search"]			 			= "Cari Kandidat";
+		$arr[$l]["report"]			 						= "Laporan";
+		$arr[$l]["setting"]			 						= "Pengaturan";
+		$arr[$l]["company_header_image"]			 		= "Header Image Perusahaan";
 		
 		return $arr[$this->locale][$index];
 	}

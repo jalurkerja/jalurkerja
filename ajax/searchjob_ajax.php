@@ -282,7 +282,12 @@
 				$return .= "<div id='container' onclick='load_detail_opportunity(\"".$opportunity["id"]."\");'>";
 				$return .= "	<div id='logo'>".$logo."</div>";
 				if($opportunity["is_syariah"] == 1) $return .= "	<div id='syariah_stamp'>".$syariah_stamp."</div>";
-				$return .= "	<div id='title'><table><tr><td width='360'>".$opportunity["title_".$__locale]."</td></tr></table></div>";
+				if($__isloggedin){
+					$isapplied = ($db->fetch_single_data("applied_opportunities","id",array("user_id" => $__user_id,"opportunity_id" => $opportunity["id"])) > 0) ? "_applied" : "";
+				} else {
+					$isapplied = "";
+				}
+				$return .= "	<div id='title".$isapplied."'><table><tr><td width='360'>".$opportunity["title_".$__locale]."</td></tr></table></div>";
 				$return .= "	<div id='detail'><u>".$opportunity["name"]."</u> - ".$location."</div>";
 				$return .= "	<div id='detail'>".$v->words("work_experience")." : ".$opportunity["experience_years"]." ".$v->words("years")."</div>";
 				$return .= "	<div id='detail'><table><tr><td width='360'>".$v->words("salary_offer")." : ".$salaries."</td></tr></table></div>";

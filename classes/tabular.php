@@ -77,7 +77,7 @@ class Tabular {
 					left:-'.$this->border_width.'px;
 					float:left;
 					display: inline-block;
-					width:10px;
+					width:0px;
 					height:'.($this->tab_height + 1).'px;
 					border-left:'.$this->border_width.'px solid '.$this->basecolor.';
 				}
@@ -88,7 +88,7 @@ class Tabular {
 					top:-1px;
 					float:right;
 					display: inline-block;
-					width:10px;
+					width:0px;
 					height:'.($this->tab_height + 2).'px;
 					border-right:'.$this->border_width.'px solid '.$this->basecolor.';
 				}
@@ -97,7 +97,7 @@ class Tabular {
 					position:relative;
 					float:left;
 					display: inline-block;
-					width:10px;
+					width:1px;
 					height:'.($this->tab_height + 2).'px;
 				}
 				
