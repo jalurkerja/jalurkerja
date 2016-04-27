@@ -90,7 +90,10 @@
 	$txt_email					= $f->input("email",@$_POST["email"]);
 	$txt_name					= $f->input("name",@$_POST["name"]);
 	
-	$salaries					= $db->fetch_select_data("salaries","id","salary");
+	$db->addtable("salaries"); $db->addfield("id");$db->addfield("salary"); $db->order("id");
+	foreach ($db->fetch_data() as $key => $arrsalary){
+		$salaries[$arrsalary[1]] = number_format($arrsalary[1],0,",",".");
+	}
 	$salary_range 				= $f->select("salary_min",$salaries,@$_POST["salary_min"]) ." - ". 
 								  $f->select("salary_max",$salaries,@$_POST["salary_max"]);
 	

@@ -31,4 +31,11 @@
 		echo $tab->draw();
 	?>
 	</td></tr></table>
+	
+<?php if($_GET["mode"] == "load_applicant_management"){ ?> 
+	<script> 
+		tab_toggle_employer_pages('1');
+		load_applicant_management("<?=$_GET["tabid"];?>","<?=$_GET["keyword"];?>","<?=$_GET["sort"];?>","<?=$_GET["page"];?>","<?=$_GET["key_id"];?>");
+	</script> 
+<?php } ?>
 <?php include_once "footer.php"; ?>

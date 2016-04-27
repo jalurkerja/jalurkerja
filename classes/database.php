@@ -339,15 +339,15 @@
                 $_values .= $_fields[$key]." = ";
                 $field_info = $this->field_info($_table,$_fields[$key]);				
 				if(isset($field_info["data_type"])){
-					if($field_info["data_type"] == "integer")                   	$_values .= "$values,";
-					else if($field_info["data_type"] == "int")                   	$_values .= "$values,";
-					else if($field_info["data_type"] == "smallint")                 $_values .= "$values,";
-					else if($field_info["data_type"] == "tinyint")                  $_values .= "$values,";
+					if($field_info["data_type"] == "integer")                   	$_values .= "'$values',";
+					else if($field_info["data_type"] == "int")                   	$_values .= "'$values',";
+					else if($field_info["data_type"] == "smallint")                 $_values .= "'$values',";
+					else if($field_info["data_type"] == "tinyint")                  $_values .= "'$values',";
 					else if($field_info["data_type"] == "character varying")        $_values .= "'$values',";
 					else if($field_info["data_type"] == "varchar")         			$_values .= "'$values',";
 					else if(stripos(" ".$field_info["data_type"],"timestamp") > 0)  $_values .= "'$values',";
 					else if($field_info["data_type"] == "inet")                     $_values .= "'$values',";
-					else if($field_info["data_type"] == "boolean")                  $_values .= "$values,";
+					else if($field_info["data_type"] == "boolean")                  $_values .= "'$values',";
 					else if($field_info["data_type"] == "text")                     $_values .= "'$values',";
 					else if($field_info["data_type"] == "datetime")                 $_values .= "'$values',";
 					else if($field_info["data_type"] == "date")		                $_values .= "'$values',";

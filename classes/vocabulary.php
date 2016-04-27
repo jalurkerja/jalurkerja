@@ -239,6 +239,20 @@ class Vocabulary{
 		$arr[$l]["end_date"]			 					= "End Date";
 		$arr[$l]["opportunity_quota"]			 			= "Opportunity Quota";
 		$arr[$l]["used_quota"]			 					= "Used Quota";
+		$arr[$l]["all_applicant"]			 				= "All Applicant";
+		$arr[$l]["viewed"]			 						= "Viewed";
+		$arr[$l]["unviewed"]			 					= "Unviewed";
+		$arr[$l]["quilified"]			 					= "Quilified";
+		$arr[$l]["denied"]			 						= "Denied";
+		$arr[$l]["interviewed"]			 					= "Interviewed";
+		$arr[$l]["not_present"]			 					= "Not Present";
+		$arr[$l]["accepted"]			 					= "Hired";
+		$arr[$l]["shortcut"]			 					= "Shortcut";
+		$arr[$l]["applied_date"]			 				= "Applied date";
+		$arr[$l]["match_level"]			 					= "Match level";
+		$arr[$l]["candidate_profile"]			 			= "Candidate Profile";
+		$arr[$l]["experience_years"]			 			= "Experience Years";
+		$arr[$l]["resume_status"]			 				= "Resume Status";
 		/*==================================================================================================================================*/
 		/*==================================================================================================================================*/
 		$l = "id";
@@ -464,6 +478,20 @@ class Vocabulary{
 		$arr[$l]["end_date"]			 					= "Tanggal Berakhir";
 		$arr[$l]["opportunity_quota"]			 			= "Kuota iklan";
 		$arr[$l]["used_quota"]			 					= "Kuota iklan terpakai";
+		$arr[$l]["all_applicant"]			 				= "Semua Pelamar";
+		$arr[$l]["viewed"]			 						= "Sudah Dilihat";
+		$arr[$l]["unviewed"]			 					= "Belum Dilihat";
+		$arr[$l]["quilified"]			 					= "Sesuai Kualifikasi";
+		$arr[$l]["denied"]			 						= "Ditolak";
+		$arr[$l]["interviewed"]			 					= "Interview";
+		$arr[$l]["not_present"]			 					= "Tidak Hadir";
+		$arr[$l]["accepted"]			 					= "Diterima";
+		$arr[$l]["shortcut"]			 					= "Jalan Pintas";
+		$arr[$l]["applied_date"]			 				= "Tanggal melamar";
+		$arr[$l]["match_level"]			 					= "Tingkat Kecocokan";
+		$arr[$l]["candidate_profile"]			 			= "Profil Kandidat";
+		$arr[$l]["experience_years"]			 			= "Tahun Pengalaman";
+		$arr[$l]["resume_status"]			 				= "Status Resume";
 		
 		return $arr[$this->locale][$index];
 	}

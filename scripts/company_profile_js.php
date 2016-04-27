@@ -3,6 +3,7 @@
 	function load_applicant_management(tabid,keyword,sort,page,key_id)	{
 		key_id = key_id || ""; tabid = tabid || ""; keyword = keyword || ""; sort = sort || ""; page = page || "";
 		var url_string = "?mode=load_applicant_management&key_id="+key_id+"&tabid="+tabid+"&keyword="+keyword+"&sort="+sort+"&page="+page;
+		window.history.pushState("","",url_string);
 		get_ajax("ajax/company_profile_ajax.php"+url_string,"applicant_management","remove_footer('applicant_management');"); 
 	}
 	function load_advertising()				{ get_ajax("ajax/company_profile_ajax.php?mode=load_advertising",			"advertising","remove_footer('advertising');"); }
@@ -47,6 +48,6 @@
 	
 	function remove_footer(area){
 		var current_height = document.getElementById(area).offsetHeight * 1;
-		footer_area.style.top = (current_height + 250) + "px";
+		if(current_height > 0) footer_area.style.top = (current_height + 250) + "px";
 	}	
 </script>

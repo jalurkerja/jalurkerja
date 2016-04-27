@@ -124,6 +124,7 @@ class Tabular {
 					float:left;
 					top:'.(1 - $this->border_width).'px;
 					width:'.$this->tab_width.'px;
+					cursor:pointer;
 					height:'.$this->tab_height.'px;
 					color:'.$this->tab_active_color.';
 					border-top:'.$this->border_width.'px solid '.$this->bordercolor.';

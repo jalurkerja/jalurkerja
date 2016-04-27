@@ -1,4 +1,5 @@
 <?php
+include_once "company_profile_func.php";
 $_key_id = $_GET["key_id"];
 $_tabid = $_GET["tabid"];
 $_keyword = $_GET["keyword"];
@@ -100,7 +101,7 @@ $_page = $_GET["page"];
 	</div>
 	<div style="height:20px;"></div>
 <?php } ?>
-<?php if($_tabid == "all_applicant"){ ?>
+<?php if($_tabid != ""){ ?>
 <?php
 	$db->addtable("opportunities");$db->where("id",$_key_id);$db->limit(1); $opportunity = $db->fetch_data();
 	$daydiff_toclosing = date_diff(date_create(date("Y-m-d H:i:s")),date_create($opportunity["closing_date"]),true);
@@ -108,7 +109,7 @@ $_page = $_GET["page"];
 	?>
 	<div class="card">
 		<div id="content">
-			<table><tr><td width="600" valign="top">
+			<div style="border-bottom:1px solid rgba(12, 179, 29, 0.3);"><table><tr><td width="600" valign="top">
 				<b style="font-size:14px;"><?=$opportunity["title_".$__locale];?></b><br>
 				<?=$db->fetch_single_data("locations","name_".$__locale,array("province_id" => $opportunity["province_id"], "location_id" => $opportunity["location_id"]));?><br>
 				<?=format_tanggal($opportunity["posted_at"],"dMY");?> - <?=format_tanggal($opportunity["closing_date"],"dMY");?> <br>
@@ -116,7 +117,121 @@ $_page = $_GET["page"];
 			</td><td width="100" valign="top" align="center">
 				<?php if($opportunity["is_syariah"]){ ?> <div style="position:absolute;left:550px;"><img src="icons/syariah_stamp.png" width="50"></div> <?php } ?>
 				<b><?=$v->w("total_applicant");?></b><br><br> <b style="font-size:14px;"><?=$num_applicant;?></b>
-			</td></tr></table>
+			</td></tr></table></div>
+			<div style="position:relative;top:25px;width:100%;text-align:right;">
+				<script> function shortcut(thisvalue){ load_applicant_management(thisvalue,'<?=$_keyword;?>','<?=$_sort;?>','<?=$_page;?>','<?=$_key_id;?>'); } </script>
+				<?php $arrshortcut = array("" => "","quilified" => $v->w("quilified"),"interviewed" => $v->w("interviewed"),"accepted" => $v->w("accepted"),); ?>
+				<?=$v->w("shortcut");?> : <?=$f->select("shortcut",$arrshortcut,"","onchange=\"shortcut(this.value);\"");?>
+			</div>
+			<?php
+				include_once "../classes/tabular.php";
+				$tab1 = new Tabular("filter_step_1");
+				$tab1->set_border_width(1);
+				$tab1->set_tab_width(158);
+				$tab1->set_area_width(995);
+				$tab1->set_area_height(50);
+				$tab1->setnoborder();
+				$tab1->add_tab_title($v->w("all_applicant"),"load_applicant_management('all_applicant','".$_keyword."','applied_date','1','".$_key_id."');");
+				$tab1->add_tab_title($v->w("viewed"),"load_applicant_management('viewed','".$_keyword."','applied_date','1','".$_key_id."');");
+				$tab1->add_tab_title($v->w("unviewed"),"load_applicant_management('unviewed','".$_keyword."','applied_date','1','".$_key_id."');");
+				$tab1->add_tab_container("<div id='all_applicant'></div>");
+				$tab1->add_tab_container("<div id='viewed'></div>");
+				$tab1->add_tab_container("<div id='unviewed'></div>");
+				$tab1->set_bordercolor("#0CB31D");
+				$tab1->setautorunscript(false);
+				echo $tab1->draw();
+			?>
+			<?php if($_tabid == "all_applicant"){ ?>
+				<script> tab_toggle_filter_step_1('0');</script>
+				<?=company_profile_applicant_management_list($_key_id,$_tabid,$_keyword,$_sort,$_page);?>
+			<?php } ?>
+			<?php if($_tabid == "viewed" || $_tabid == "quilified" || $_tabid == "denied" || $_tabid == "quilified" || $_tabid == "interviewed" || $_tabid == "not_present" || $_tabid == "accepted"){ ?>
+				<script> tab_toggle_filter_step_1('1'); </script>
+				<?php
+					$tab2 = new Tabular("filter_step_2");
+					$tab2->set_border_width(1);
+					$tab2->set_tab_width(158);
+					$tab2->set_area_width(995);
+					$tab2->set_area_height(50);
+					$tab2->setnoborder();
+					$tab2->add_tab_title($v->w("viewed"),"load_applicant_management('viewed','".$_keyword."','created_at','1','".$_key_id."');");
+					$tab2->add_tab_title($v->w("quilified"),"load_applicant_management('quilified','".$_keyword."','created_at','1','".$_key_id."');");
+					$tab2->add_tab_title($v->w("denied"),"load_applicant_management('denied','".$_keyword."','created_at','1','".$_key_id."');");
+					$tab2->add_tab_container("<div id='viewed'></div>");
+					$tab2->add_tab_container("<div id='quilified'></div>");
+					$tab2->add_tab_container("<div id='denied'></div>");
+					$tab2->set_bordercolor("#0CB31D");
+					$tab2->setautorunscript(false);
+					echo $tab2->draw();
+				?>
+				<?php if($_tabid == "viewed"){ ?>
+					<script> tab_toggle_filter_step_2('0');</script>
+					<?=company_profile_applicant_management_list($_key_id,$_tabid,$_keyword,$_sort,$_page);?>
+				<?php } ?>
+				<?php if($_tabid == "quilified" || $_tabid == "interviewed" || $_tabid == "not_present" || $_tabid == "accepted"){ ?>
+					<script> tab_toggle_filter_step_2('1');</script>
+					<?php
+						$tab3 = new Tabular("filter_step_3");
+						$tab3->set_border_width(1);
+						$tab3->set_tab_width(158);
+						$tab3->set_area_width(995);
+						$tab3->set_area_height(50);
+						$tab3->setnoborder();
+						$tab3->add_tab_title($v->w("quilified"),"load_applicant_management('quilified','".$_keyword."','created_at','1','".$_key_id."');");
+						$tab3->add_tab_title($v->w("interviewed"),"load_applicant_management('interviewed','".$_keyword."','created_at','1','".$_key_id."');");
+						$tab3->add_tab_title($v->w("not_present"),"load_applicant_management('not_present','".$_keyword."','created_at','1','".$_key_id."');");
+						$tab3->add_tab_container("<div id='quilified'></div>");
+						$tab3->add_tab_container("<div id='interviewed'></div>");
+						$tab3->add_tab_container("<div id='not_present'></div>");
+						$tab3->set_bordercolor("#0CB31D");
+						$tab3->setautorunscript(false);
+						echo $tab3->draw();
+					?>
+					<?php if($_tabid == "quilified"){ ?>
+						<script> tab_toggle_filter_step_3('0');</script>
+						<?=company_profile_applicant_management_list($_key_id,$_tabid,$_keyword,$_sort,$_page);?>
+					<?php } ?>
+					<?php if($_tabid == "interviewed" || $_tabid == "accepted"){ ?>
+						<script> tab_toggle_filter_step_3('1');</script>
+						<?php
+							$tab4 = new Tabular("filter_step_4");
+							$tab4->set_border_width(1);
+							$tab4->set_tab_width(158);
+							$tab4->set_area_width(995);
+							$tab4->set_area_height(50);
+							$tab4->setnoborder();
+							$tab4->add_tab_title($v->w("interviewed"),"load_applicant_management('interviewed','".$_keyword."','created_at','1','".$_key_id."');");
+							$tab4->add_tab_title($v->w("accepted"),"load_applicant_management('accepted','".$_keyword."','created_at','1','".$_key_id."');");
+							$tab4->add_tab_container("<div id='interviewed'></div>");
+							$tab4->add_tab_container("<div id='accepted'></div>");
+							$tab4->set_bordercolor("#0CB31D");
+							$tab4->setautorunscript(false);
+							echo $tab4->draw();
+						?>
+						<?php if($_tabid == "interviewed"){ ?>
+							<script> tab_toggle_filter_step_4('0');</script>
+							<?=company_profile_applicant_management_list($_key_id,$_tabid,$_keyword,$_sort,$_page);?>
+						<?php } ?>
+						<?php if($_tabid == "accepted"){ ?>
+							<script> tab_toggle_filter_step_4('1');</script>
+							<?=company_profile_applicant_management_list($_key_id,$_tabid,$_keyword,$_sort,$_page);?>
+						<?php } ?>
+					<?php } ?>
+					<?php if($_tabid == "not_present"){ ?>
+						<script> tab_toggle_filter_step_3('2');</script>
+						<?=company_profile_applicant_management_list($_key_id,$_tabid,$_keyword,$_sort,$_page);?>
+					<?php } ?>
+				<?php } ?>
+				<?php if($_tabid == "denied"){ ?>
+					<script> tab_toggle_filter_step_2('2');</script>
+					<?=company_profile_applicant_management_list($_key_id,$_tabid,$_keyword,$_sort,$_page);?>
+				<?php } ?>
+			<?php } ?>
+			<?php if($_tabid == "unviewed"){ ?>
+				<script> tab_toggle_filter_step_1('2'); </script>
+				<?=company_profile_applicant_management_list($_key_id,$_tabid,$_keyword,$_sort,$_page);?>
+			<?php } ?>
+			
 		</div>
 	</div>
 <?php } ?>
