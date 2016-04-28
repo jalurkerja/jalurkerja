@@ -6,7 +6,12 @@ $_keyword = $_GET["keyword"];
 $_sort = $_GET["sort"];
 $_page = $_GET["page"];
 ?>
-<script> function changepage(page){ load_applicant_management("<?=$_tabid;?>","<?=$_keyword;?>","<?=$_sort;?>",page,"<?=$_key_id;?>"); } </script>
+<script> 
+	function changepage(page){ load_applicant_management("<?=$_tabid;?>","<?=$_keyword;?>","<?=$_sort;?>",page,"<?=$_key_id;?>"); } 
+	function load_applicant_management_detail(opportunity_id,userid){
+		get_ajax("ajax/company_profile_ajax.php?mode=generate_token&id_key="+userid,"return_generate_token","openwindow('applicant_management_detail.php?opportunity_id="+opportunity_id+"&userid="+userid+"&token='+global_respon['return_generate_token']);");
+	}
+</script>
 <?php if($_tabid == ""){ ?>
 	<div class="card">
 		<div id="title">
@@ -154,9 +159,9 @@ $_page = $_GET["page"];
 					$tab2->set_area_width(995);
 					$tab2->set_area_height(50);
 					$tab2->setnoborder();
-					$tab2->add_tab_title($v->w("viewed"),"load_applicant_management('viewed','".$_keyword."','created_at','1','".$_key_id."');");
-					$tab2->add_tab_title($v->w("quilified"),"load_applicant_management('quilified','".$_keyword."','created_at','1','".$_key_id."');");
-					$tab2->add_tab_title($v->w("denied"),"load_applicant_management('denied','".$_keyword."','created_at','1','".$_key_id."');");
+					$tab2->add_tab_title($v->w("viewed"),"load_applicant_management('viewed','".$_keyword."','applied_date','1','".$_key_id."');");
+					$tab2->add_tab_title($v->w("quilified"),"load_applicant_management('quilified','".$_keyword."','applied_date','1','".$_key_id."');");
+					$tab2->add_tab_title($v->w("denied"),"load_applicant_management('denied','".$_keyword."','applied_date','1','".$_key_id."');");
 					$tab2->add_tab_container("<div id='viewed'></div>");
 					$tab2->add_tab_container("<div id='quilified'></div>");
 					$tab2->add_tab_container("<div id='denied'></div>");
@@ -177,9 +182,9 @@ $_page = $_GET["page"];
 						$tab3->set_area_width(995);
 						$tab3->set_area_height(50);
 						$tab3->setnoborder();
-						$tab3->add_tab_title($v->w("quilified"),"load_applicant_management('quilified','".$_keyword."','created_at','1','".$_key_id."');");
-						$tab3->add_tab_title($v->w("interviewed"),"load_applicant_management('interviewed','".$_keyword."','created_at','1','".$_key_id."');");
-						$tab3->add_tab_title($v->w("not_present"),"load_applicant_management('not_present','".$_keyword."','created_at','1','".$_key_id."');");
+						$tab3->add_tab_title($v->w("quilified"),"load_applicant_management('quilified','".$_keyword."','applied_date','1','".$_key_id."');");
+						$tab3->add_tab_title($v->w("interviewed"),"load_applicant_management('interviewed','".$_keyword."','applied_date','1','".$_key_id."');");
+						$tab3->add_tab_title($v->w("not_present"),"load_applicant_management('not_present','".$_keyword."','applied_date','1','".$_key_id."');");
 						$tab3->add_tab_container("<div id='quilified'></div>");
 						$tab3->add_tab_container("<div id='interviewed'></div>");
 						$tab3->add_tab_container("<div id='not_present'></div>");
@@ -200,8 +205,8 @@ $_page = $_GET["page"];
 							$tab4->set_area_width(995);
 							$tab4->set_area_height(50);
 							$tab4->setnoborder();
-							$tab4->add_tab_title($v->w("interviewed"),"load_applicant_management('interviewed','".$_keyword."','created_at','1','".$_key_id."');");
-							$tab4->add_tab_title($v->w("accepted"),"load_applicant_management('accepted','".$_keyword."','created_at','1','".$_key_id."');");
+							$tab4->add_tab_title($v->w("interviewed"),"load_applicant_management('interviewed','".$_keyword."','applied_date','1','".$_key_id."');");
+							$tab4->add_tab_title($v->w("accepted"),"load_applicant_management('accepted','".$_keyword."','applied_date','1','".$_key_id."');");
 							$tab4->add_tab_container("<div id='interviewed'></div>");
 							$tab4->add_tab_container("<div id='accepted'></div>");
 							$tab4->set_bordercolor("#0CB31D");

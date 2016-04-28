@@ -51,6 +51,8 @@
 		$updating = $db->update();
 		echo $updating["affected_rows"];
 	}
+	
+	if($_mode == "generate_token"){ echo $db->generate_token($_GET["id_key"]); }
 
 	if(	$_mode == "load_profile" || 
 		$_mode == "edit_company_profile" || 

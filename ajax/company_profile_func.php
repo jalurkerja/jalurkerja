@@ -1,6 +1,11 @@
 <?php
 	function company_profile_applicant_management_list($key_id,$tabid,$keyword,$sort,$page){
 		global $__locale,$__user_id,$v,$t,$db,$f;
+		/* echo "<br>key_id => $key_id";
+		echo "<br>tabid => $tabid";
+		echo "<br>keyword => $keyword";
+		echo "<br>sort => $sort";
+		echo "<br>page => $page"; */
 		
 		//collect data to temp_applicant_management
 		$db->addtable("temp_applicant_management");$db->where("user_id_view",$__user_id);$db->delete_();
@@ -12,6 +17,13 @@
 		$filter_categories = $db->fetch_data();
 		
 		$whereclause = "opportunity_id = '".$key_id."'";
+		if($tabid == "unviewed") 	$whereclause .= " AND applicant_status_id = 0";
+		if($tabid == "viewed") 		$whereclause .= " AND applicant_status_id = 1";
+		if($tabid == "quilified") 	$whereclause .= " AND applicant_status_id = 2";
+		if($tabid == "denied") 		$whereclause .= " AND applicant_status_id = 3";
+		if($tabid == "interviewed") $whereclause .= " AND applicant_status_id = 4";
+		if($tabid == "not_present") $whereclause .= " AND applicant_status_id = 5";
+		if($tabid == "accepted") 	$whereclause .= " AND applicant_status_id = 6";
 		$db->addtable("applied_opportunities");$db->awhere($whereclause);
 		$applied_opportunities = $db->fetch_data(true);
 		$maxrow = count($applied_opportunities);
@@ -82,12 +94,12 @@
 				$match_level_2++;
 				if($experience_years >= $opportunity["experience_years"]){ $match_level_1++; $matched_categories .= "experience_years, ";}
 			}
-			$match_level = $match_level_1."/".$match_level_2;
+			$match_level = substr("00",0,2-strlen($match_level_1)).$match_level_1."/".substr("00",0,2-strlen($match_level_2)).$match_level_2;
 			$name = $seeker_profile["first_name"]." ".$seeker_profile["middle_name"]." ".$seeker_profile["last_name"];
 			$gender_id = $seeker_profile["gender_id"];
 			$province_id = $seeker_profile["province_id"];
 			$location_id = $seeker_profile["location_id"];
-			$applied_date = $applied_opportunities["created_at"];
+			$applied_date = $applied_opportunity["created_at"];
 			$db->addtable("seeker_experiences");$db->where("user_id",$user_id);$db->order("startdate DESC");$db->limit(1);
 			$last_seeker_experiences = $db->fetch_data();
 			$position = $last_seeker_experiences["position"];
@@ -101,7 +113,7 @@
 			$degree_id = $last_seeker_educations["degree_id"];
 			$major_id = $last_seeker_educations["major_id"];
 			$photo = $seeker_profile["photo"]; if($photo == "") $photo = "nophoto.png";
-			$applicant_status_id = $applied_opportunities["applicant_status_id"];
+			$applicant_status_id = $applied_opportunity["applicant_status_id"];
 			
 			$db->addtable("temp_applicant_management");
 			$db->addfield("user_id_view");$db->addvalue($__user_id);
@@ -144,7 +156,7 @@
 		
 		$return .= "<table width='100%'><tr><td align='right' nowrap>".$v->w("sort_by")." : ".$sel_sortby."</td></tr></table>";
 		$return .= "<div style='margin:10px;width:950px;' class='seeker_profile_sp_detail'>";
-		$return .= 		$t->start("style='width:950px;'","","content_data");
+		$return .= 		$t->start("style='width:950px;cursor:pointer;'","","content_data");
 		$return .= 			$t->header(array(	"%",
 												$v->w("candidate_profile"),
 												$v->w("work_experience"),
@@ -171,13 +183,14 @@
 			$major = $db->fetch_single_data("majors","name_".$__locale,array("id" => $t_a_m["major_id"]));
 			$matched_categories = str_replace(",","<br>",$t_a_m["matched_categories"]);
 			$applicant_status_id = ($t_a_m["applicant_status_id"] > 0) ? $db->fetch_single_data("applicant_status","name",array("id" => $t_a_m["applicant_status_id"])) : $v->w("unviewed");
+			$row_attr[] = "onclick=\"load_applicant_management_detail('".$t_a_m["opportunity_id"]."','".$t_a_m["user_id"]."');\"";
 			$rows[] = array(
 							$t_a_m["match_level"],
 							
 							"<b>".$t_a_m["name"]."</b><br>".
 							$gender.", ".$t_a_m["age"]." ".$v->w("years")."<br>".
 							$location."<br>".
-							$v->w("applied_date")." :".format_tanggal($t_a_m["applied_date"]),
+							$v->w("applied_date")." :".format_tanggal($t_a_m["applied_date"],"dMY"),
 							
 							"<b>".$t_a_m["position"]."</b><br>".
 							$t_a_m["company_name"]."<br>".
@@ -197,7 +210,7 @@
 						);
 		}
 		
-		foreach($rows as $row) { $return .= $t->row($row,array("style='width:5px;font-size:11px;' valign='top'")); }
+		foreach($rows as $key => $row) { $return .= $t->row($row,array("style='width:5px;font-size:11px;' valign='top'"),$row_attr[$key]); }
 		$return .= 		$t->end();
 		$return .= "</div>";
 		$return .= "<div style='margin:10px;width:950px;text-align:center;' class='whitecard'>";

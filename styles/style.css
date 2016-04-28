@@ -650,6 +650,49 @@ body {
 .card .content_data tr:nth-child(even) {background: rgba(3, 3, 3, 0.3);}
 .card .content_data tr:nth-child(odd) {background: rgba(12, 179, 29, 0.3);}
 
+.applicant_resume_header{
+	margin-left:200px;
+	margin-top:20px;
+}
+
+.applicant_resume_header_border{
+	margin-top:10px;
+	border-bottom:6px solid rgba(12, 179, 29, 0.3);
+}
+
+.applicant_resume_border{
+	margin-top:20px;
+	margin-bottom:10px;
+	padding-left:10px;
+	font-weight:bolder;
+	border-bottom:1px solid rgba(12, 179, 29, 0.3);
+}
+
+.applicant_resume_header #name{
+	font-weight:bolder;
+	font-size:20px;
+	padding-top:10px;
+	padding-bottom:5px;
+}
+
+.applicant_resume_header #workplace{
+	font-weight:bolder;
+	font-size:14px;
+	padding-bottom:5px;
+}
+
+.applicant_resume_header #phone,#mail{
+	font-weight:bolder;
+	font-size:12px;
+	padding-bottom:5px;
+}
+
+.applicant_resume_profile{
+	margin-left:200px;
+	margin-top:10px;
+	font-size:12px;
+}
+
 .navigation {
 	width:700px;
 	float:right:

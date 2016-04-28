@@ -104,7 +104,7 @@ class Vocabulary{
 		$arr[$l]["closing_date"]							= "Closing Date";
 		$arr[$l]["created_at"]								= "Created Date";
 		$arr[$l]["empty_result"]							= "Your search produced no result. Please select a new set of criteria and search again.";
-		$arr[$l]["web"]										= "Web";
+		$arr[$l]["web"]										= "Website";
 		$arr[$l]["empty_description"]						= "No Description";
 		$arr[$l]["empty_requirement"]						= "No Requirement";
 		$arr[$l]["error_wrong_username_password"]			= "Username and/or Password was wrong";
@@ -253,6 +253,10 @@ class Vocabulary{
 		$arr[$l]["candidate_profile"]			 			= "Candidate Profile";
 		$arr[$l]["experience_years"]			 			= "Experience Years";
 		$arr[$l]["resume_status"]			 				= "Resume Status";
+		$arr[$l]["applicant_resume"]			 			= "Applicant Resume";
+		$arr[$l]["applicant_process"]			 			= "Applicant Process";
+		$arr[$l]["place_and_birth_date"]			 		= "Place and birth date";
+		$arr[$l]["last_updated"]			 				= "Last Updated";
 		/*==================================================================================================================================*/
 		/*==================================================================================================================================*/
 		$l = "id";
@@ -492,6 +496,10 @@ class Vocabulary{
 		$arr[$l]["candidate_profile"]			 			= "Profil Kandidat";
 		$arr[$l]["experience_years"]			 			= "Tahun Pengalaman";
 		$arr[$l]["resume_status"]			 				= "Status Resume";
+		$arr[$l]["applicant_resume"]			 			= "Resume Pelamar";
+		$arr[$l]["applicant_process"]			 			= "Proses Pelamar";
+		$arr[$l]["place_and_birth_date"]			 		= "Tempat dan tanggal lahir";
+		$arr[$l]["last_updated"]			 				= "Terakhir Update";
 		
 		return $arr[$this->locale][$index];
 	}
