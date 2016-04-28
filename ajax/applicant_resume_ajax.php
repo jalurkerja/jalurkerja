@@ -1,7 +1,39 @@
 <?php 
 	include_once "../common.php";
 	if($__company_id != "" && $_GET["user_id"] != ""){ $user_id = $_GET["user_id"]; } else { $user_id = $__user_id; }
-	$db->addtable("seeker_profiles");$db->where("user_id",$_GET["user_id"]);$db->limit(1);
+	
+	$opportunity_id = $_GET["opportunity_id"];
+	if($__company_id != "" && $user_id != "" && $opportunity_id != ""){
+		$db->addtable("applied_opportunities");$db->where("user_id",$user_id);$db->where("opportunity_id",$opportunity_id);$db->limit(1);
+		$applied_opportunities = $db->fetch_data();
+		if($applied_opportunities["user_id"] == $user_id && $applied_opportunities["opportunity_id"] == $opportunity_id){
+			$applied_opportunities_id = $applied_opportunities["id"];
+			$applicant_status_id = $applied_opportunities["applicant_status_id"];
+			$viewed_count = $applied_opportunities["viewed_count"] + 1;
+			
+			if($applicant_status_id == 0){
+				$db->addtable("applied_opportunities");$db->where("user_id",$user_id);$db->where("opportunity_id",$opportunity_id);
+				$db->addfield("applicant_status_id");$db->addvalue(1);$db->update();
+				
+				$db->addtable("applicant_process_history");
+				$db->addfield("applied_opportunities_id");$db->addvalue($applied_opportunities_id);
+				$db->addfield("applicant_status_id");$db->addvalue(1);
+				$db->addfield("user_id");$db->addvalue($user_id);
+				$db->addfield("opportunity_id");$db->addvalue($opportunity_id);
+				$db->addfield("status_trans");$db->addvalue("|0||1|");
+				$db->addfield("created_at");$db->addvalue(date("Y-m-d H:i:s"));
+				$db->addfield("created_by");$db->addvalue($__user_id);
+				$db->addfield("created_ip");$db->addvalue($_SERVER["REMOTE_ADDR"]);
+				$db->insert();
+			}
+			
+			$db->addtable("applied_opportunities");$db->where("user_id",$user_id);$db->where("opportunity_id",$opportunity_id);
+			$db->addfield("viewed_count");$db->addvalue($viewed_count);$db->update();
+		}
+	}
+	
+	
+	$db->addtable("seeker_profiles");$db->where("user_id",$user_id);$db->limit(1);
 	$seeker_profile = $db->fetch_data();
 	$photo = $seeker_profile["photo"];
 	if($photo == "") $photo = "nophoto.png";
