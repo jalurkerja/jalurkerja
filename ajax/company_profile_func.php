@@ -18,10 +18,10 @@
 		
 		$whereclause = "opportunity_id = '".$key_id."'";
 		if($tabid == "unviewed") 	$whereclause .= " AND applicant_status_id = 0";
-		if($tabid == "viewed") 		$whereclause .= " AND applicant_status_id = 1";
-		if($tabid == "quilified") 	$whereclause .= " AND applicant_status_id = 2";
+		if($tabid == "viewed") 		$whereclause .= " AND applicant_status_id >= 1";
+		if($tabid == "quilified") 	$whereclause .= " AND applicant_status_id IN (2,4,5,6)";
 		if($tabid == "denied") 		$whereclause .= " AND applicant_status_id = 3";
-		if($tabid == "interviewed") $whereclause .= " AND applicant_status_id = 4";
+		if($tabid == "interviewed") $whereclause .= " AND applicant_status_id IN (4,6)";
 		if($tabid == "not_present") $whereclause .= " AND applicant_status_id = 5";
 		if($tabid == "accepted") 	$whereclause .= " AND applicant_status_id = 6";
 		$db->addtable("applied_opportunities");$db->awhere($whereclause);
