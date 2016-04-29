@@ -24,7 +24,7 @@ function sendingmail($subject,$address,$body) {
 
 	$mail->MsgHTML($body);
 
-	$mail->AddAddress($address, "Warih suryono");
+	$mail->AddAddress($address);
 
 	if(!$mail->Send()) { return "0"; } else { return "1"; }
 }

@@ -5,6 +5,10 @@
 	if($mailer["isdebug"]==0) $isdebug = "Ya";
 	if($mailer["isdebug"]==1) $isdebug = "Tidak";
 	
+	if($mailer["status"]==0) $status = "Unsend";
+	if($mailer["status"]==1) $status = "Progress";
+	if($mailer["status"]==2) $status = "Sent";
+	
 ?>
 <?=$f->start("","POST","","enctype='multipart/form-data'");?>
 	<?=$t->start("","editor_content");?>
@@ -13,7 +17,10 @@
 		<?=$t->row(array("Body",$mailer["body"]));?>
 		<?=$t->row(array("Is Debuging",$isdebug));?>
 		<?=$t->row(array("Execute Time",format_tanggal($mailer["exec_time"],"",true)));?>
+		<?=$t->row(array("Status",$status));?>
+		<?=$t->row(array("Started Time",format_tanggal($mailer["started_time"],"",true)));?>
+		<?=$t->row(array("Finished Time",format_tanggal($mailer["finished_time"],"",true)));?>
 	<?=$t->end();?>
-	<?=$f->input("back","Back","type='button' onclick=\"window.location='".str_replace("_edit","_list",$_SERVER["PHP_SELF"])."';\"");?>
+	<?=$f->input("back","Back","type='button' onclick=\"window.location='".str_replace("_view","_list",$_SERVER["PHP_SELF"])."';\"");?>
 <?=$f->end();?>
 <?php include_once "footer.php";?>
