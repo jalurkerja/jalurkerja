@@ -165,8 +165,11 @@
 			$this->addfield($field);
 			$this->limit(1);
 			
-			foreach($wheres as $condition => $value) {
-				$this->where($condition,$value);
+			if(count($wheres) > 0) {
+				foreach($wheres as $condition => $value) {
+					$values = explode(":",$value);
+					$this->where($condition,$values[0],"",$values[1]);
+				}
 			}
 			
 			if(count($orders) > 0) {

@@ -56,8 +56,11 @@
 			$db->addfield("created_by");$db->addvalue($__user_id);
 			$db->addfield("created_ip");$db->addvalue($_SERVER["REMOTE_ADDR"]);
 			$db->insert();
+			if($change_status == 0) {
+			?> <script> alert("Process status changed");window.close(); </script> <?php
+			}
+			?> <script> alert("Process status changed");tab_toggle_applicant(1);load_applicant_process(); </script> <?php
 		}
-		?> <script> alert("Process status changed");tab_toggle_applicant(1);load_applicant_process(); </script> <?php
 	}
 ?>
 </center>
