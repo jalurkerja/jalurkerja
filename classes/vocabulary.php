@@ -257,6 +257,9 @@ class Vocabulary{
 		$arr[$l]["applicant_process"]			 			= "Applicant Process";
 		$arr[$l]["place_and_birth_date"]			 		= "Place and birth date";
 		$arr[$l]["last_updated"]			 				= "Last Updated";
+		$arr[$l]["post_your_opportunity_ad"]			 	= "Post Your opportunity ad";
+		$arr[$l]["you_still_have_a_quota_of_ads"]			= "You still have a quota of ads";
+		$arr[$l]["unlimited"]								= "Unlimited";
 		/*==================================================================================================================================*/
 		/*==================================================================================================================================*/
 		$l = "id";
@@ -500,6 +503,9 @@ class Vocabulary{
 		$arr[$l]["applicant_process"]			 			= "Proses Pelamar";
 		$arr[$l]["place_and_birth_date"]			 		= "Tempat dan tanggal lahir";
 		$arr[$l]["last_updated"]			 				= "Terakhir Update";
+		$arr[$l]["post_your_opportunity_ad"]			 	= "Pasang iklan lowongan Anda";
+		$arr[$l]["you_still_have_a_quota_of_ads"]			= "Anda masih memiliki quota iklan";
+		$arr[$l]["unlimited"]								= "Tanpa batas";
 		
 		return $arr[$this->locale][$index];
 	}

@@ -31,6 +31,20 @@
 			var global_respon = new Array();
 			var select_box_active_id = "";
 			
+			function toogle_bo_filter(){
+				var bo_filter_container = document.getElementById('bo_filter_container'),
+				style = window.getComputedStyle(bo_filter_container),
+				bo_filter_container_display = style.getPropertyValue('display');
+				if(bo_filter_container_display == "none") {
+					bo_filter_container.style.display="block";
+					bo_expand.innerHTML="[-] Hide Filter";
+				}
+				if(bo_filter_container_display == "block") {
+					bo_filter_container.style.display="none";
+					bo_expand.innerHTML="[+] View Filter";
+				}
+			}
+			
 			function hiding_select_box(current_id){
 				if(select_box_active_id != "" && current_id != select_box_active_id){
 					$("#"+select_box_active_id).fadeOut(500);

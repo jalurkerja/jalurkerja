@@ -194,7 +194,7 @@
 			
 		}
 		
-		public function fetch_select_data($table,$id,$field,$wheres = array(),$orders = array(),$limit = "") {
+		public function fetch_select_data($table,$id,$field,$wheres = array(),$orders = array(),$limit = "",$startwithnone = false) {
 			$this->addtable($table);
 			$this->addfield($id);
 			$this->addfield($field);
@@ -215,6 +215,7 @@
 			if($limit != "") $this->limit($limit);
 			
 			$return = array();
+			if($startwithnone) $return[""] = "";
 			foreach($this->fetch_data(true) as $arrdata){
 				$return[$arrdata[0]] = $arrdata[1];
 			}

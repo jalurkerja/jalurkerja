@@ -34,6 +34,7 @@
 	$f = new FormElements();
 	$t = new Tables();
 	$h = new Helper();
+	if($_SERVER["REMOTE_ADDR"] == "::1") $_SERVER["REMOTE_ADDR"] = "127.0.0.1";
 	
 	function chr13tobr($string) { return str_replace(chr(13).chr(10),"<br>",$string); }
 	

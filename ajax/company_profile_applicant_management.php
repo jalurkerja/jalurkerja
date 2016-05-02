@@ -87,7 +87,8 @@ $_page = $_GET["page"];
 						$member_package="No Member";
 						$active_date = format_tanggal($created_at,"dMY");
 						$end_date = format_tanggal($end_date,"dMY");
-						$opportunity_quota = "Unlimited";
+						$remain_opportunity = $db->fetch_single_data("company_profiles","remain_opportunity",array("id" => $__company_id)) * 1;
+						$opportunity_quota = ($remain_opportunity < 0) ? $v->w("unlimited") : $remain_opportunity;;
 						$used_quota = $db->fetch_single_data("opportunities","count(*)",array("company_id" => $__company_id));
 					?>
 					<div class="whitecard"><br><center><img width="150" src="<?=$logo;?>"></center><br></div>

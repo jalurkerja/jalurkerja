@@ -32,10 +32,13 @@
 	?>
 	</td></tr></table>
 	
-<?php if($_GET["mode"] == "load_applicant_management"){ ?> 
-	<script> 
-		tab_toggle_employer_pages('1');
+<?php 
+	if($_GET["mode"] == "load_applicant_management"){ 
+	?> <script> 
+		tab_toggle_employer_pages('1'); 
 		load_applicant_management("<?=$_GET["tabid"];?>","<?=$_GET["keyword"];?>","<?=$_GET["sort"];?>","<?=$_GET["page"];?>","<?=$_GET["key_id"];?>");
-	</script> 
-<?php } ?>
+	</script> <?php 
+	} 
+	if($_GET["mode"] == "load_advertising"){ ?> <script> tab_toggle_employer_pages('2'); load_advertising("<?=str_replace("mode=load_advertising","",$_SERVER["QUERY_STRING"]);?>"); </script> <?php  } 
+?>
 <?php include_once "footer.php"; ?>

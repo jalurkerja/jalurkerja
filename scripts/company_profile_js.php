@@ -6,7 +6,32 @@
 		window.history.pushState("","",url_string);
 		get_ajax("ajax/company_profile_ajax.php"+url_string,"applicant_management","remove_footer('applicant_management');"); 
 	}
-	function load_advertising()				{ get_ajax("ajax/company_profile_ajax.php?mode=load_advertising",			"advertising","remove_footer('advertising');"); }
+	function load_advertising(gets)				{ 
+		var url_string = "?mode=load_advertising&"+gets;
+		get_ajax("ajax/company_profile_ajax.php"+url_string,"advertising","remove_footer('advertising');");
+		window.history.pushState("","",url_string);
+		$('html, body').animate({scrollTop : 0},800);
+	}
+	function search_advertising() { load_advertising($("#search_advertising_form").serialize()); }
+	function adding_advertising() { $.post( "ajax/company_profile_ajax.php", { post_data: $("#add_advertising_form").serialize() }).done(function( data ) { after_save_adding_advertising(data); }); }
+	function after_save_adding_advertising(data){
+		if(data >= 0){
+			document.getElementById('add_advertising').value = 2; 
+			document.getElementById('add_opportunity_id').value = data; 
+			search_advertising();
+		} else {
+			popup_message("<?=$v->words("your_data_fails_to_be_saved");?>","error_message","document.getElementById('add_advertising').value = 0; load_advertising()");
+		}
+	}
+	function adding_advertising2() { $.post( "ajax/company_profile_ajax.php", { post_data: $("#add_advertising_form2").serialize() }).done(function( data ) { after_save_adding_advertising2(data); }); }
+	function after_save_adding_advertising2(data){
+		if(data > 0){
+			popup_message("<?=$v->words("your_data_successfully_saved");?>","","document.getElementById('add_advertising').value = 0; load_advertising()");
+		} else {
+			popup_message("<?=$v->words("your_data_fails_to_be_saved");?>","error_message","document.getElementById('add_advertising').value = 0; load_advertising()");
+		}
+	}
+	
 	function load_candidate_search()		{ get_ajax("ajax/company_profile_ajax.php?mode=load_candidate_search",		"candidate_search","remove_footer('candidate_search');"); }
 	function load_report()					{ get_ajax("ajax/company_profile_ajax.php?mode=load_report",				"report","remove_footer('report');"); }
 	function load_setting()					{ get_ajax("ajax/company_profile_ajax.php?mode=load_setting",				"setting","remove_footer('setting');"); }
@@ -50,4 +75,8 @@
 		var current_height = document.getElementById(area).offsetHeight * 1;
 		if(current_height > 0) footer_area.style.top = (current_height + 250) + "px";
 	}	
+	
+	// function load_detail_opportunity(opportunity_id){
+		// get_ajax("ajax/searchjob_ajax.php?mode=generate_token&opportunity_id="+opportunity_id,"return_generate_token","openwindow('opportunity_detail.php?id="+opportunity_id+"&token='+global_respon['return_generate_token']);");
+	// }
 </script>
