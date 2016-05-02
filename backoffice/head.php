@@ -74,7 +74,7 @@
 				filter.submit();
 			}
 			
-			function openwindow(url){ window.open(url,"","width=1100 height=800"); }
+			function openwindow(url){ window.open(url,"","width=1100,height=800,scrollbars=yes"); }
 		</script>
 	</head>
 	<body id="bodyid" style="margin:0px;">

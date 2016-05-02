@@ -7,7 +7,7 @@
 	function load_documents_saved_opporunities()	{ get_ajax("ajax/seeker_profile_ajax.php?mode=load_documents_saved_opporunities",	"documents_saved_opportunities","remove_footer('documents_saved_opportunities');"); }
 	function load_documents_applied_opporunities()	{ get_ajax("ajax/seeker_profile_ajax.php?mode=load_documents_applied_opporunities",	"documents_applied_opportunities","remove_footer('documents_applied_opportunities');"); }
 	/*START PERSONAL DATA =======================================================================================================*/
-	function edit_photo(){ var win_edit_photo = window.open("seeker_profile_edit_photo.php","seeker_profile_edit_photo","width=300 height=300"); }
+	function edit_photo(){ var win_edit_photo = window.open("seeker_profile_edit_photo.php","seeker_profile_edit_photo","width=300,height=300"); }
 	function edit_personal_data()			{ get_ajax("ajax/seeker_profile_ajax.php?mode=edit_personal_data",			"profile","remove_footer('profile');"); }
 	function save_personal_data() 			{ $.post( "ajax/seeker_profile_ajax.php", { post_data: $("#personal_data_form").serialize() }).done(function( data ) { after_save_personal_data(data); }); }
 	function after_save_personal_data(data)	{ 
@@ -17,7 +17,7 @@
 			popup_message("<?=$v->words("your_profile_fails_to_be_saved");?>","error_message","load_profile()");
 		}
 	}
-	function print_view(){ var win_edit_photo = window.open("seeker_profile_print_view.php","seeker_profile_print_view","width=1100 height=800"); }
+	function print_view(){ var win_edit_photo = window.open("seeker_profile_print_view.php","seeker_profile_print_view","width=1100,height=800,scrollbars=yes"); }
 	/*END PERSONAL DATA =======================================================================================================*/
 	/*START WORK EXPERIENCE=======================================================================================================*/
 	function add_work_experience()			{ get_ajax("ajax/seeker_profile_ajax.php?mode=add_work_experience",			"profile","remove_footer('profile');"); }
