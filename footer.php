@@ -70,6 +70,9 @@
 			</div>
 		</div>
 		<script>
+			<?php if(isset($_POST["register_as_employer"])) { ?> 
+				popup_message("<table width='500'><tr><td>Data Anda telah terkirim ke Customer Service Kami,<br>dan akan segera menghubungi Anda. Terima Kasih</td></tr></table>"); 
+			<?php } ?>
 			function load_registrasi(){
 				<?php if($__isloggedin) { ?>
 					popup_message("<?=$v->w("you_already_registered");?>");
@@ -80,7 +83,7 @@
 
 			function load_advice_center(){ popup_message("<?=$v->w("coming_soon");?>"); }
 			function load_advanced_search(){ popup_message("<?=$v->w("coming_soon");?>"); }
-			function load_register_as_employer(){ get_ajax("contactus.php","contactus","setTimeout(function(){ popup_message(global_respon['contactus']); }, 10);"); }
+			function load_register_as_employer(){ get_ajax("register_as_employer.php","register_as_employer","setTimeout(function(){ $.fancybox.open(global_respon['register_as_employer']); }, 10);"); }
 			function load_search_all_candidates(){ popup_message("<?=$v->w("coming_soon");?>"); }
 			function load_products_and_prices(){ get_ajax("contactus.php","contactus","setTimeout(function(){ popup_message(global_respon['contactus']); }, 10);"); }
 			function load_terms_and_conditions(){ popup_message("<?=$v->w("coming_soon");?>"); }

@@ -69,7 +69,7 @@
 					
 				?>
 				<?php $arr_attr[] = "";$arr_attr[] = "";$arr_attr[] = "";$arr_attr[] = "style='vertical-align:middle;'";?>
-				<?php $arrfields[0][3] = $f->input("",$v->words("search"),'type="submit"',"btn_sign"); ?>
+				<?php $arrfields[0][3] = $f->input("search_btn",$v->words("search"),'type="submit"',"btn_sign"); ?>
 				<?=$t->row($arrfields[0],$arr_attr);?>
 				<?=$t->row($arrfields[1],$arr_attr);?>
 				<?=$t->row($arrfields[2],array("nowrap align='right' colspan='3'"));?>
@@ -89,6 +89,7 @@
 		$tab->add_tab_title($v->words("job_function"));
 		$tab->add_tab_title($v->words("job_level"));
 		$tab->add_tab_title($v->words("work_location"));
+		$tab->add_tab_title("<div onclick=\"document.getElementById('chk_syariah').checked = true; search_btn.click(); \"'>Syariah</div>");
 		
 		/**JOB FUNCTIONS**/
 		$db->addtable("job_functions");

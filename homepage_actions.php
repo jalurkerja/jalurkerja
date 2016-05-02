@@ -1,5 +1,21 @@
 <?php 
 	include_once "common.php";
+	include_once "func.sendingmail.php";
+	if(isset($_POST["register_as_employer"])){
+		$body = "<table>";
+		$body .= "<tr><td>Email</td><td>:</td><td>".$_POST["email"]."</td></tr>";
+		$body .= "<tr><td>Nama Perusahaan</td><td>:</td><td>".$_POST["nama"]."</td></tr>";
+		$body .= "<tr><td>Alamat Perusahaan</td><td>:</td><td>".chr13tobr($_POST["alamat"])."</td></tr>";
+		$body .= "<tr><td>PIC</td><td>:</td><td>".$_POST["pic"]."</td></tr>";
+		$body .= "<tr><td>No Handphone</td><td>:</td><td>".$_POST["handphone"]."</td></tr>";
+		$body .= "<tr><td>No Telpon</td><td>:</td><td>".$_POST["telp"]."</td></tr>";
+		$body .= "<tr><td>No Fax</td><td>:</td><td>".$_POST["fax"]."</td></tr>";
+		$body .= "<tr><td>Deskripsi Perusahaan</td><td>:</td><td>".chr13tobr($_POST["deskripsi"])."</td></tr>";
+		$body .= "<tr><td>Industri</td><td>:</td><td>".$_POST["industri"]."</td></tr>";
+		$body .= "<tr><td>Website</td><td>:</td><td>".$_POST["website"]."</td></tr>";
+		$body .= "</table>";
+		sendingmail("Register As Employer","cs@jalurkerja.com",$body);
+	}
 	if(isset($_GET["just_signup"]) || $_GET["just_signup"] != "" ){
 		$signup_email = $db->fetch_single_data("users","email",array("id" => $__user_id));
 		
