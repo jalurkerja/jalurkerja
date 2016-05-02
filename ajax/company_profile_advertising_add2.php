@@ -43,9 +43,9 @@ Pastikan filter yang Anda pilih adalah filter yang benar-benar menjadi prioritas
 							$f->input("age","1","type='checkbox' ".$age)." Umur"
 						));
 			echo $t->row(array(
-							$f->input("back","Kembali","class='btn_sign' style='width:200px;' type='button' onclick=\"edit_advertising_1('".$opportunity_id."');\"")." ".
-							$f->input("show","Lihat Iklan","class='btn_sign' style='width:200px;' type='button' onclick=\"view_advertising('".$opportunity_id."');\"")." ".
-							$f->input("save","Pasang Iklan","class='btn_sign' style='width:200px;' type='button' onclick=\"adding_advertising2();\""),
+							$f->input("back","Kembali","class='btn_sign' style='background-color: #FF6808;width:200px;' type='button' onclick=\"edit_advertising_1('".$opportunity_id."');\"")." ".
+							$f->input("show","Lihat Iklan","class='btn_sign' style='background-color: #FF6808;width:200px;' type='button' onclick=\"view_advertising('".$opportunity_id."');\"")." ".
+							$f->input("save","Pasang Iklan","class='btn_sign' style='background-color: #FF6808;width:200px;' type='button' onclick=\"adding_advertising2();\""),
 						),array("colspan='2' align='center'"));
 		echo $t->end();
 		echo $f->input("saving_add_advertising2","1","type='hidden'");
