@@ -15,7 +15,7 @@
 		<meta name="revisit-after" content="7 days"/>
 		<meta name="robots" content="index, follow"/>
 		<link rel="Shortcut Icon" href="favicon.ico">
-		<title id="titleid">JalurKerja.com</title>
+		<title id="titleid">JalurKerja.com [BETA]</title>
 		
 		<script src="scripts/jquery-1.10.1.min.js"></script>
 		<script type="text/javascript" src="scripts/jquery.fancybox.js"></script>
