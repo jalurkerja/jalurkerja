@@ -6,10 +6,10 @@
 	
 
 //===========================================================================================================================================
-	$timeFirst  = strtotime(date("Y-m-d H:i:s"));
+	$timeFirst  = strtotime(gmdate("Y-m-d H:i:s",mktime(date("H")+7)));
 	$timeSecond = strtotime('2016-05-10 08:00:00');
 	$differenceInSeconds = $timeSecond - $timeFirst;
-	if($differenceInSeconds > 0){
+	if($differenceInSeconds > 0 && $_SERVER["REMOTE_ADDR"] != "::1" && $_SERVER["REMOTE_ADDR"] != "61.247.63.185"){
 ?>
 	<style>
 	body{

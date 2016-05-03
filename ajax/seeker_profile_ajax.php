@@ -322,7 +322,7 @@
 	
 	if($_mode == "load_setting_desires" ){ 					include_once "seeker_profile_setting_desires.php"; }
 	
-	if($_mode == "load_setting_membership"){ 				echo "Ini Setting Membership"; }
+	if($_mode == "load_setting_membership"){ 				echo ""; }
 	
 	if($_mode == "load_documents_saved_search"){ 			include_once "seeker_profile_saved_search.php"; }
 	if($_mode == "load_documents_saved_opporunities"){ 		include_once "seeker_profile_saved_opporunities.php"; }
