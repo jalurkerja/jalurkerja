@@ -131,8 +131,8 @@
 		<?=$t->row(array("Requirement",$txt_requirement));?>
 		<?=$t->row(array("Contact Person",$txt_contact_person));?>
 		<?=$t->row(array("Description",$txt_description));?>
-		<?=$t->row(array("Closing Date",$date_closing_date));?>
 		<?=$t->row(array("Posted At",$date_posted_at));?>
+		<?=$t->row(array("Closing Date",$date_closing_date));?>
 		<?=$t->row(array("Logo",$txt_logo."<br>Biarkan kosong jika ingin menggunakan company logo"));?>
 	<?=$t->end();?>
 	<?=$f->input("save","Save","type='submit'");?> <?=$f->input("back","Back","type='button' onclick=\"window.location='".str_replace("_add","_list",$_SERVER["PHP_SELF"])."';\"");?>
