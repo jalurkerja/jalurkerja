@@ -92,7 +92,9 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 		<?php } else if(@file_exists("../seekers_photo/nophoto.png")) { ?>
 			<div id="photo"><img id="photo" src="seekers_photo/nophoto.png" style="height:150px;"></div>
 		<?php } ?>
+		<?php if(!isset($_print_view)){ ?>
 		<div id="photo_nav"><?=$f->input("photo_nav",$v->w("edit"),"type='button' onclick=\"edit_photo('".$__user_id."');\"","btn_post");?></div>
+		<?php } ?>
 		
 		<table width="100%"><tr><td align="center">
 			<?=(!$edit_personal_data && !isset($_print_view)) ? $nav_personal_data : "";?>
@@ -103,6 +105,150 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 				<?=$t->end();?>
 			<?=$f->end();?>
 			<?=($edit_personal_data) ? $nav_personal_data : "";?>
+		</td></tr></table>
+	</div>
+</div>
+<div style="height:20px;"></div>
+<!---------------------------------------------------------------------------------------------------------------------------------------------------------------->
+<div class="card">
+	<div id="title"><?=$v->words("education");?></div>
+	<div id="content">
+		<table width="100%"><tr><td align="center">
+			<?php 
+				$btn_add_education = $t->row(array($f->input("add",$v->words("add"),"type='button' onclick=\"add_education();\"","btn_post")),array("align='right'"));
+				$btn_save_cancel_add_education = $t->row(
+													array(
+														$f->input("save",$v->words("save"),"type='button' onclick=\"save_add_education();\"","btn_post")." ".
+														$f->input("cancel",$v->words("cancel"),"type='button' onclick=\"load_profile();\"","btn_post").
+														"<div style='height:20px;'></div>"
+													),
+													array("align='right'")
+												);
+				
+				$btn_nav = (!$add_education) ? $btn_add_education : $btn_save_cancel_add_education;
+				$btn_nav = $t->start("","","navigation") . $btn_nav . $t->end();
+				
+				if($add_education) {
+					
+					$schools = 			$db->fetch_select_data("schools","id","name_".$__locale,array()); 						$schools[0] = "";asort($schools);
+					$degrees = 			$db->fetch_select_data("degree","id","name_".$__locale,array()); 						$degrees[0] = "";ksort($degrees);
+					$majors = 			$db->fetch_select_data("majors","id","name_".$__locale,array()); 						$majors[0] = "";asort($majors);
+					
+					$school_input = $f->input("school_id","","type='hidden'").$f->input("school_name","","autocomplete='off' onkeyup='loadSelectSchools(this.value,event.keyCode);'");
+					$school_input .= "	<div style=\"position:absolute;display:none;\" id=\"div_select_school\">
+										  <table style=\"border:grey solid 1px; background-color:#EFEFEF;\">
+											<tr><td id=\"select_school\"></td></tr>
+										  </table>
+										</div>";
+					
+					$rows = array();
+					$rows[] = array($v->words("university_school"),$school_input);
+					$rows[] = array($v->words("school_periode"),$f->input("start_year")."<span id='school_graduated_year'> - ".$f->input("graduated_year")."</span> ".$f->input("graduated_year_current","","type='checkbox' onclick='chk_still_school_here(this);'")." ".$v->words("still_school_here"));
+					$rows[] = array($v->words("degree"),$f->select("degree_id",$degrees));
+					$rows[] = array($v->words("major"),$f->select("major_id",$majors));
+					$rows[] = array($v->words("gpa"),$f->input("gpa"));
+					$rows[] = array($v->words("honors"),$f->textarea("honors"));
+					
+					echo $f->start("add_education_form");
+						echo $f->input("saving_add_education_form","1","type='hidden'");
+						echo $t->start("","","content_data");
+						foreach($rows as $row) { echo $t->row($row); }
+						echo $t->end();
+					echo $f->end();
+				} 
+				
+				if(isset($_print_view)) $btn_nav="<br>";
+				echo (!$add_education) ? "<div style=\"position:relative;top:-35px;\">".$btn_nav."</div>" : $btn_nav;
+			?>
+		</td></tr></table>
+		<br>
+		<table width="100%" id="table_content"><tr><td align="center">
+			<?php
+				$db->addtable("seeker_educations"); $db->where("user_id",$__user_id);$db->order("seqno");
+				$seeker_educations = $db->fetch_data(true);
+				if(count($seeker_educations) > 0) {
+					foreach($seeker_educations as $key => $arr_seeker_educations) {
+						$id_seeker_educations = $arr_seeker_educations["id"];
+						
+						$btn_edit_education = $t->row(array($f->input("edit",$v->words("edit"),"type='button' onclick=\"edit_education('".$id_seeker_educations."');\"","btn_post")),array("align='right'"));
+						if(isset($_print_view)) $btn_edit_education="<br>";
+						$btn_save_cancel_edit_education = 
+							$t->row(
+								array(
+									$f->input("save",$v->words("save"),"type='button' onclick=\"save_edit_education('".$id_seeker_educations."');\"","btn_post")." ".
+									$f->input("delete",$v->words("delete"),"type='button' onclick=\"delete_education('".$id_seeker_educations."');\"","btn_post")." ".
+									$f->input("cancel",$v->words("cancel"),"type='button' onclick=\"load_profile();\"","btn_post")
+								),
+								array("align='right'")
+							);
+							
+						$rows = array();
+						if($edit_education && $id_seeker_educations == $_GET["id"]){
+							$db->addtable("seeker_educations"); $db->where("id",$id_seeker_educations);$db->limit(1);
+							$arr_e = $db->fetch_data();
+							
+							$schools = 			$db->fetch_select_data("schools","id","name_".$__locale,array()); 						$schools[0] = "";asort($schools);
+							$degrees = 			$db->fetch_select_data("degree","id","name_".$__locale,array()); 						$degrees[0] = "";ksort($degrees);
+							$majors = 			$db->fetch_select_data("majors","id","name_".$__locale,array()); 						$majors[0] = "";asort($majors);
+							
+							if($arr_e["school_id"] > 0) {
+								$school 	= $db->fetch_single_data("schools","name_".$__locale,array("id" => $arr_e["school_id"]));
+							} else {
+								$school 	= $arr_e["school_name"];
+							}
+							
+							$school_input = $f->input("school_id",$arr_e["school_id"],"type='hidden'").$f->input("school_name",$school,"autocomplete='off' onkeyup='loadSelectSchools(this.value,event.keyCode);'");
+							$school_input .= "	<div style=\"position:absolute;display:none;\" id=\"div_select_school\">
+												  <table style=\"border:grey solid 1px; background-color:#EFEFEF;\">
+													<tr><td id=\"select_school\"></td></tr>
+												  </table>
+												</div>";
+												
+							$is_graduated_year_visible = ($arr_e["graduated_year"] <= 0) ? "style='visibility:hidden;'" : "";
+							$is_graduated_year_checked = ($arr_e["graduated_year"] <= 0) ? "checked" : "";
+							$rows = array();
+							$rows[] = array($v->words("university_school"),$school_input);
+							$rows[] = array($v->words("school_periode"),$f->input("start_year",$arr_e["start_year"])."<span id='school_graduated_year' ".$is_graduated_year_visible."> - ".$f->input("graduated_year",$arr_e["graduated_year"])."</span> ".$f->input("graduated_year_current","","type='checkbox' ".$is_graduated_year_checked." onclick='chk_still_school_here(this);'")." ".$v->words("still_school_here"));
+							$rows[] = array($v->words("degree"),$f->select("degree_id",$degrees,$arr_e["degree_id"]));
+							$rows[] = array($v->words("major"),$f->select("major_id",$majors,$arr_e["major_id"]));
+							$rows[] = array($v->words("gpa"),$f->input("gpa",$arr_e["gpa"]));
+							$rows[] = array($v->words("honors"),$f->textarea("honors",$arr_e["honors"]));
+							
+							echo $f->start("edit_education_form");
+								echo $f->input("saving_edit_education_form","1","type='hidden'");
+								echo $f->input("id_seeker_educations",$id_seeker_educations,"type='hidden'");
+								echo $t->start("","","content_data");
+								foreach($rows as $row) { echo $t->row($row); }
+								echo $t->end();
+							echo $f->end();
+							echo $t->start("","","navigation") . $btn_save_cancel_edit_education . $t->end();
+							echo "<div style='height:20px;'></div>";
+						} else {
+							$degree 		= $db->fetch_single_data("degree","name_".$__locale,array("id" => $arr_seeker_educations["degree_id"]));
+							$major 			= $db->fetch_single_data("majors","name_".$__locale,array("id" => $arr_seeker_educations["major_id"]));
+							if($arr_seeker_educations["school_id"] > 0) {
+								$school 	= $db->fetch_single_data("schools","name_".$__locale,array("id" => $arr_seeker_educations["school_id"]));
+							} else {
+								$school 	= $arr_seeker_educations["school_name"];
+							}
+							$graduated_year = ($arr_seeker_educations["graduated_year"] > 0) ? $arr_seeker_educations["graduated_year"] : $v->words("now");
+							
+							$_e  = "<div class='seeker_profile_sp_detail'>";
+							$_e .= 	$t->start("","","navigation") . $btn_edit_education . $t->end();
+							$_e .= "	<div id='sp_container'>";
+							$_e .= "		<div id='sp_degree_major'>".$degree." - ".$major."</div>";
+							$_e .= "		<div id='sp_school'>".$school."</div>";
+							$_e .= "		<div id='sp_range_date'>".$arr_seeker_educations["start_year"]." - ".$graduated_year."</div>";
+							$_e .= "		<div id='sp_gpa'>".$arr_seeker_educations["gpa"]."</div>";
+							$_e .= "		<div id='sp_description'>".chr13tobr($arr_seeker_educations["honors"])."</div>";
+							$_e .= "	</div>";
+							$_e .= "</div><div style='height:20px;'></div>";
+							
+							echo $_e;
+						}
+					}
+				} 
+			?>
 		</td></tr></table>
 	</div>
 </div>
@@ -343,150 +489,6 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 							$_cert .= "</div><div style='height:20px;'></div>";
 							
 							echo $_cert;
-						}
-					}
-				} 
-			?>
-		</td></tr></table>
-	</div>
-</div>
-<div style="height:20px;"></div>
-<!---------------------------------------------------------------------------------------------------------------------------------------------------------------->
-<div class="card">
-	<div id="title"><?=$v->words("education");?></div>
-	<div id="content">
-		<table width="100%"><tr><td align="center">
-			<?php 
-				$btn_add_education = $t->row(array($f->input("add",$v->words("add"),"type='button' onclick=\"add_education();\"","btn_post")),array("align='right'"));
-				$btn_save_cancel_add_education = $t->row(
-													array(
-														$f->input("save",$v->words("save"),"type='button' onclick=\"save_add_education();\"","btn_post")." ".
-														$f->input("cancel",$v->words("cancel"),"type='button' onclick=\"load_profile();\"","btn_post").
-														"<div style='height:20px;'></div>"
-													),
-													array("align='right'")
-												);
-				
-				$btn_nav = (!$add_education) ? $btn_add_education : $btn_save_cancel_add_education;
-				$btn_nav = $t->start("","","navigation") . $btn_nav . $t->end();
-				
-				if($add_education) {
-					
-					$schools = 			$db->fetch_select_data("schools","id","name_".$__locale,array()); 						$schools[0] = "";asort($schools);
-					$degrees = 			$db->fetch_select_data("degree","id","name_".$__locale,array()); 						$degrees[0] = "";ksort($degrees);
-					$majors = 			$db->fetch_select_data("majors","id","name_".$__locale,array()); 						$majors[0] = "";asort($majors);
-					
-					$school_input = $f->input("school_id","","type='hidden'").$f->input("school_name","","autocomplete='off' onkeyup='loadSelectSchools(this.value,event.keyCode);'");
-					$school_input .= "	<div style=\"position:absolute;display:none;\" id=\"div_select_school\">
-										  <table style=\"border:grey solid 1px; background-color:#EFEFEF;\">
-											<tr><td id=\"select_school\"></td></tr>
-										  </table>
-										</div>";
-					
-					$rows = array();
-					$rows[] = array($v->words("university_school"),$school_input);
-					$rows[] = array($v->words("school_periode"),$f->input("start_year")."<span id='school_graduated_year'> - ".$f->input("graduated_year")."</span> ".$f->input("graduated_year_current","","type='checkbox' onclick='chk_still_school_here(this);'")." ".$v->words("still_school_here"));
-					$rows[] = array($v->words("degree"),$f->select("degree_id",$degrees));
-					$rows[] = array($v->words("major"),$f->select("major_id",$majors));
-					$rows[] = array($v->words("gpa"),$f->input("gpa"));
-					$rows[] = array($v->words("honors"),$f->textarea("honors"));
-					
-					echo $f->start("add_education_form");
-						echo $f->input("saving_add_education_form","1","type='hidden'");
-						echo $t->start("","","content_data");
-						foreach($rows as $row) { echo $t->row($row); }
-						echo $t->end();
-					echo $f->end();
-				} 
-				
-				if(isset($_print_view)) $btn_nav="<br>";
-				echo (!$add_education) ? "<div style=\"position:relative;top:-35px;\">".$btn_nav."</div>" : $btn_nav;
-			?>
-		</td></tr></table>
-		<br>
-		<table width="100%" id="table_content"><tr><td align="center">
-			<?php
-				$db->addtable("seeker_educations"); $db->where("user_id",$__user_id);$db->order("seqno");
-				$seeker_educations = $db->fetch_data(true);
-				if(count($seeker_educations) > 0) {
-					foreach($seeker_educations as $key => $arr_seeker_educations) {
-						$id_seeker_educations = $arr_seeker_educations["id"];
-						
-						$btn_edit_education = $t->row(array($f->input("edit",$v->words("edit"),"type='button' onclick=\"edit_education('".$id_seeker_educations."');\"","btn_post")),array("align='right'"));
-						if(isset($_print_view)) $btn_edit_education="<br>";
-						$btn_save_cancel_edit_education = 
-							$t->row(
-								array(
-									$f->input("save",$v->words("save"),"type='button' onclick=\"save_edit_education('".$id_seeker_educations."');\"","btn_post")." ".
-									$f->input("delete",$v->words("delete"),"type='button' onclick=\"delete_education('".$id_seeker_educations."');\"","btn_post")." ".
-									$f->input("cancel",$v->words("cancel"),"type='button' onclick=\"load_profile();\"","btn_post")
-								),
-								array("align='right'")
-							);
-							
-						$rows = array();
-						if($edit_education && $id_seeker_educations == $_GET["id"]){
-							$db->addtable("seeker_educations"); $db->where("id",$id_seeker_educations);$db->limit(1);
-							$arr_e = $db->fetch_data();
-							
-							$schools = 			$db->fetch_select_data("schools","id","name_".$__locale,array()); 						$schools[0] = "";asort($schools);
-							$degrees = 			$db->fetch_select_data("degree","id","name_".$__locale,array()); 						$degrees[0] = "";ksort($degrees);
-							$majors = 			$db->fetch_select_data("majors","id","name_".$__locale,array()); 						$majors[0] = "";asort($majors);
-							
-							if($arr_e["school_id"] > 0) {
-								$school 	= $db->fetch_single_data("schools","name_".$__locale,array("id" => $arr_e["school_id"]));
-							} else {
-								$school 	= $arr_e["school_name"];
-							}
-							
-							$school_input = $f->input("school_id",$arr_e["school_id"],"type='hidden'").$f->input("school_name",$school,"autocomplete='off' onkeyup='loadSelectSchools(this.value,event.keyCode);'");
-							$school_input .= "	<div style=\"position:absolute;display:none;\" id=\"div_select_school\">
-												  <table style=\"border:grey solid 1px; background-color:#EFEFEF;\">
-													<tr><td id=\"select_school\"></td></tr>
-												  </table>
-												</div>";
-												
-							$is_graduated_year_visible = ($arr_e["graduated_year"] <= 0) ? "style='visibility:hidden;'" : "";
-							$is_graduated_year_checked = ($arr_e["graduated_year"] <= 0) ? "checked" : "";
-							$rows = array();
-							$rows[] = array($v->words("university_school"),$school_input);
-							$rows[] = array($v->words("school_periode"),$f->input("start_year",$arr_e["start_year"])."<span id='school_graduated_year' ".$is_graduated_year_visible."> - ".$f->input("graduated_year",$arr_e["graduated_year"])."</span> ".$f->input("graduated_year_current","","type='checkbox' ".$is_graduated_year_checked." onclick='chk_still_school_here(this);'")." ".$v->words("still_school_here"));
-							$rows[] = array($v->words("degree"),$f->select("degree_id",$degrees,$arr_e["degree_id"]));
-							$rows[] = array($v->words("major"),$f->select("major_id",$majors,$arr_e["major_id"]));
-							$rows[] = array($v->words("gpa"),$f->input("gpa",$arr_e["gpa"]));
-							$rows[] = array($v->words("honors"),$f->textarea("honors",$arr_e["honors"]));
-							
-							echo $f->start("edit_education_form");
-								echo $f->input("saving_edit_education_form","1","type='hidden'");
-								echo $f->input("id_seeker_educations",$id_seeker_educations,"type='hidden'");
-								echo $t->start("","","content_data");
-								foreach($rows as $row) { echo $t->row($row); }
-								echo $t->end();
-							echo $f->end();
-							echo $t->start("","","navigation") . $btn_save_cancel_edit_education . $t->end();
-							echo "<div style='height:20px;'></div>";
-						} else {
-							$degree 		= $db->fetch_single_data("degree","name_".$__locale,array("id" => $arr_seeker_educations["degree_id"]));
-							$major 			= $db->fetch_single_data("majors","name_".$__locale,array("id" => $arr_seeker_educations["major_id"]));
-							if($arr_seeker_educations["school_id"] > 0) {
-								$school 	= $db->fetch_single_data("schools","name_".$__locale,array("id" => $arr_seeker_educations["school_id"]));
-							} else {
-								$school 	= $arr_seeker_educations["school_name"];
-							}
-							$graduated_year = ($arr_seeker_educations["graduated_year"] > 0) ? $arr_seeker_educations["graduated_year"] : $v->words("now");
-							
-							$_e  = "<div class='seeker_profile_sp_detail'>";
-							$_e .= 	$t->start("","","navigation") . $btn_edit_education . $t->end();
-							$_e .= "	<div id='sp_container'>";
-							$_e .= "		<div id='sp_degree_major'>".$degree." - ".$major."</div>";
-							$_e .= "		<div id='sp_school'>".$school."</div>";
-							$_e .= "		<div id='sp_range_date'>".$arr_seeker_educations["start_year"]." - ".$graduated_year."</div>";
-							$_e .= "		<div id='sp_gpa'>".$arr_seeker_educations["gpa"]."</div>";
-							$_e .= "		<div id='sp_description'>".chr13tobr($arr_seeker_educations["honors"])."</div>";
-							$_e .= "	</div>";
-							$_e .= "</div><div style='height:20px;'></div>";
-							
-							echo $_e;
 						}
 					}
 				} 
