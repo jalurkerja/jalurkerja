@@ -136,9 +136,13 @@
 						<td>
 							<b><?=$v->w("aboutus");?> :</b><br><br>
 							<?=chr13tobr($opportunity["company_description"]);?>
-							<?php if($company_profile["web"] != ""){ ?>
+							<?php 
+								if($company_profile["web"] != ""){ 
+									$website = $company_profile["web"];
+									if(stripos(" ".$website,"http") <= 0) $website = "http://".$website;
+							?>
 							<br><br>
-							<a href="<?=$company_profile["web"];?>" target="_BLANK"><?=$company_profile["web"];?></a>
+							<a href="<?=$website;?>" target="_BLANK"><?=$website;?></a>
 							<?php } ?>
 						</td>
 					</tr>
