@@ -10,7 +10,7 @@
 		$db->addfield("job_type_id");			$db->addvalue(@$_POST["job_type_id"]);
 		$db->addfield("industry_id");			$db->addvalue(@$_POST["industry_id"]);
 		$db->addfield("web");					$db->addvalue(@$_POST["web"]);
-		$db->addfield("company_description");	$db->addvalue(@$_POST["company_description"]);
+		$db->addfield("company_description");	$db->addvalue(str_replace("'","''",@$_POST["company_description"]));
 		$location_id = explode(":",@$_POST["location"]);
 		$db->addfield("province_id");			$db->addvalue($location_id[0]);
 		$db->addfield("location_id");			$db->addvalue($location_id[1]);
@@ -28,9 +28,9 @@
 		$db->addfield("salary_max");			$db->addvalue(@$_POST["salary_max"]);
 		$db->addfield("is_syariah");			$db->addvalue(@$_POST["is_syariah"]);
 		$db->addfield("is_freshgraduate");		$db->addvalue(@$_POST["is_freshgraduate"]);
-		$db->addfield("requirement");			$db->addvalue(@$_POST["requirement"]);
+		$db->addfield("requirement");			$db->addvalue(str_replace("'","''",@$_POST["requirement"]));
 		$db->addfield("contact_person");		$db->addvalue(@$_POST["contact_person"]);
-		$db->addfield("description");			$db->addvalue(@$_POST["description"]);
+		$db->addfield("description");			$db->addvalue(str_replace("'","''",@$_POST["description"]));
 		$db->addfield("closing_date");			$db->addvalue(@$_POST["closing_date"]);
 		$db->addfield("posted_at");				$db->addvalue(@$_POST["posted_at"]);
 		$db->addfield("is_question");			$db->addvalue(@$_POST["is_question"]);
@@ -70,12 +70,12 @@
 	$txt_title_id 				= $f->input("title_id",@$_POST["title_id"]);
 	$txt_title_en 				= $f->input("title_en",@$_POST["title_en"]);
 	$sel_job_type 				= $f->select("job_type_id",$db->fetch_select_data("job_type","id","name_en"),@$_POST["job_type_id"]);
-	$sel_industry				= $f->select("industry_id",$db->fetch_select_data("industries","id","name_en"),@$_POST["industry_id"]);
+	$sel_industry				= $f->select("industry_id",$db->fetch_select_data("industries","id","name_en",array(),array("name_en")),@$_POST["industry_id"]);
 	$txt_web	 				= $f->input("web",@$_POST["web"]);
 	$txt_company_description	= $f->textarea("company_description",@$_POST["company_description"]);
-	$sel_location 				= $f->select("location",$db->fetch_select_data("locations","concat(province_id,':',location_id) as location_id","name_en"),@$_POST["location"]);
+	$sel_location 				= $f->select("location",$db->fetch_select_data("locations","concat(province_id,':',location_id) as location_id","name_en",array(),array("name_en")),@$_POST["location"]);
 	$sm_job_levels 				= $f->select_multiple("job_level_ids",$db->fetch_select_data("job_level","id","name_en"),@$_POST["job_level_ids"]);
-	$sel_function				= $f->select("job_function_id",$db->fetch_select_data("job_functions","id","name_en"),@$_POST["job_function_id"]);
+	$sel_function				= $f->select("job_function_id",$db->fetch_select_data("job_functions","id","name_en",array(),array("name_en")),@$_POST["job_function_id"]);
 	$sel_degree					= $f->select("degree_id",$db->fetch_select_data("degree","id","name_en"),@$_POST["degree_id"]);
 	$majors = $db->fetch_select_data("majors","id","name_en"); asort($majors);
 	$sm_majors	 				= $f->select_multiple("major_ids",$majors,@$_POST["major_ids"]);
@@ -84,6 +84,7 @@
 	$arrgender[1] = "Male";$arrgender[2] = "Female";
 	$sm_gender 					= $f->select_multiple("gender",$arrgender,@$_POST["gender"]);
 	
+	$arrage[""] = "-";
 	for($xx = 14 ; $xx < 75 ; $xx++) { $arrage[$xx] = $xx; }
 	$sel_ages 					= $f->select("age_min",$arrage,@$_POST["age_min"])." - ".$f->select("age_max",$arrage,@$_POST["age_max"]);
 	
