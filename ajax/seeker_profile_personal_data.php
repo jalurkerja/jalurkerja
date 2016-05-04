@@ -314,7 +314,7 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 		<br>
 		<table width="100%" id="table_content"><tr><td align="center">
 			<?php
-				$db->addtable("seeker_experiences"); $db->where("user_id",$__user_id);$db->order("startdate");
+				$db->addtable("seeker_experiences"); $db->where("user_id",$__user_id);$db->order("startdate DESC");
 				$seeker_experiences = $db->fetch_data(true);
 				if(count($seeker_experiences) > 0) {
 					foreach($seeker_experiences as $key => $arr_seeker_experiences) {
