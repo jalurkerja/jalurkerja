@@ -17,10 +17,21 @@
 		<?=$t->row(array("Body",$mailer["body"]));?>
 		<?=$t->row(array("Is Debuging",$isdebug));?>
 		<?=$t->row(array("Execute Time",format_tanggal($mailer["exec_time"],"",true)));?>
-		<?=$t->row(array("Status",$status));?>
+		<?=$t->row(array("Status","<span id='status'></span>"));?>
+		<?=$t->row(array("On Progress","<span id='onprogress'></span>"));?>
 		<?=$t->row(array("Started Time",format_tanggal($mailer["started_time"],"",true)));?>
 		<?=$t->row(array("Finished Time",format_tanggal($mailer["finished_time"],"",true)));?>
 	<?=$t->end();?>
 	<?=$f->input("back","Back","type='button' onclick=\"window.location='".str_replace("_view","_list",$_SERVER["PHP_SELF"])."';\"");?>
+	<?=$f->input("edit","Edit","type='button' onclick=\"window.location='mailer_edit.php?id=".$_GET["id"]."';\"");?>
 <?=$f->end();?>
+<script>
+	function reload_progress(){
+		get_ajax("../ajax/get_mailer_status_ajax.php?id=<?=$_GET["id"];?>&mode=onprogress","onprogress");
+		get_ajax("../ajax/get_mailer_status_ajax.php?id=<?=$_GET["id"];?>","status");
+		setTimeout(function(){ reload_progress(); }, 3000);
+	}
+	
+	reload_progress();
+</script>
 <?php include_once "footer.php";?>

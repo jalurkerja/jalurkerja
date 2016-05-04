@@ -43,6 +43,8 @@
 		<?=$t->row(array("Execute Time",$date_exec_time));?>
 		<?=$t->row(array("Recepients",$txt_recepients));?>
 	<?=$t->end();?>
-	<?=$f->input("save","Save","type='submit'");?> <?=$f->input("back","Back","type='button' onclick=\"window.location='".str_replace("_edit","_list",$_SERVER["PHP_SELF"])."';\"");?>
+	<?=$f->input("save","Save","type='submit'");?> 
+	<?=$f->input("back","Back","type='button' onclick=\"window.location='".str_replace("_edit","_list",$_SERVER["PHP_SELF"])."';\"");?>
+	<?=$f->input("view","View","type='button' onclick=\"window.location='mailer_view.php?id=".$_GET["id"]."';\"");?>
 <?=$f->end();?>
 <?php include_once "footer.php";?>
