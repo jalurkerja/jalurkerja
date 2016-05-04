@@ -9,7 +9,7 @@
 	$timeFirst  = strtotime(gmdate("Y-m-d H:i:s",mktime(date("H")+7)));
 	$timeSecond = strtotime('2016-05-10 12:00:00');
 	$differenceInSeconds = $timeSecond - $timeFirst;
-	if($differenceInSeconds > 0 && $_SERVER["REMOTE_ADDR"] != "::1" && $_SERVER["REMOTE_ADDR"] != "61.247.63.185"){
+	if($differenceInSeconds > 0 && $_SERVER["REMOTE_ADDR"] != "::1" && $_SERVER["REMOTE_ADDR"] != "61.247.63.185" && strpos(@$_SESSION["username"],"@jalurkerja.com") <= 0){
 ?>
 	<style>
 	body{
