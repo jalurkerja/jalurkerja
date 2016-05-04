@@ -56,8 +56,8 @@
 	
 	$db->addtable("company_profiles");$db->where("id",$_GET["id"]);$db->limit(1);$company_profile = $db->fetch_data();
 	$txt_name = $f->input("name",@$company_profile["name"]);
-	$sel_industry = $f->select("industry_id",$db->fetch_select_data("industries","id","name_en"),@$company_profile["industry_id"]);
-	$sel_location = $f->select("location",$db->fetch_select_data("locations","concat(province_id,':',location_id) as location_id","name_en"),@$company_profile["province_id"].":".@$company_profile["location_id"]);
+	$sel_industry = $f->select("industry_id",$db->fetch_select_data("industries","id","name_en",array(),array("name_en")),@$company_profile["industry_id"]);
+	$sel_location = $f->select("location",$db->fetch_select_data("locations","concat(province_id,':',location_id) as location_id","name_en",array(),array("name_en")),@$company_profile["province_id"].":".@$company_profile["location_id"]);
 	$txt_address = $f->textarea("address",@$company_profile["address"]);
 	$txt_zipcode = $f->input("zipcode",@$company_profile["zipcode"]);
 	$txt_phone = $f->input("phone",@$company_profile["phone"]);

@@ -58,8 +58,8 @@
 	}
 	
 	$txt_name = $f->input("name",$_POST["name"]);
-	$sel_industry = $f->select("industry_id",$db->fetch_select_data("industries","id","name_en"),$_POST["industry_id"]);
-	$sel_location = $f->select("location",$db->fetch_select_data("locations","concat(province_id,':',location_id) as location_id","name_en"),$_POST["location"]);
+	$sel_industry = $f->select("industry_id",$db->fetch_select_data("industries","id","name_en",array(),array("name_en")),$_POST["industry_id"]);
+	$sel_location = $f->select("location",$db->fetch_select_data("locations","concat(province_id,':',location_id) as location_id","name_en",array(),array("name_en")),$_POST["location"]);
 	$txt_address = $f->textarea("address",$_POST["address"]);
 	$txt_zipcode = $f->input("zipcode",$_POST["zipcode"]);
 	$txt_phone = $f->input("phone",$_POST["phone"]);
