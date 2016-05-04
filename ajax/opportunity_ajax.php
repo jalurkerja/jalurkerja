@@ -13,4 +13,9 @@
 		}
 		echo $return;
 	}
+	
+	if($_mode == "loadDetailCompany"){
+		$db->addtable("company_profiles");$db->where("id",$_GET["company_id"]);$db->limit(1);$cp = $db->fetch_data();
+		echo $cp["industry_id"]."|||".$cp["web"]."|||".$cp["description"]."|||".$cp["province_id"].":".$cp["location_id"]."|||".$cp["email"]."|||".$cp["first_name"]." ".$cp["middle_name"]." ".$cp["last_name"];
+	}
 ?>

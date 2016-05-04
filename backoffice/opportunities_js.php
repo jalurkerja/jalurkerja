@@ -26,6 +26,21 @@
 		try{ document.getElementById("company_id").value = company_id; } catch (e){}
 		try{ document.getElementById("company_name").value = company_name; } catch (e){}
 		div_select_company.style.display="none";
+		loadDetailCompany(company_id);
+	}
+	
+	function loadDetailCompany(company_id){
+		get_ajax("../ajax/opportunity_ajax.php?mode=loadDetailCompany&company_id="+company_id,"DetailCompany","loadingDetailCompany();");
+	}
+	function loadingDetailCompany(company_id){
+		var returnvalue = global_respon['DetailCompany'];
+		returnvalues = returnvalue.split("|||");
+		document.getElementById("industry_id").value			= returnvalues[0];
+		document.getElementById("web").value					= returnvalues[1];
+		document.getElementById("company_description").value	= returnvalues[2];
+		document.getElementById("location").value				= returnvalues[3];
+		document.getElementById("email").value					= returnvalues[4];
+		document.getElementById("contact_person").value			= returnvalues[5];
 	}
 
 	function opportunity_detail_parsing(){

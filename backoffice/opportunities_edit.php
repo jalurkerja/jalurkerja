@@ -3,77 +3,82 @@
 <div class="bo_title">Edit Opportunity</div>
 <?php
 	if(isset($_POST["save"])){
-		$db->addtable("opportunities");			$db->where("id",$_GET["id"]);
-		$db->addfield("company_id");			$db->addvalue(@$_POST["company_id"]);
-		$db->addfield("title_id");				$db->addvalue(@$_POST["title_id"]);
-		$db->addfield("title_en");				$db->addvalue(@$_POST["title_en"]);
-		$db->addfield("job_type_id");			$db->addvalue(@$_POST["job_type_id"]);
-		$db->addfield("industry_id");			$db->addvalue(@$_POST["industry_id"]);
-		$db->addfield("web");					$db->addvalue(@$_POST["web"]);
-		$db->addfield("company_description");	$db->addvalue(str_replace("'","''",@$_POST["company_description"]));
-		$location_id = explode(":",@$_POST["location"]);
-		$db->addfield("province_id");			$db->addvalue($location_id[0]);
-		$db->addfield("location_id");			$db->addvalue($location_id[1]);
-		$db->addfield("job_level_ids");			$db->addvalue(sel_to_pipe(@$_POST["job_level_ids"]));
-		$db->addfield("job_function_id");		$db->addvalue(@$_POST["job_function_id"]);
-		$db->addfield("degree_id");				$db->addvalue(@$_POST["degree_id"]);
-		$db->addfield("major_ids");				$db->addvalue(sel_to_pipe(@$_POST["major_ids"]));
-		$db->addfield("experience_years");		$db->addvalue(@$_POST["experience_years"]);
-		$db->addfield("gender");				$db->addvalue(sel_to_pipe(@$_POST["gender"]));
-		$db->addfield("age_min");				$db->addvalue(@$_POST["age_min"]);
-		$db->addfield("age_max");				$db->addvalue(@$_POST["age_max"]);
-		$db->addfield("email");					$db->addvalue(@$_POST["email"]);
-		$db->addfield("name");					$db->addvalue(@$_POST["company_name"]);
-		$db->addfield("salary_min");			$db->addvalue(@$_POST["salary_min"]);
-		$db->addfield("salary_max");			$db->addvalue(@$_POST["salary_max"]);
-		$db->addfield("is_syariah");			$db->addvalue(@$_POST["is_syariah"]);
-		$db->addfield("is_freshgraduate");		$db->addvalue(@$_POST["is_freshgraduate"]);
-		$db->addfield("requirement");			$db->addvalue(str_replace("'","''",@$_POST["requirement"]));
-		$db->addfield("contact_person");		$db->addvalue(@$_POST["contact_person"]);
-		$db->addfield("description");			$db->addvalue(str_replace("'","''",@$_POST["description"]));
-		$db->addfield("closing_date");			$db->addvalue(@$_POST["closing_date"]);
-		$db->addfield("posted_at");				$db->addvalue(@$_POST["posted_at"]);
-		$db->addfield("is_question");			$db->addvalue(@$_POST["is_question"]);
-		$db->addfield("matched_applicant");		$db->addvalue(@$_POST["matched_applicant"]);
-		$db->addfield("unmatched_applicant");	$db->addvalue(@$_POST["unmatched_applicant"]);
-		$db->addfield("expired_in_months");		$db->addvalue(@$_POST["expired_in_months"]);
-		$db->addfield("expired_date");			$db->addvalue(@$_POST["expired_date"]);
-		$db->addfield("email_format");			$db->addvalue(@$_POST["email_format"]);
-		$db->addfield("is_emailing_unmatched");	$db->addvalue(@$_POST["is_emailing_unmatched"]);
-		$db->addfield("created_at");			$db->addvalue(date("Y-m-d H:i:s"));
-		$db->addfield("created_by");			$db->addvalue($__username);
-		$db->addfield("created_ip");			$db->addvalue($_SERVER["REMOTE_ADDR"]);
-		$db->addfield("updated_at");			$db->addvalue(date("Y-m-d H:i:s"));
-		$db->addfield("updated_by");			$db->addvalue($__username);
-		$db->addfield("updated_ip");			$db->addvalue($_SERVER["REMOTE_ADDR"]);
-		$updating = $db->update();
-		if($updating["affected_rows"] >= 0){
-			if(isset($_POST["use_company_logo"])){
-				unlink("../opportunity_logo/".$db->fetch_single_data("opportunities","logo",array("id" => $_GET["id"])));
-				$db->addtable("opportunities");$db->where("id",$_GET["id"]);
-				$db->addfield("logo");$db->addvalue("");$db->update();
-			} else {
-				if($_FILES['logo']['tmp_name']) {
-					move_uploaded_file($_FILES['logo']['tmp_name'], "../opportunity_logo/".$_GET["id"].".".pathinfo($_FILES['logo']['name'],PATHINFO_EXTENSION));
-					$db->addtable("opportunities");$db->where("id",$_GET["id"]);
-					$db->addfield("logo");$db->addvalue($_GET["id"].".".pathinfo($_FILES['logo']['name'],PATHINFO_EXTENSION));$db->update();
-				}
-			}
-			javascript("alert('Data Berhasil tersimpan');");
+		if(@$_POST["company_id"] == ""){
+			javascript("alert('Pastikan data terisi dengan benar!');");
 		} else {
-			javascript("alert('Data gagal tersimpan');");
+			$db->addtable("opportunities");			$db->where("id",$_GET["id"]);
+			$db->addfield("company_id");			$db->addvalue(@$_POST["company_id"]);
+			$db->addfield("title_id");				$db->addvalue(@$_POST["title_id"]);
+			$db->addfield("title_en");				$db->addvalue(@$_POST["title_en"]);
+			$db->addfield("job_type_id");			$db->addvalue(@$_POST["job_type_id"]);
+			$db->addfield("industry_id");			$db->addvalue(@$_POST["industry_id"]);
+			$db->addfield("web");					$db->addvalue(@$_POST["web"]);
+			$db->addfield("company_description");	$db->addvalue(str_replace("'","''",@$_POST["company_description"]));
+			$location_id = explode(":",@$_POST["location"]);
+			$db->addfield("province_id");			$db->addvalue($location_id[0]);
+			$db->addfield("location_id");			$db->addvalue($location_id[1]);
+			$db->addfield("job_level_ids");			$db->addvalue(sel_to_pipe(@$_POST["job_level_ids"]));
+			$db->addfield("job_function_id");		$db->addvalue(@$_POST["job_function_id"]);
+			$db->addfield("degree_id");				$db->addvalue(@$_POST["degree_id"]);
+			$db->addfield("major_ids");				$db->addvalue(sel_to_pipe(@$_POST["major_ids"]));
+			$db->addfield("experience_years");		$db->addvalue(@$_POST["experience_years"]);
+			$db->addfield("gender");				$db->addvalue(sel_to_pipe(@$_POST["gender"]));
+			$db->addfield("age_min");				$db->addvalue(@$_POST["age_min"]);
+			$db->addfield("age_max");				$db->addvalue(@$_POST["age_max"]);
+			$db->addfield("email");					$db->addvalue(@$_POST["email"]);
+			$db->addfield("name");					$db->addvalue(@$_POST["company_name"]);
+			$db->addfield("salary_min");			$db->addvalue(@$_POST["salary_min"]);
+			$db->addfield("salary_max");			$db->addvalue(@$_POST["salary_max"]);
+			$db->addfield("is_syariah");			$db->addvalue(@$_POST["is_syariah"]);
+			$db->addfield("is_freshgraduate");		$db->addvalue(@$_POST["is_freshgraduate"]);
+			$db->addfield("requirement");			$db->addvalue(str_replace("'","''",@$_POST["requirement"]));
+			$db->addfield("contact_person");		$db->addvalue(@$_POST["contact_person"]);
+			$db->addfield("description");			$db->addvalue(str_replace("'","''",@$_POST["description"]));
+			$db->addfield("closing_date");			$db->addvalue(@$_POST["closing_date"]);
+			$db->addfield("posted_at");				$db->addvalue(@$_POST["posted_at"]);
+			$db->addfield("is_question");			$db->addvalue(@$_POST["is_question"]);
+			$db->addfield("matched_applicant");		$db->addvalue(@$_POST["matched_applicant"]);
+			$db->addfield("unmatched_applicant");	$db->addvalue(@$_POST["unmatched_applicant"]);
+			$db->addfield("expired_in_months");		$db->addvalue(@$_POST["expired_in_months"]);
+			$db->addfield("expired_date");			$db->addvalue(@$_POST["expired_date"]);
+			$db->addfield("email_format");			$db->addvalue(@$_POST["email_format"]);
+			$db->addfield("is_emailing_unmatched");	$db->addvalue(@$_POST["is_emailing_unmatched"]);
+			$db->addfield("created_at");			$db->addvalue(date("Y-m-d H:i:s"));
+			$db->addfield("created_by");			$db->addvalue($__username);
+			$db->addfield("created_ip");			$db->addvalue($_SERVER["REMOTE_ADDR"]);
+			$db->addfield("updated_at");			$db->addvalue(date("Y-m-d H:i:s"));
+			$db->addfield("updated_by");			$db->addvalue($__username);
+			$db->addfield("updated_ip");			$db->addvalue($_SERVER["REMOTE_ADDR"]);
+			$updating = $db->update();
+			if($updating["affected_rows"] >= 0){
+				if(isset($_POST["use_company_logo"])){
+					unlink("../opportunity_logo/".$db->fetch_single_data("opportunities","logo",array("id" => $_GET["id"])));
+					$db->addtable("opportunities");$db->where("id",$_GET["id"]);
+					$db->addfield("logo");$db->addvalue("");$db->update();
+				} else {
+					if($_FILES['logo']['tmp_name']) {
+						move_uploaded_file($_FILES['logo']['tmp_name'], "../opportunity_logo/".$_GET["id"].".".pathinfo($_FILES['logo']['name'],PATHINFO_EXTENSION));
+						$db->addtable("opportunities");$db->where("id",$_GET["id"]);
+						$db->addfield("logo");$db->addvalue($_GET["id"].".".pathinfo($_FILES['logo']['name'],PATHINFO_EXTENSION));$db->update();
+					}
+				}
+				javascript("alert('Data Berhasil tersimpan');");
+			} else {
+				javascript("alert('Data gagal tersimpan');");
+			}
 		}
 	}
 	
 	$db->addtable("opportunities");	$db->where("id",$_GET["id"]); $db->limit(1);
 	$opportunity = $db->fetch_data();
 	
-	$txt_company 				= $f->input("company_name",$opportunity["name"],"style='width:300px;' autocomplete='off' onkeyup='loadSelectCompanies(this.value,event.keyCode);'").$f->input("company_id",$opportunity["company_id"],"type='hidden'");
+	$txt_company 				= $f->input("company_name",$opportunity["name"],"style='width:300px;' autocomplete='off' onkeyup='loadSelectCompanies(this.value,event.keyCode);'");
 	$txt_company 				.= "	<div style=\"position:absolute;display:none;\" id=\"div_select_company\">
 										<table style=\"border:grey solid 1px; background-color:#EFEFEF;\">
 											<tr><td id=\"select_company\"></td></tr>
 										</table>
 										</div>";
+	$txt_company_id				= $f->input("company_id",$opportunity["company_id"],"readonly style='width:300px;' autocomplete='off'");
 	$txt_title_id 				= $f->input("title_id",$opportunity["title_id"]);
 	$txt_title_en 				= $f->input("title_en",$opportunity["title_en"]);
 	$sel_job_type 				= $f->select("job_type_id",$db->fetch_select_data("job_type","id","name_en"),$opportunity["job_type_id"]);
@@ -126,6 +131,7 @@
 <?=$f->start("","POST","","enctype='multipart/form-data'");?>
 	<?=$t->start("","editor_content");?>
 		<?=$t->row(array("Company Name",$txt_company));?>
+		<?=$t->row(array("Company Id",$txt_company_id));?>
 		<?=$t->row(array("Title (Indonesia)",$txt_title_id));?>
 		<?=$t->row(array("Title (English)",$txt_title_en));?>
 		<?=$t->row(array("Job Type",$sel_job_type));?>
