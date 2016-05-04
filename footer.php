@@ -9,10 +9,10 @@
 							<b>".$v->words("advertising_info")."</b><br>
 							<div class='v_spacer'></div>
 							<div class='v_spacer'></div>
-							Telp : +62 21 29941058<br>
+							Telp : +62 21 837 9911 4<br>
 							<div class='v_spacer'></div>
-							Fax : +62 21 29941058<br>
-							<div class='v_spacer'></div>
+							<!--Fax : +62 21 29941058<br>
+							<div class='v_spacer'></div>-->
 							Email: cs@jalurkerja.com<br>
 							<div class='v_spacer'></div>
 							<font color='white'>(".$v->words("office_day").", ".$v->words("office_hour").")</font>
