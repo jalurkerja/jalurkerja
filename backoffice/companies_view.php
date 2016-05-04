@@ -32,7 +32,7 @@
 	<?=$t->row(array("First Name",@$company_profile["first_name"]));?>
 	<?=$t->row(array("Middle Name",@$company_profile["middle_name"]));?>
 	<?=$t->row(array("Last Name",@$company_profile["last_name"]));?>
-	<?=$t->row(array("Reason Join Us",@$company_profile["join_reason"]));?>
+	<?=$t->row(array("Reason Join Us",chr13tobr(@$company_profile["join_reason"])));?>
 	<?=$t->row(array("Expired Post",@$company_profile["expired_post_at"]));?>
 	<?=$t->row(array("Expired Search",@$company_profile["expired_search_at"]));?>
 	<?=$t->row(array("Maximum Opportunity",@$company_profile["max_opportunity"]));?>
