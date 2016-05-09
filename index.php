@@ -92,6 +92,15 @@
 		?>
 		<br>
 		<img src="banners/free_exclusive_membership_plan.jpg" width="200" height="150" style="border:1px solid black;" onclick="load_register_as_employer();">
+		<br><br>
+		<?php
+			$banner2 = new Banner();
+			$sidebanners2[0] = "banners/corporate_human_resource.jpg";
+			$sidebanners2[1] = "banners/jepege.jpg";
+			$sideurls2[0] = "http://www.corphr.com";
+			$sideurls2[1] = "http://www.jepege.co.id";
+			echo $banner2->draw("banner2",$sidebanners2,$sideurls2,200,150,5000);
+		?>
 		</td></tr></table>
 	<!--END BANNER SIDE-->
 		<br>
@@ -199,7 +208,7 @@
 		$slot=0;
 		for($row = 0;$row < 2;$row++){
 			for($col = 0;$col < 5; $col++){
-				$banners[$row][] = $fhe->draw($slot,$images[$slot],$urls[$slot]);
+				$banners[$row][] = $fhe->draw($slot,$images[$slot],$urls[$slot],120,90,100000);
 				$banners[$row][] = "&nbsp;&nbsp;";
 				$slot++;
 			}
