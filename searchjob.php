@@ -18,8 +18,8 @@
 		$rightarea .= "<div id='paging_area'>";
 		$rightarea .= "</div>";
 		
-		$keyword_placeholder = $v->words("keyword")." (".$v->words("job_level").", ".$v->words("company_name").", ".$v->words("etc");
-		$txt_keyword = $f->input("keyword",$_GET["keyword"],"placeholder='".$keyword_placeholder.")' style='width:217px;'","search_area_input");
+		$keyword_placeholder = $v->words("keyword")." (".$v->words("job_level").", ".$v->words("company_name").", ".$v->words("etc").")";
+		$txt_keyword = $f->input("keyword",$_GET["keyword"],"placeholder='".$keyword_placeholder."'  onkeyup=\"if(event.keyCode == 13){ serach_btn_click(); }\" style='width:217px;'","search_area_input");
 		
 		$f->add_config_selectbox("table","job_functions");$f->add_config_selectbox("id","id");$f->add_config_selectbox("caption","name_".$__locale);
 		$f->add_config_selectbox("where",array("id" => "0:>"));$f->add_config_selectbox("order",array("name_".$__locale));
