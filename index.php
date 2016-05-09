@@ -160,9 +160,15 @@
 	<!--BANNER SIDE-->
 	<td valign="top">
 		<div style="width:200px;"></div>
-		<!--div style="border:1px solid red;width:200px;height:150px;"></div><br>
-		<div style="border:1px solid red;width:200px;height:150px;"></div><br>
-		<div style="border:1px solid red;width:200px;height:150px;"></div><br-->
+		<?php
+			$banner1 = new Banner();
+			$sidebanners[0] = "banners/jobfair_pekalongan.jpg";
+			$sidebanners[1] = "banners/jobfair_purwokerto.jpg";
+			$sidebanners[2] = "banners/jobfair_semarang.jpg";
+			echo $banner1->draw("banner1",$sidebanners,array(),200,150);
+		?>
+		<br>
+		<img src="banners/free_exclusive_membership_plan.jpg" width="200" height="150" style="border:1px solid black;" onclick="load_register_as_employer();">
 	</td>
 	<!--END BANNER SIDE-->
 	</tr></table>

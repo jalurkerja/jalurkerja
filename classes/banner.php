@@ -44,11 +44,11 @@ class Banner{
 			$url = $urls[$key];
 			$class = "banner__".$id;
 			if($key == 0) $class = "banner_active__".$id;
-			$return .='
-					<div id="banner_content__'.$id.'_'.$key.'" class="'.$class.'">
-						<a href="'.$url.'" class="banner_link__'.$id.'" target="'.$target.'"><img src="'.$image.'" class="banner_image__'.$id.'"></a>
-					</div>
-			';
+			$return .= '<div id="banner_content__'.$id.'_'.$key.'" class="'.$class.'">';
+			if($url != "") $return .= '	<a href="'.$url.'" class="banner_link__'.$id.'" target="'.$target.'">';
+			$return .= '		<img src="'.$image.'" class="banner_image__'.$id.'">';
+			if($url != "") $return .= '	</a>';
+			$return .= '</div>';
 		}
 		$return .='
 			</div>
