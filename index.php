@@ -80,7 +80,7 @@
 	<br>
 	<!--CATEGORY SEARCH-->
 	<table width="100%"><tr><td align="center" nowrap>
-		<table width="700" class="whitecard"><tr><td align="center" nowrap><br>
+		<table width="700" class="whitecard" style="position:relative;left:148px;"><tr><td align="center" nowrap><br>
 	<?php
 		$tab = new Tabular("index");
 		$tab->set_tab_width(120);
@@ -156,7 +156,16 @@
 		echo $tab->draw();
 	?>
 		<br></td></tr></table>
-	</td></tr></table>
+	</td>
+	<!--BANNER SIDE-->
+	<td valign="top">
+		<div style="width:200px;"></div>
+		<!--div style="border:1px solid red;width:200px;height:150px;"></div><br>
+		<div style="border:1px solid red;width:200px;height:150px;"></div><br>
+		<div style="border:1px solid red;width:200px;height:150px;"></div><br-->
+	</td>
+	<!--END BANNER SIDE-->
+	</tr></table>
 	<!--END CATEGORY SEARCH-->
 	<br>
 	<!--FHE-->

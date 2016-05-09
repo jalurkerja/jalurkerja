@@ -22,6 +22,9 @@
 		$db->addfield("expired_post_at");	$db->addvalue(@$_POST["expired_post_at"]);
 		$db->addfield("expired_search_at");	$db->addvalue(@$_POST["expired_search_at"]);
 		$db->addfield("max_opportunity");	$db->addvalue(@$_POST["max_opportunity"]);
+		if(@$_POST["max_opportunity"] < 0) {
+			$db->addfield("remain_opportunity");	$db->addvalue("-1");
+		}
 		$db->addfield("max_applicant");		$db->addvalue(@$_POST["max_applicant"]);
 		$db->addfield("bill_pic");			$db->addvalue(@$_POST["bill_pic"]);
 		$db->addfield("bill_name");			$db->addvalue(@$_POST["bill_name"]);

@@ -237,7 +237,7 @@
 			if($whereclause != "") $db->awhere($whereclause);
 			$start = getStartRow($_POST["searchjob_page"],$db->searchjob_limit);
 			$db->limit($start.",".$db->searchjob_limit);
-			if($_POST["searchjob_order"] == "" || !isset($_POST["searchjob_order"])) $_POST["searchjob_order"] = "posted_at DESC";
+			if($_POST["searchjob_order"] == "" || !isset($_POST["searchjob_order"])) $_POST["searchjob_order"] = "posted_at DESC,updated_at DESC";
 			$db->order($_POST["searchjob_order"]);
 			$opportunities = $db->fetch_data(true);
 			//end loading//

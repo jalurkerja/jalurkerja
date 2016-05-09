@@ -48,6 +48,14 @@
 		}
 	}
 	
+	function knowing_from_others(value){
+		if(value == "lainnya"){
+			knowing_from2.style.display = "block";
+		} else {
+			knowing_from2.style.display = "none";
+		}
+	}
+	
 	function seeker_profiles_form(email){
 		<?php
 			$db->addtable("seeker_profiles");
@@ -73,23 +81,48 @@
 			$db->addtable("marital_status"); $db->addfield("id,name_".$__locale);
 			foreach ($db->fetch_data() as $key => $marital_status){ $arr_marital_status[$marital_status[0]] = $marital_status[1]; }
 			
-			$rows[] = $t->row(array($v->words("first_name"),":",$f->input("first_name",$seeker_profiles["first_name"],'tabindex="1"')),array("id='td1'"));
-			$rows[] = $t->row(array($v->words("middle_name"),":",$f->input("middle_name",$seeker_profiles["middle_name"],'tabindex="2"')),array("id='td1'"));
-			$rows[] = $t->row(array($v->words("last_name"),":",$f->input("last_name",$seeker_profiles["last_name"],'tabindex="3"')),array("id='td1'"));
-			$rows[] = $t->row(array($v->words("address"),":",$f->textarea("address","",'tabindex="4"')),array("id='td1'"));
-			$rows[] = $t->row(array($v->words("location"),":",$f->select("location",$arrlocations,null,'tabindex="5"')),array("id='td1'"));
-			$rows[] = $t->row(array($v->words("zipcode"),":",$f->input("zipcode","",'tabindex="6"')),array("id='td1'"));
-			$rows[] = $t->row(array($v->words("phone"),":",$f->input("phone","",'tabindex="7"')),array("id='td1'"));
-			$rows[] = $t->row(array($v->words("cellphone"),":",$f->input("cellphone","",'tabindex="8"')),array("id='td1'"));
-			$rows[] = $t->row(array($v->words("fax"),":",$f->input("fax","",'tabindex="9"')),array("id='td1'"));
-			$rows[] = $t->row(array($v->words("web"),":",$f->input("web","",'tabindex="10"')),array("id='td1'"));
-			$rows[] = $t->row(array($v->words("birthplace"),":",$f->select("birthplace",$arrlocations,null,'tabindex="11"')),array("id='td1'"));
-			$rows[] = $t->row(array($v->words("birthdate"),":",$f->input_tanggal("birthdate","",'tabindex="12"')),array("id='td1'"));
-			$rows[] = $t->row(array($v->words("nationality"),":",$f->input("nationality","",'tabindex="13"')),array("id='td1'"));
-			$rows[] = $t->row(array($v->words("gender"),":",$f->select("gender_id",$genders,"",'tabindex="14"')),array("id='td1'"));
-			$rows[] = $t->row(array($v->words("marital_status"),":",$f->select("marital_status_id",$arr_marital_status,"",'tabindex="15"')),array("id='td1'"));
-			$rows[] = $t->row(array($v->words("photo"),":",$f->input("photo","",'type="file" tabindex="16"')),array("id='td1'"));
-			$rows[] = $t->row(array("","",$f->input("signin",$v->words("save"),'type="submit" tabindex="17"',"btn_sign")),array("align='right'"));
+			$knowing_froms = array();
+			if($__locale == "id") {
+				$knowing_froms["internet"] = "Internet";
+				$knowing_froms["media sosial"] = "Media Sosial";
+				$knowing_froms["jobfair"] = "Job Fair";
+				$knowing_froms["media cetak"] = "Media Cetak";
+				$knowing_froms["brosur/stiker/poster"] = "Brosur/Stiker/Poster";
+				$knowing_froms["lainnya"] = "Lainnya";
+			} else {
+				$knowing_froms["internet"] = "Internet";
+				$knowing_froms["media sosial"] = "Social Media";
+				$knowing_froms["jobfair"] = "Job Fair";
+				$knowing_froms["media cetak"] = "Print Media";
+				$knowing_froms["brosur/stiker/poster"] = "Brochure/Sticker/Poster";
+				$knowing_froms["lainnya"] = "Others";
+			}
+			
+			$rows[] = $t->row(array($v->w("first_name"),":",$f->input("first_name",$seeker_profiles["first_name"],'tabindex="1"')),array("id='td1'"));
+			$rows[] = $t->row(array($v->w("middle_name"),":",$f->input("middle_name",$seeker_profiles["middle_name"],'tabindex="2"')),array("id='td1'"));
+			$rows[] = $t->row(array($v->w("last_name"),":",$f->input("last_name",$seeker_profiles["last_name"],'tabindex="3"')),array("id='td1'"));
+			$rows[] = $t->row(array($v->w("address"),":",$f->textarea("address","",'tabindex="4"')),array("id='td1'"));
+			$rows[] = $t->row(array($v->w("location"),":",$f->select("location",$arrlocations,null,'tabindex="5"')),array("id='td1'"));
+			$rows[] = $t->row(array($v->w("zipcode"),":",$f->input("zipcode","",'tabindex="6"')),array("id='td1'"));
+			$rows[] = $t->row(array($v->w("phone"),":",$f->input("phone","",'tabindex="7"')),array("id='td1'"));
+			$rows[] = $t->row(array($v->w("cellphone"),":",$f->input("cellphone","",'tabindex="8"')),array("id='td1'"));
+			$rows[] = $t->row(array($v->w("fax"),":",$f->input("fax","",'tabindex="9"')),array("id='td1'"));
+			$rows[] = $t->row(array($v->w("web"),":",$f->input("web","",'tabindex="10"')),array("id='td1'"));
+			$rows[] = $t->row(array($v->w("birthplace"),":",$f->select("birthplace",$arrlocations,null,'tabindex="11"')),array("id='td1'"));
+			$rows[] = $t->row(array($v->w("birthdate"),":",$f->input_tanggal("birthdate","",'tabindex="12"')),array("id='td1'"));
+			$rows[] = $t->row(array($v->w("nationality"),":",$f->input("nationality","",'tabindex="13"')),array("id='td1'"));
+			$rows[] = $t->row(array($v->w("gender"),":",$f->select("gender_id",$genders,"",'tabindex="14"')),array("id='td1'"));
+			$rows[] = $t->row(array($v->w("marital_status"),":",$f->select("marital_status_id",$arr_marital_status,"",'tabindex="15"')),array("id='td1'"));
+			$rows[] = $t->row(array(
+										$v->w("from_where_you_know_jalurkerjadotcom"),
+										":",
+										$f->select("knowing_from",$knowing_froms,"",'tabindex="16" onchange=\"knowing_from_others(this.value);\"')."<br>".
+										$f->input("knowing_from2","",'tabindex="16" style="display:none;"')
+										
+							),array("id='td1'")
+							);
+			$rows[] = $t->row(array($v->w("photo"),":",$f->input("photo","",'type="file" tabindex="17"')),array("id='td1'"));
+			$rows[] = $t->row(array("","",$f->input("signin",$v->words("save"),'type="submit" tabindex="18"',"btn_sign")),array("align='right'"));
 			$additionalscript = "";
 		?>
 		var retval = "";
@@ -98,7 +131,7 @@
 		retval += "	<?=$f->start("","POST","","enctype='multipart/form-data'");?>";
 		retval += "		<table><tr><td valign='top'>";
 		retval += "			<?=$t->start();?>";
-		<?php for($xx=0;$xx<9;$xx++) { ?>
+		<?php for($xx=0;$xx<8;$xx++) { ?>
 		retval += "			<?=str_replace('"','\"',$rows[$xx]);?>";
 		<?php } ?>
 		retval += "			<?=$t->end();?>";
@@ -107,7 +140,7 @@
 		retval += "		<td valign='top'>";
 		retval += "			<?=$t->start();?>";
 		<?php 
-			for($xx=9;$xx<17;$xx++) { 
+			for($xx=8;$xx<count($rows);$xx++) { 
 				$arr = $f->inner_script($rows[$xx]);
 				$rows[$xx] = $arr[0];
 				$additionalscript .= $arr[1];

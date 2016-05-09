@@ -2,7 +2,7 @@
 <div class="whitecard" style="width:600px;">
 Jangan buang waktu Anda untuk melihat ratusan atau ribuan resume yang masuk.<br>
 Sistem Kami dapat membantu Anda dalam mensortir pelamar dengan mudah.<br>
-Caranya mudah, Anda cukup memilih filter kriteria ayng diinginkan dibawah ini.<br>
+Caranya mudah, Anda cukup memilih filter kriteria yang diinginkan dibawah ini.<br>
 Pastikan filter yang Anda pilih adalah filter yang benar-benar menjadi prioritas penyaringan Anda.
 </div>
 <br><br>

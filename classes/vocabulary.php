@@ -260,6 +260,7 @@ class Vocabulary{
 		$arr[$l]["post_your_opportunity_ad"]			 	= "Post Your opportunity ad";
 		$arr[$l]["you_still_have_a_quota_of_ads"]			= "You still have a quota of ads";
 		$arr[$l]["unlimited"]								= "Unlimited";
+		$arr[$l]["from_where_you_know_jalurkerjadotcom"]	= "From where You know JalurKerja.com";
 		/*==================================================================================================================================*/
 		/*==================================================================================================================================*/
 		$l = "id";
@@ -506,6 +507,7 @@ class Vocabulary{
 		$arr[$l]["post_your_opportunity_ad"]			 	= "Pasang iklan lowongan Anda";
 		$arr[$l]["you_still_have_a_quota_of_ads"]			= "Anda masih memiliki quota iklan";
 		$arr[$l]["unlimited"]								= "Tanpa batas";
+		$arr[$l]["from_where_you_know_jalurkerjadotcom"]	= "Dari mana Anda tahu JalurKerja.com";
 		
 		return $arr[$this->locale][$index];
 	}

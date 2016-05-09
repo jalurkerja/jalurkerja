@@ -47,6 +47,8 @@
 		
 		$location = explode(":",$_POST["location"]);
 		$province_id = $location[0]; $location_id = $location[1];
+		if(@$_POST["knowing_from"] == "lainnya" && @$_POST["knowing_from2"] != "") @$_POST["knowing_from"] = @$_POST["knowing_from2"];
+		
 		$db->addtable("seeker_profiles");
 		$db->addfield("first_name");$db->addvalue($_POST["first_name"]);
 		$db->addfield("middle_name");$db->addvalue($_POST["middle_name"]);
@@ -64,6 +66,7 @@
 		$db->addfield("nationality");$db->addvalue($_POST["nationality"]);
 		$db->addfield("gender_id");$db->addvalue($_POST["gender_id"]);
 		$db->addfield("marital_status_id");$db->addvalue($_POST["marital_status_id"]);
+		$db->addfield("knowing_from");$db->addvalue($_POST["knowing_from"]);
 		$db->addfield("updated_at");$db->addvalue(date("Y-m-d H:i:s"));
 		$db->addfield("updated_by");$db->addvalue($__username);
 		$db->addfield("updated_ip");$db->addvalue($_SERVER["REMOTE_ADDR"]);
