@@ -80,7 +80,21 @@
 	<br>
 	<!--CATEGORY SEARCH-->
 	<table width="100%"><tr><td align="center" nowrap>
-		<table width="700" class="whitecard" style="position:relative;left:148px;"><tr><td align="center" nowrap><br>
+		<table width="700" class="whitecard"><tr><td align="center" nowrap>
+		<!--BANNER SIDE-->
+		<table style="position:absolute;top:0px;left:710px;"><tr><td align="center" nowrap>
+		<?php
+			$banner1 = new Banner();
+			$sidebanners[0] = "banners/jobfair_pekalongan.jpg";
+			$sidebanners[1] = "banners/jobfair_purwokerto.jpg";
+			$sidebanners[2] = "banners/jobfair_semarang.jpg";
+			echo $banner1->draw("banner1",$sidebanners,array(),200,150,5000);
+		?>
+		<br>
+		<img src="banners/free_exclusive_membership_plan.jpg" width="200" height="150" style="border:1px solid black;" onclick="load_register_as_employer();">
+		</td></tr></table>
+	<!--END BANNER SIDE-->
+		<br>
 	<?php
 		$tab = new Tabular("index");
 		$tab->set_tab_width(120);
@@ -157,20 +171,6 @@
 	?>
 		<br></td></tr></table>
 	</td>
-	<!--BANNER SIDE-->
-	<td valign="top">
-		<div style="width:200px;"></div>
-		<?php
-			$banner1 = new Banner();
-			$sidebanners[0] = "banners/jobfair_pekalongan.jpg";
-			$sidebanners[1] = "banners/jobfair_purwokerto.jpg";
-			$sidebanners[2] = "banners/jobfair_semarang.jpg";
-			echo $banner1->draw("banner1",$sidebanners,array(),200,150);
-		?>
-		<br>
-		<img src="banners/free_exclusive_membership_plan.jpg" width="200" height="150" style="border:1px solid black;" onclick="load_register_as_employer();">
-	</td>
-	<!--END BANNER SIDE-->
 	</tr></table>
 	<!--END CATEGORY SEARCH-->
 	<br>
