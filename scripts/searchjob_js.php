@@ -28,8 +28,8 @@
 	
 	function serach_btn_click() {
 		document.getElementById("searchjob_page").value = 1;
-		document.getElementById("searchjob_order").value = "posted_at DESC";
-		document.getElementById("sort_by").value = "posted_at DESC";
+		document.getElementById("searchjob_order").value = "posted_at DESC,updated_at DESC";
+		document.getElementById("sort_by").value = "posted_at DESC,updated_at DESC";
 		popup_message("<img src='icons/loading.gif' width='100'><br><div style='width:100px;height:5px;background-color:white;position:relative;top:-5px;left:100px;'></div>");
 		$.post( "ajax/searchjob_ajax.php", { post_data: $("#searchjob_form").serialize() }).done(function( data ) { searching_result(data); }); 
 	}

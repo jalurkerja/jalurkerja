@@ -4,7 +4,7 @@
 <div style="height:80px;"></div>
 <table width="100%"><tr><td align="center">
 	<?php
-		$arr_sort_by = array("posted_at DESC" => $v->w("posting_date"),
+		$arr_sort_by = array("posted_at DESC,updated_at DESC" => $v->w("posting_date"),
 							 "name" => $v->w("company_name")." (A-Z)",
 							 "name DESC" => $v->w("company_name")." (Z-A)",
 							 "salary_min" => $v->w("salary_asc"),
