@@ -5,8 +5,7 @@
 			<td class="content" valign="top">
 				<img src="images/callCenter.png"><br>
 				For further information please contact:<br>
-				Telp : +62 21 29941058<br>
-				Fax : +62 21 29941058<br>
+				Telp : +62 21 829 8227<br>
 				Email: cs@jalurkerja.com<br>
 				(Mon - Fri, 8:00am - 5:00pm)
 			</td>
