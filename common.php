@@ -148,9 +148,11 @@
 	}
 	
 	function sb_to_pipe($data){
-		ksort($data);
 		$return = "";
-		foreach($data as $datum => $val){ $return .= "|".$datum."|"; }
+		if(is_array($data)) {
+			ksort($data);
+			foreach($data as $datum => $val){ $return .= "|".$datum."|"; }
+		}
 		return $return;
 	}
 	
