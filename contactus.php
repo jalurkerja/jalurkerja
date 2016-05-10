@@ -3,7 +3,7 @@
 		<tr><td style="width:440px;height:23px;background-image:url('images/header_subtitle.png');">&nbsp;&nbsp;Contact Us</td></tr>
 		<tr>
 			<td class="content" valign="top">
-				<img src="images/callCenter.png"><br>
+				<img src="images/callCenter.png"><br><br>
 				For further information please contact:<br>
 				Telp : +62 21 829 8227<br>
 				Email: cs@jalurkerja.com<br>
