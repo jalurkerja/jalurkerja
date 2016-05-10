@@ -12,10 +12,10 @@
 		$db->addtable("locations");$db->addfield("id");$db->where("province_id",$arrbirthplace[0]);$db->where("location_id",$arrbirthplace[1]);$db->limit(1);
 		$birthplace_id = $db->fetch_data(false,0);
 		$db->addtable("seeker_profiles");
-		$db->addfield("first_name");$db->addvalue($_POST["first_name"]);
-		$db->addfield("middle_name");$db->addvalue($_POST["middle_name"]);
-		$db->addfield("last_name");$db->addvalue($_POST["last_name"]);
-		$db->addfield("address");$db->addvalue($_POST["address"]);
+		$db->addfield("first_name");$db->addvalue(str_replace("'","''",$_POST["first_name"]));
+		$db->addfield("middle_name");$db->addvalue(str_replace("'","''",$_POST["middle_name"]));
+		$db->addfield("last_name");$db->addvalue(str_replace("'","''",$_POST["last_name"]));
+		$db->addfield("address");$db->addvalue(str_replace("'","''",$_POST["address"]));
 		$db->addfield("province_id");$db->addvalue($province_id);
 		$db->addfield("location_id");$db->addvalue($location_id);
 		$db->addfield("zipcode");$db->addvalue($_POST["zipcode"]);
