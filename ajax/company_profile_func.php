@@ -86,9 +86,9 @@
 				$hsl = $db->fetch_data(true); if($hsl[0] > 0){ $match_level_1++; $matched_categories .= "gender, ";}
 			}
 			$startdate = $db->fetch_single_data("seeker_experiences","startdate",array("user_id" => $user_id),array("startdate"));
-			$enddate = $db->fetch_single_data("seeker_experiences","enddate",array("user_id" => $user_id),array("enddate"));
-			$stillwork = $db->fetch_single_data("seeker_experiences","count(0)",array("user_id" => $user_id,"enddate" => "0000-00-00 00:00:00"));
-			if($stillwork == 1) $enddate = date("Y-m-d H:i:s");
+			$enddate = $db->fetch_single_data("seeker_experiences","enddate",array("user_id" => $user_id),array("enddate DESC"));
+			$stillwork = $db->fetch_single_data("seeker_experiences","enddate",array("user_id" => $user_id),array("enddate"));
+			if($stillwork == "0000-00-00 00:00:00") $enddate = date("Y-m-d H:i:s");
 			$datediff = date_diff(date_create($enddate),date_create($startdate),true); $experience_years = floor($datediff->days/365);
 			if($filter_categories["experience_years"]){
 				$match_level_2++;
