@@ -23,15 +23,10 @@ Pastikan filter yang Anda pilih adalah filter yang benar-benar menjadi prioritas
 	
 	if($db->fetch_single_data("opportunity_filter_categories","count(0)",array("opportunity_id" => $opportunity_id)) <= 0){
 		$location 			= "checked";
-		$job_level 			= "checked";
 		$job_function 		= "checked";
-		$degree				= "checked";
-		$salary 			= "checked";
-		$major 				= "checked";
 		$experience_years 	= "checked";
-		$gender 			= "checked";
-		$industry 			= "checked";
-		$age 				= "checked";
+		$job_level 			= "checked";
+		$degree				= "checked";
 	}
 	
 	echo $f->start("add_advertising_form2","POST");
