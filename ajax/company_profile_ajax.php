@@ -98,6 +98,20 @@
 		$db->addfield("updated_ip");			$db->addvalue($_SERVER["REMOTE_ADDR"]);
 		$inserting = $db->insert();
 		if($inserting["affected_rows"] > 0){
+			$db->addtable("opportunity_filter_categories");
+			$db->addfield("opportunity_id");	$db->addvalue($inserting["insert_id"]);
+			$db->addfield("location");			$db->addvalue(1);
+			$db->addfield("job_function");		$db->addvalue(1);
+			$db->addfield("experience_years");	$db->addvalue(1);
+			$db->addfield("job_level");			$db->addvalue(1);
+			$db->addfield("degree");			$db->addvalue(1);
+			$db->addfield("major");				$db->addvalue(0);
+			$db->addfield("age");				$db->addvalue(0);
+			$db->addfield("salary");			$db->addvalue(0);
+			$db->addfield("industry");			$db->addvalue(0);
+			$db->addfield("gender");			$db->addvalue(0);
+			$db->insert();
+			
 			echo $inserting["insert_id"];
 		} else {
 			echo "0";

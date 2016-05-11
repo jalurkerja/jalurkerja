@@ -21,14 +21,6 @@ Pastikan filter yang Anda pilih adalah filter yang benar-benar menjadi prioritas
 	$industry 			= ($filter["industry"] == 1) ? "checked" : "";
 	$age 				= ($filter["age"] == 1) ? "checked" : "";
 	
-	if($db->fetch_single_data("opportunity_filter_categories","count(0)",array("opportunity_id" => $opportunity_id)) <= 0){
-		$location 			= "checked";
-		$job_function 		= "checked";
-		$experience_years 	= "checked";
-		$job_level 			= "checked";
-		$degree				= "checked";
-	}
-	
 	echo $f->start("add_advertising_form2","POST");
 		echo $t->start("","","content_data");
 			echo $t->row(array(
