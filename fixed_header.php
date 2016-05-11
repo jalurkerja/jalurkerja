@@ -8,9 +8,9 @@
 					<tr>
 						<td nowrap>
 							&nbsp;&nbsp;&nbsp;&nbsp;
-							<img src="images/jk_icon.png" style="height:52px;position:relative;top:0px;left:-10px;cursor:pointer;border:0px;" alt="jalurkerja.com" title="jalurkerja.com" onclick="window.location='index.php';">
+							<img src="images/jk_icon.png" style="height:52px;cursor:pointer;border:0px;" alt="jalurkerja.com" title="jalurkerja.com" onclick="window.location='index.php';">
 							&nbsp;&nbsp;
-							<img src="images/jk_text.png" style="height:35px;position:relative;top:0px;left:-10px;cursor:pointer;border:0px;" alt="jalurkerja.com" title="jalurkerja.com" onclick="window.location='index.php';">
+							<img src="images/jk_text.png" style="height:35px;cursor:pointer;border:0px;" alt="jalurkerja.com" title="jalurkerja.com" onclick="window.location='index.php';">
 						</td>
 						<td style="width:20px;">&nbsp;</td>
 						<td style="width:250px;" align="left" nowrap>
