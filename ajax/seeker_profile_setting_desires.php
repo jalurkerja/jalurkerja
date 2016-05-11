@@ -14,7 +14,7 @@
 				$sb_job_levels_selected = $db->selected_to_string("job_level","id","name_".$__locale,$seeker_desires["job_level_ids"],"<br>");
 				
 				
-				$job_functions = $db->fetch_select_data("job_functions","id","name_".$__locale);
+				$job_functions = $db->fetch_select_data("job_functions","id","name_".$__locale,array(),array("name_".$__locale));
 				$sb_job_functions = $f->select_box("job_functions",$v->w("job_function"),$job_functions,pipetoarray($seeker_desires["job_function_ids"]),220,200,997,5,26,12,"grey");
 				$sb_job_functions_selected = $db->selected_to_string("job_functions","id","name_".$__locale,$seeker_desires["job_function_ids"],"<br>");
 				
