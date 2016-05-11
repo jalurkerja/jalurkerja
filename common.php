@@ -3,42 +3,7 @@
 	ini_set("session.gc_maxlifetime", 60 * 60 * 24 * 100);
 	set_time_limit(0);
 	session_start();
-	
 
-//===========================================================================================================================================
-	$timeFirst  = strtotime(gmdate("Y-m-d H:i:s",mktime(date("H")+7)));
-	$timeSecond = strtotime('2016-05-10 18:30:00');
-	$differenceInSeconds = $timeSecond - $timeFirst;
-	if($differenceInSeconds > 0 && $_SERVER["REMOTE_ADDR"] != "::1" && strpos(@$_SESSION["username"],"@jalurkerja.com") <= 0){
-?>
-	<style>
-	body{
-		margin-left:20%;
-		margin-top:20%;
-		height:100px;
-		font-size:70px;
-	}
-	</style>
-	<head>
-			<title>JalurKerja.Com [Beta]</title>
-	</head>
-	<body></body>
-	<script>
-		var differenceInSeconds  = <?=$differenceInSeconds ;?>;
-		function remaining(){
-			document.body.innerHTML = differenceInSeconds + " &nbsp;&nbsp; Seconds Remaining";
-			differenceInSeconds  = differenceInSeconds  - 1;
-			if(differenceInSeconds <= 0) { window.location = "index.php"; }
-			setTimeout(function(){ remaining(); }, 1000);
-		}
-		
-		remaining();
-	</script>
-<?php
-		exit();
-	}
-//===========================================================================================================================================
-	
 	$__isloggedin				= @$_SESSION["isloggedin"];
 	$__username					= @$_SESSION["username"];
 	$__user_id					= @$_SESSION["user_id"];
