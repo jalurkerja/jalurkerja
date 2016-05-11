@@ -79,7 +79,10 @@
 				return re.test(email);
 			}
 			
-			function openwindow(url){ window.open(url,""," scrollbars=yes,width=1100,height=800"); }
+			function openwindow(url){ 
+				var n = window.open(url,""," scrollbars=yes,width=1100,height=800"); 
+				if(n==null) { alert("Izinkan browser Anda untuk membuka popup window!"); }
+			}
 		</script>
 	</head>
 	<body id="bodyid" style="margin:0px;">
