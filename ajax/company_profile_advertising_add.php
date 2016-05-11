@@ -40,7 +40,13 @@
 	$txt_contact_person			= $f->input("contact_person",$opp["contact_person"]);
 	$txt_description			= $f->textarea("description",$opp["description"]);
 	$date_closing_date			= $f->input_tanggal("closing_date",$opp["closing_date"],"","","","desc");
-	$date_posted_at				= $f->input_tanggal("posted_at",$opp["posted_at"],"","","","desc");
+	if($opp["posted_at"] == "" || substr($opp["posted_at"],0,10) == "0000-00-00") $opp["posted_at"] = date("Y-m-d");
+	$date_posted_at				= $f->input_tanggal("posted_at",$opp["posted_at"],"","","closing_date.innerHTML = change_close_date(document.getElementById('x_posted_at[tgl]').value,document.getElementById('x_posted_at[bln]').value,document.getElementById('x_posted_at[thn]').value);","desc");
+	if($opp["closing_date"] == "" || substr($opp["closing_date"],0,10) == "0000-00-00"){ 
+		$closing_date = date("d-m-Y",mktime(0,0,0,date("m")+3));
+	} else {
+		$closing_date = format_tanggal($opp["closing_date"]);
+	}
 ?>
 <?=$f->start("add_advertising_form","POST");?>
 	<?=$t->start("","","content_data");?>
@@ -60,8 +66,8 @@
 		<?=$t->row(array("Tanggung Jawab",$txt_description));?>
 		<?=$t->row(array("Email",$txt_email));?>
 		<?=$t->row(array("Syariah",$chk_syariah));?>
-		<?=$t->row(array("Closing Date",$date_closing_date));?>
 		<?=$t->row(array("Posted At",$date_posted_at));?>
+		<?=$t->row(array("Closing Date","<span id='closing_date'>".$closing_date."</span>"));?>
 	<?=$t->end();?>
 	<?php
 		if(@$_GET["edit_advertising"] == 1) {

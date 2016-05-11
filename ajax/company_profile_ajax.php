@@ -54,6 +54,10 @@
 
 	if(isset($_POST["saving_add_advertising"])){
 		$db->addtable("company_profiles");$db->where("id",$__company_id);$db->limit(1);$company_profile = $db->fetch_data();
+		$post_tgl = substr($_POST["posted_at"],8,2) * 1;
+		$post_bln = (substr($_POST["posted_at"],5,2) * 1) + 3;
+		$post_thn = substr($_POST["posted_at"],0,4) * 1;
+		$_POST["closing_date"] = date("Y-m-d",mktime(0,0,0,$post_bln,$post_tgl,$post_thn));
 		
 		$db->addtable("opportunities");
 		$db->addfield("company_id");			$db->addvalue(@$__company_id);
@@ -102,6 +106,11 @@
 
 	if(isset($_POST["saving_edit_advertising"])){
 		$db->addtable("company_profiles");$db->where("id",$__company_id);$db->limit(1);$company_profile = $db->fetch_data();
+		
+		$post_tgl = substr($_POST["posted_at"],8,2) * 1;
+		$post_bln = (substr($_POST["posted_at"],5,2) * 1) + 3;
+		$post_thn = substr($_POST["posted_at"],0,4) * 1;
+		$_POST["closing_date"] = date("Y-m-d",mktime(0,0,0,$post_bln,$post_tgl,$post_thn));
 		
 		$db->addtable("opportunities");$db->where("id",@$_POST["opportunity_id"]);
 		$db->addfield("company_id");			$db->addvalue(@$__company_id);

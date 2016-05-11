@@ -76,6 +76,15 @@
 		if(current_height > 0) footer_area.style.top = (current_height + 250) + "px";
 	}	
 	
+	function change_close_date(tgl,bln,thn) {
+		bln = bln*1 + 3;
+		if(bln > 12) {
+			bln = bln - 12;
+			thn = thn*1 + 1;
+		}
+		return tgl+"-"+bln+"-"+thn;
+	}
+	
 	// function load_detail_opportunity(opportunity_id){
 		// get_ajax("ajax/searchjob_ajax.php?mode=generate_token&opportunity_id="+opportunity_id,"return_generate_token","openwindow('opportunity_detail.php?id="+opportunity_id+"&token='+global_respon['return_generate_token']);");
 	// }
