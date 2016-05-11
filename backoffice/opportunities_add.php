@@ -52,6 +52,21 @@
 			$inserting = $db->insert();
 			if($inserting["affected_rows"] >= 0){
 				$insert_id = $inserting["insert_id"];
+				
+				$db->addtable("opportunity_filter_categories");
+				$db->addfield("opportunity_id");	$db->addvalue($insert_id);
+				$db->addfield("location");			$db->addvalue(1);
+				$db->addfield("job_function");		$db->addvalue(1);
+				$db->addfield("experience_years");	$db->addvalue(1);
+				$db->addfield("job_level");			$db->addvalue(1);
+				$db->addfield("degree");			$db->addvalue(1);
+				$db->addfield("major");				$db->addvalue(0);
+				$db->addfield("age");				$db->addvalue(0);
+				$db->addfield("salary");			$db->addvalue(0);
+				$db->addfield("industry");			$db->addvalue(0);
+				$db->addfield("gender");			$db->addvalue(0);
+				$db->insert();
+				
 				if($_FILES['logo']['tmp_name']) {
 					move_uploaded_file($_FILES['logo']['tmp_name'], "../opportunity_logo/".$insert_id.".".pathinfo($_FILES['logo']['name'],PATHINFO_EXTENSION));
 					$db->addtable("opportunities");$db->where("id",$insert_id);

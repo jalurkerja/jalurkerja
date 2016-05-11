@@ -51,6 +51,34 @@
 			$db->addfield("updated_ip");			$db->addvalue($_SERVER["REMOTE_ADDR"]);
 			$updating = $db->update();
 			if($updating["affected_rows"] >= 0){
+				
+				$db->addtable("opportunity_filter_categories");$db->where("opportunity_id",$_GET["id"]);$db->delete_();
+		
+				$chk_location 			= (isset($_POST["chk_location"])) ? "1":"0";
+				$chk_job_level 			= (isset($_POST["chk_job_level"])) ? "1":"0";
+				$chk_job_function 		= (isset($_POST["chk_job_function"])) ? "1":"0";
+				$chk_degree 			= (isset($_POST["chk_degree"])) ? "1":"0";
+				$chk_salary 			= (isset($_POST["chk_salary"])) ? "1":"0";
+				$chk_major 				= (isset($_POST["chk_major"])) ? "1":"0";
+				$chk_experience_years	= (isset($_POST["chk_experience_years"])) ? "1":"0";
+				$chk_gender 			= (isset($_POST["chk_gender"])) ? "1":"0";
+				$chk_industry 			= (isset($_POST["chk_industry"])) ? "1":"0";
+				$chk_age 				= (isset($_POST["chk_age"])) ? "1":"0";
+				
+				$db->addtable("opportunity_filter_categories");
+				$db->addfield("opportunity_id");	$db->addvalue($_GET["id"]);
+				$db->addfield("job_level");			$db->addvalue($chk_job_level);
+				$db->addfield("job_function");		$db->addvalue($chk_job_function);
+				$db->addfield("location");			$db->addvalue($chk_location);
+				$db->addfield("degree");			$db->addvalue($chk_degree);
+				$db->addfield("major");				$db->addvalue($chk_major);
+				$db->addfield("age");				$db->addvalue($chk_age);
+				$db->addfield("salary");			$db->addvalue($chk_salary);
+				$db->addfield("industry");			$db->addvalue($chk_industry);
+				$db->addfield("gender");			$db->addvalue($chk_gender);
+				$db->addfield("experience_years");	$db->addvalue($chk_experience_years);
+				$db->insert();
+				
 				if(isset($_POST["use_company_logo"])){
 					unlink("../opportunity_logo/".$db->fetch_single_data("opportunities","logo",array("id" => $_GET["id"])));
 					$db->addtable("opportunities");$db->where("id",$_GET["id"]);
@@ -129,6 +157,7 @@
 	$txt_logo .= "<br>".$f->input("use_company_logo","1","type='checkbox'")." Gunakan logo Company";
 ?>
 <?=$f->start("","POST","","enctype='multipart/form-data'");?>
+	<table><tr><td valign="top">
 	<?=$t->start("","editor_content");?>
 		<?=$t->row(array("Company Name",$txt_company));?>
 		<?=$t->row(array("Company Id",$txt_company_id));?>
@@ -157,6 +186,45 @@
 		<?=$t->row(array("Closing Date",$date_closing_date));?>
 		<?=$t->row(array("Logo",$txt_logo));?>
 	<?=$t->end();?>
+	</td><td valign="top">
+	<?php
+		$db->addtable("opportunity_filter_categories");$db->where("opportunity_id",$_GET["id"]);$db->limit(1);$filter = $db->fetch_data();
+		$location 			= ($filter["location"] == 1) ? "checked" : "";
+		$job_level 			= ($filter["job_level"] == 1) ? "checked" : "";
+		$job_function 		= ($filter["job_function"] == 1) ? "checked" : "";
+		$degree				= ($filter["degree"] == 1) ? "checked" : "";
+		$salary 			= ($filter["salary"] == 1) ? "checked" : "";
+		$major 				= ($filter["major"] == 1) ? "checked" : "";
+		$experience_years 	= ($filter["experience_years"] == 1) ? "checked" : "";
+		$gender 			= ($filter["gender"] == 1) ? "checked" : "";
+		$industry 			= ($filter["industry"] == 1) ? "checked" : "";
+		$age 				= ($filter["age"] == 1) ? "checked" : "";
+		
+		$chk_location = $f->input("chk_location","1","type='checkbox' ".$location);
+		$chk_job_level = $f->input("chk_job_level","1","type='checkbox' ".$job_level);
+		$chk_job_function = $f->input("chk_job_function","1","type='checkbox' ".$job_function);
+		$chk_degree = $f->input("chk_degree","1","type='checkbox' ".$degree);
+		$chk_salary = $f->input("chk_salary","1","type='checkbox' ".$salary);
+		$chk_major = $f->input("chk_major","1","type='checkbox' ".$major);
+		$chk_experience_years = $f->input("chk_experience_years","1","type='checkbox' ".$experience_years);
+		$chk_gender = $f->input("chk_gender","1","type='checkbox' ".$gender);
+		$chk_industry = $f->input("chk_industry","1","type='checkbox' ".$industry);
+		$chk_age = $f->input("chk_age","1","type='checkbox' ".$age);
+	?>
+	<?=$t->start("","editor_content");?>
+		<?=$t->row(array("<h3><b>Filter Category</b></h3>"),array("colspan='2' align='center'"));?>
+		<?=$t->row(array("Lokasi",$chk_location));?>
+		<?=$t->row(array("Fungsi Kerja",$chk_job_function));?>
+		<?=$t->row(array("Rentang Gaji",$chk_salary));?>
+		<?=$t->row(array("Pengalaman Kerja",$chk_experience_years));?>
+		<?=$t->row(array("Industri",$chk_industry));?>
+		<?=$t->row(array("Level Kerja",$chk_job_level));?>
+		<?=$t->row(array("Pendidikan",$chk_degree));?>
+		<?=$t->row(array("Jurusan",$chk_major));?>
+		<?=$t->row(array("Jenis Kelamin",$chk_gender));?>
+		<?=$t->row(array("Umur",$chk_age));?>
+	<?=$t->end();?>
+	</td></tr></table>
 	<?=$f->input("save","Save","type='submit'");?> <?=$f->input("back","Back","type='button' onclick=\"window.location='".str_replace("_edit","_list",$_SERVER["PHP_SELF"])."';\"");?>
 <?=$f->end();?>
 <?php include_once "footer.php";?>
