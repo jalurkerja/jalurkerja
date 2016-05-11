@@ -52,15 +52,15 @@
 				}
 			}
 			
-			function get_ajax(x_url,target_elm,done_function){
+			function get_ajax(x_url,target_elm,done_function,withloading = true){
 				$( document ).ready(function() {
-					popup_message("<img src='icons/loading.gif' width='100'><br><div style='width:100px;height:5px;background-color:white;position:relative;top:-5px;left:100px;'></div>");
+					if(withloading) popup_message("<img src='icons/loading.gif' width='100'><br><div style='width:100px;height:5px;background-color:white;position:relative;top:-5px;left:100px;'></div>");
 					$.ajax({url: x_url, success: function(result){
 						try{ $("#"+target_elm).html(result); } catch(e){}
 						try{ $("#"+target_elm).val(result); } catch(e){}
 						try{ global_respon[target_elm] = result; } catch(e){}
 						try{ eval(done_function || ""); } catch(e){}
-						try{ $.fancybox.close(); } catch(e){} 
+						if(withloading) { try{ $.fancybox.close(); } catch(e){} }
 					}});
 				});
 			}

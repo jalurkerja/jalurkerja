@@ -88,7 +88,7 @@
 		}else{
 		  if(name != ""){
 			try{ school_id.value=""; } catch (e){}
-			get_ajax("ajax/seeker_profile_ajax.php?mode=loadSelectSchool&name="+name,	"SelectSchoolsList","loadingSelectSchools();");
+			get_ajax("ajax/seeker_profile_ajax.php?mode=loadSelectSchool&name="+name,	"SelectSchoolsList","loadingSelectSchools();",false);
 		  }else{
 			div_select_school.style.display="none";
 		  }
@@ -148,7 +148,7 @@
 		}else{
 		  if(name != ""){
 			try{ language_id.value=""; } catch (e){}
-			get_ajax("ajax/seeker_profile_ajax.php?mode=loadSelectLanguages&name="+name,	"SelectLanguagesList","loadingSelectLanguages();");
+			get_ajax("ajax/seeker_profile_ajax.php?mode=loadSelectLanguages&name="+name,	"SelectLanguagesList","loadingSelectLanguages();",false);
 		  }else{
 			div_select_language.style.display="none";
 		  }
