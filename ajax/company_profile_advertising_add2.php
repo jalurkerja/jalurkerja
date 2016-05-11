@@ -9,7 +9,7 @@ Pastikan filter yang Anda pilih adalah filter yang benar-benar menjadi prioritas
 <b>Atur filter pelamar yang Anda inginkan :</b>
 <?php
 	$opportunity_id = $_GET["add_opportunity_id"];
-	$db->addtable(" opportunity_filter_categories");$db->where("opportunity_id",$opportunity_id);$db->limit(1);$filter = $db->fetch_data();
+	$db->addtable("opportunity_filter_categories");$db->where("opportunity_id",$opportunity_id);$db->limit(1);$filter = $db->fetch_data();
 	$location 			= ($filter["location"] == 1) ? "checked" : "";
 	$job_level 			= ($filter["job_level"] == 1) ? "checked" : "";
 	$job_function 		= ($filter["job_function"] == 1) ? "checked" : "";
@@ -19,7 +19,21 @@ Pastikan filter yang Anda pilih adalah filter yang benar-benar menjadi prioritas
 	$experience_years 	= ($filter["experience_years"] == 1) ? "checked" : "";
 	$gender 			= ($filter["gender"] == 1) ? "checked" : "";
 	$industry 			= ($filter["industry"] == 1) ? "checked" : "";
-	$age = ($filter["age"] == 1) ? "checked" : "";
+	$age 				= ($filter["age"] == 1) ? "checked" : "";
+	
+	if($db->fetch_single_data("opportunity_filter_categories","count(0)",array("opportunity_id" => $opportunity_id)) <= 0){
+		$location 			= "checked";
+		$job_level 			= "checked";
+		$job_function 		= "checked";
+		$degree				= "checked";
+		$salary 			= "checked";
+		$major 				= "checked";
+		$experience_years 	= "checked";
+		$gender 			= "checked";
+		$industry 			= "checked";
+		$age 				= "checked";
+	}
+	
 	echo $f->start("add_advertising_form2","POST");
 		echo $t->start("","","content_data");
 			echo $t->row(array(
