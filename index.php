@@ -3,7 +3,7 @@
 <?php include_once "classes/banner.php"; ?>
 <?php include_once "scripts/homepage_js.php"; ?>
 	<!--MAIN IMAGE-->
-	<?php if($__is_seeker && $db->fetch_single_data("users","setting_clicked",array("id" => $__user_id)) < 2){ $mainImageClass = "callout";$mainImageStyle = "background-image: url('images/main_image_callout.jpg') !important;"; } else { $mainImageClass = "";$mainImageStyle = ""; } ?>
+	<?php if($__is_seeker && $db->fetch_single_data("users","setting_clicked",array("id" => $__user_id)) < 2){ $mainImageClass = "callout";$mainImageStyle = "style=\"background-image: url('images/main_image_callout.jpg') !important;\""; } else { $mainImageClass = "";$mainImageStyle = ""; } ?>
 	<table width="100%" class="mainImage <?=$mainImageClass;?>" <?=$mainImageStyle;?>>
 		<tr><td style="height:60px;"></td></tr>
 		<tr>
