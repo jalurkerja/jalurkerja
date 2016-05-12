@@ -6,6 +6,7 @@
 				<img src="images/callCenter.png"><br><br>
 				For further information please contact:<br>
 				Telp : +62 21 829 8227<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+62 21 829 8208<br>
 				Email: cs@jalurkerja.com<br>
 				(Mon - Fri, 8:00am - 5:00pm)
 			</td>

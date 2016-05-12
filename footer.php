@@ -10,6 +10,7 @@
 							<div class='v_spacer'></div>
 							<div class='v_spacer'></div>
 							Telp : +62 21 829 8227<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+62 21 829 8208<br>
 							<div class='v_spacer'></div>
 							<!--Fax : +62 21 29941058<br>
 							<div class='v_spacer'></div>-->

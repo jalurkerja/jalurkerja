@@ -12,8 +12,8 @@
 	function reposition_click_here_icon(){
 		try{
 			var job_seeker_setting_icon_position = $( "#job_seeker_setting_icon" ).position();
-			document.getElementById("job_seeker_setting_click_here").style.top = (job_seeker_setting_icon_position.top + 10) +"px";
-			document.getElementById("job_seeker_setting_click_here").style.left = (job_seeker_setting_icon_position.left - 60)+"px";
+			document.getElementById("job_seeker_setting_click_here").style.top = (job_seeker_setting_icon_position.top + 0) +"px";
+			document.getElementById("job_seeker_setting_click_here").style.left = (job_seeker_setting_icon_position.left - 140)+"px";
 			setTimeout(function(){ reposition_click_here_icon(); }, 500);
 		} catch (e) {}
 	}
