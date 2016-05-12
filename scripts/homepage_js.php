@@ -6,11 +6,17 @@
 		<?php if(isset($_GET["email_confirmed"])){ ?> 
 			popup_message("<?=$v->w("email_confirmed");?>","","window.location='index.php';"); 
 		<?php } ?>
-		
-		var job_seeker_setting_icon_position = $( "#job_seeker_setting_icon" ).position();
-		document.getElementById("job_seeker_setting_click_here").style.top = (job_seeker_setting_icon_position.top + 10) +"px";
-		document.getElementById("job_seeker_setting_click_here").style.left = (job_seeker_setting_icon_position.left - 60)+"px";
+		reposition_click_here_icon();
 	});
+	
+	function reposition_click_here_icon(){
+		try{
+			var job_seeker_setting_icon_position = $( "#job_seeker_setting_icon" ).position();
+			document.getElementById("job_seeker_setting_click_here").style.top = (job_seeker_setting_icon_position.top + 10) +"px";
+			document.getElementById("job_seeker_setting_click_here").style.left = (job_seeker_setting_icon_position.left - 60)+"px";
+			setTimeout(function(){ reposition_click_here_icon(); }, 500);
+		} catch (e) {}
+	}
 
 	function signup_validation(namalengkap,email,password,repassword){
 		if(namalengkap==""){ global_respon['signup_error'] = "namalengkap_empty"; return false;}
