@@ -7,4 +7,8 @@
 		popup_message("<iframe scrolling='no' id='frame_content' src=\"companies_call_histories.php?id=<?=@$_GET["id"];?>\"></iframe>");
 	}
 	
+	function open_admin_users(company_id){
+		popup_message("<iframe scrolling='no' id='frame_content' src=\"companies_admin_users_list.php?company_id="+company_id+"\"></iframe>");
+	}
+	
 </script>

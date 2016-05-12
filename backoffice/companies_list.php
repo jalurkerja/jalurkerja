@@ -117,8 +117,24 @@
 							";
 			?>
 			<?=$t->row(
-						array($no+$start+1,"<a href=\"companies_view.php?id=".$company_profile["id"]."\">".$company_profile["name"]."</a>",$industry,$company_profile["email"],$location,$pic,$company_profile["phone"],$admin_users,$sel_status,$cso,$actions),
-						array("align='right' valign='top'","")
+						array(
+								$no+$start+1,
+								"<a href=\"companies_view.php?id=".$company_profile["id"]."\">".$company_profile["name"]."</a>",
+								$industry,
+								$company_profile["email"],
+								$location,
+								$pic,
+								$company_profile["phone"],
+								$admin_users,
+								$sel_status,
+								$cso,
+								$actions),
+						array(
+								"align='right' valign='top'",
+								"","","","","","",
+								"onclick = \"open_admin_users('".$company_profile["id"]."');\" style=\"cursor:pointer;\"",
+								"","",""
+							)
 					);?>
 		<?php } ?>
 	<?php } ?>
