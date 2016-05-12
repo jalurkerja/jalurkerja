@@ -79,15 +79,8 @@ body {
 	background-attachment:fixed;
 }
 
-.mainImage_callout{
-	background-image: url('../images/main_image_callout.jpg');
-	z-index:1;
-	background-position:center center;
-	background-repeat:no-repeat;
-	background-size:100% 100%; 
-	width:100%;
-	height:620px;
-	background-attachment:fixed;
+.callout{
+	background-image: url('../images/main_image_callout.jpg') !important;
 }
 
 .frontRegisterArea {
