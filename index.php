@@ -3,7 +3,8 @@
 <?php include_once "classes/banner.php"; ?>
 <?php include_once "scripts/homepage_js.php"; ?>
 	<!--MAIN IMAGE-->
-	<table width="100%" class="mainImage">
+	<?php if($__is_seeker && $db->fetch_single_data("users","setting_clicked",array("id" => $__user_id)) < 2){ $mainImageClass = "mainImage_callout"; } else { $mainImageClass = "mainImage"; } ?>
+	<table width="100%" class="<?=$mainImageClass;?>">
 		<tr><td style="height:60px;"></td></tr>
 		<tr>
 			<td align="right" valign="middle">

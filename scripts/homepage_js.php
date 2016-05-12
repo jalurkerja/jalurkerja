@@ -6,6 +6,10 @@
 		<?php if(isset($_GET["email_confirmed"])){ ?> 
 			popup_message("<?=$v->w("email_confirmed");?>","","window.location='index.php';"); 
 		<?php } ?>
+		
+		var job_seeker_setting_icon_position = $( "#job_seeker_setting_icon" ).position();
+		document.getElementById("job_seeker_setting_click_here").style.top = (job_seeker_setting_icon_position.top + 10) +"px";
+		document.getElementById("job_seeker_setting_click_here").style.left = (job_seeker_setting_icon_position.left - 60)+"px";
 	});
 
 	function signup_validation(namalengkap,email,password,repassword){

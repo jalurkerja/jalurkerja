@@ -16,6 +16,8 @@
 	$__company_first_name		= @$_SESSION["company_first_name"];
 	$__company_name				= @$_SESSION["company_name"];
 	$__errormessage				= @$_SESSION["errormessage"];
+	$__is_seeker 				= false;
+	if($__isloggedin && $__company_id == "") $__is_seeker = true;
 	
 	if(isset($_GET["locale"])) { setcookie("locale",$_GET["locale"]);$_COOKIE["locale"]=$_GET["locale"]; }
 	if(!isset($_COOKIE["locale"])) { setcookie("locale","id");$_COOKIE["locale"]="id"; }
