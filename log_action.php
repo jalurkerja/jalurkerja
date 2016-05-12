@@ -26,7 +26,7 @@ if(isset($_POST["login_action"])){
 	$db->addfield("last_sign_in_at");
 	$db->addfield("current_sign_in_ip");
 	$db->addfield("last_sign_in_ip");
-	$db->where("email",str_replace(" ","",$_POST["username"]));
+	$db->where("email",$_POST["username"]);
 	$db->limit(1);
 	$users = $db->fetch_data();
 	if(count($users) > 0){
