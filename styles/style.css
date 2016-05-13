@@ -83,6 +83,10 @@ body {
 	background-image: url('../images/main_image_callout.jpg') !important;
 }
 
+.employer{
+	background-image: url('../images/main_image_employer.jpg') !important;
+}
+
 .frontRegisterArea {
 	height:300px;
 	width:432px;
