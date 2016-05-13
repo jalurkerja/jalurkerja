@@ -1,5 +1,10 @@
 <?php include_once "head.php"; ?>
 <?php if(!$__company_id) { javascript('popup_message("'.$v->words("please_login_as_company").'","error_message","window.location=\'index.php\';"); '); exit();} ?>
+<?php
+	$setting_clicked = $db->fetch_single_data("users","setting_clicked",array("id" => $__user_id)) * 1;
+	if($setting_clicked < 3) $setting_clicked++;
+	$db->addtable("users");$db->where("id",$__user_id);$db->addfield("setting_clicked");$db->addvalue($setting_clicked);$db->update();
+?>
 <?php include_once "classes/tabular.php"; ?>
 <?php include_once "homepage_header.php"; ?>
 <?php include_once "scripts/company_profile_js.php"; ?>

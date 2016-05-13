@@ -2,7 +2,9 @@
 <header class="fixedHeader">
 
 <?php if($__is_seeker && $db->fetch_single_data("users","setting_clicked",array("id" => $__user_id)) < 2 && basename($_SERVER["PHP_SELF"]) == "index.php"){ ?>
-	<img onclick="window.location='seeker_profile.php';" id="job_seeker_setting_click_here" src="images/click_here_icon.gif" style="position:absolute;width:160px;height:160px;">
+	<img onclick="window.location='seeker_profile.php';" id="job_seeker_setting_click_here" src="images/click_here_icon.gif" style="cursor:pointer;position:absolute;width:160px;height:160px;">
+<?php } else if($__company_id != "" && $db->fetch_single_data("users","setting_clicked",array("id" => $__user_id)) < 2 && basename($_SERVER["PHP_SELF"]) == "index.php"){ ?>
+	<img onclick="window.location='company_profile.php';" id="job_seeker_setting_click_here" src="images/click_here_icon.gif" style="cursor:pointer;position:absolute;width:160px;height:160px;">
 <?php } ?>
 	<table id="tableHeader" width="100%">
 		<tr>
@@ -56,7 +58,7 @@
 								<?php if($__company_id == ""){ ?>
 									<img id="job_seeker_setting_icon" title="<?=$v->words("job_seeker_setting");?>" src="icons/settings.png" onclick="window.location='seeker_profile.php';">
 								<?php } else { ?>
-									<img title="<?=$v->words("employer_pages");?>" src="icons/settings.png" onclick="window.location='company_profile.php';">
+									<img id="job_seeker_setting_icon" title="<?=$v->words("employer_pages");?>" src="icons/settings.png" onclick="window.location='company_profile.php';">
 								<?php }  ?>
 								<img title="<?=$v->words("signout");?>" src="icons/logout.png" onclick="window.location='?logout_action=1';">
 							</td>

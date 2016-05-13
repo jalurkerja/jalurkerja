@@ -6,7 +6,7 @@
 	<?php 
 		if($__is_seeker && $db->fetch_single_data("users","setting_clicked",array("id" => $__user_id)) < 2){ 
 			$mainImageClass = "callout";$mainImageStyle = "style=\"background-image: url('images/main_image_callout.jpg') !important;\""; 
-		} else if($__company_id != ""){
+		} else if($__company_id != "" && $db->fetch_single_data("users","setting_clicked",array("id" => $__user_id)) < 2){
 			$mainImageClass = "employer";$mainImageStyle = "style=\"background-image: url('images/main_image_employer.jpg') !important;\""; 
 		} else { 
 			$mainImageClass = "";$mainImageStyle = "";
