@@ -30,7 +30,7 @@
 				$address = str_replace(" ","",$receiver);
 				sendingmail($subject,$address,$body);
 				$db->addtable("mailer");$db->where("id",$mailer["id"]);$db->addfield("progressed");$db->addvalue($address);$db->update();
-				sleep(2);
+				sleep(1);
 			}
 		}
 		
