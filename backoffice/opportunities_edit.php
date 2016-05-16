@@ -114,15 +114,16 @@
 	$txt_web	 				= $f->input("web",$opportunity["web"]);
 	$txt_company_description	= $f->textarea("company_description",$opportunity["company_description"]);
 	$sel_location 				= $f->select("location",$db->fetch_select_data("locations","concat(province_id,':',location_id) as location_id","name_en",array(),array("name_en")),$opportunity["province_id"].":".$opportunity["location_id"]);
-	$sm_job_levels 				= $f->select_multiple("job_level_ids",$db->fetch_select_data("job_level","id","name_en"),pipetoarray($opportunity["job_level_ids"]));
+	$sm_locations 				= $f->select_multiple("locations",$db->fetch_select_data("locations","concat(province_id,':',location_id) as location_id","name_en",array(),array("name_en")),$locations,"style='height:200px;'");
+	$sm_job_levels 				= $f->select_multiple("job_level_ids",$db->fetch_select_data("job_level","id","name_en"),pipetoarray($opportunity["job_level_ids"]),"style='height:200px;'");
 	$sel_function				= $f->select("job_function_id",$db->fetch_select_data("job_functions","id","name_en",array(),array("name_en")),$opportunity["job_function_id"]);
 	$sel_degree					= $f->select("degree_id",$db->fetch_select_data("degree","id","name_en"),$opportunity["degree_id"]);
 	$majors = $db->fetch_select_data("majors","id","name_en"); asort($majors);
-	$sm_majors	 				= $f->select_multiple("major_ids",$majors,pipetoarray($opportunity["major_ids"]));
+	$sm_majors	 				= $f->select_multiple("major_ids",$majors,pipetoarray($opportunity["major_ids"]),"style='height:200px;'");
 	$txt_experience				= $f->input("experience_years",$opportunity["experience_years"]);
 	
 	$arrgender[1] = "Male";$arrgender[2] = "Female";
-	$sm_gender 					= $f->select_multiple("gender",$arrgender,pipetoarray($opportunity["gender"]));
+	$sm_gender 					= $f->select_multiple("gender",$arrgender,pipetoarray($opportunity["gender"]),"style='height:40px;'");
 	
 	$arrage[""] = "-";
 	for($xx = 14 ; $xx < 75 ; $xx++) { $arrage[$xx] = $xx; }
