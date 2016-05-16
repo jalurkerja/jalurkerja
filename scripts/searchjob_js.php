@@ -178,9 +178,9 @@
 		retval += "	<div id='title'><?=$v->words("signin");?></div>";
 		retval += "	<?=str_replace(array(chr(10),chr(13)),"",$f->start());?>";
 		retval += "		<?=str_replace(array(chr(10),chr(13)),"",$t->start());?>";
-		retval += "			<?=str_replace(array(chr(10),chr(13),'"'),array("","","'"),$t->row(array($v->words("email"),":",$f->input("username","",'tabindex="1" maxlength="75" autocomplete="on"',"txt_login")),array("id='td1'")));?>";
-		retval += "			<?=str_replace(array(chr(10),chr(13),'"'),array("","","'"),$t->row(array($v->words("password"),":",$f->input("password","",'type="password" tabindex="2" maxlength="75" autocomplete="on"',"txt_login")),array("id='td1'")));?>";
-		retval += "			<?=str_replace(array(chr(10),chr(13),'"'),array("","","'"),$t->row(array("","",$f->input("signin",$v->words("signin"),'type="submit" tabindex="3"',"btn_sign")),array("align='right'")));?>";
+		retval += "			<?=str_replace(array(chr(10),chr(13),'"'),array("","","'"),$t->row(array($v->words("email"),":",$f->input("username","",'tabindex="11" maxlength="75" autocomplete="on"',"txt_login")),array("id='td1'")));?>";
+		retval += "			<?=str_replace(array(chr(10),chr(13),'"'),array("","","'"),$t->row(array($v->words("password"),":",$f->input("password","",'type="password" tabindex="12" maxlength="75" autocomplete="on"',"txt_login")),array("id='td1'")));?>";
+		retval += "			<?=str_replace(array(chr(10),chr(13),'"'),array("","","'"),$t->row(array("","",$f->input("signin",$v->words("signin"),'type="submit" tabindex="13"',"btn_sign")),array("align='right'")));?>";
 		retval += "			<input type='hidden' name='opportunity_id' value='" + opportunity_id + "'>";
 		retval += "			<input type='hidden' name='login_action' value='1'>";
 		retval += "		<?=str_replace(array(chr(10),chr(13)),"",$t->end());?>";
@@ -197,8 +197,8 @@
 		retval += "<div class='login_form_area'>";
 		retval += "	<div id='title'><?=$v->words("apply");?></div>";
 		retval += "	<?=str_replace(array(chr(10),chr(13)),"",$t->start());?>";
-		retval += "		<?=str_replace(array(chr(10),chr(13),'"'),array("","","'"),$t->row(array($v->words("email"),":",$f->input("email","",'tabindex="1" maxlength="75" autocomplete="on"',"txt_login")),array("id='td1'")));?>";
-		retval += "		<?=str_replace(array(chr(10),chr(13),'"'),array("","","'"),$t->row(array("","",$f->input("signin",$v->words("send"),'type="button" onclick="apply_action(opportunity_id.value,email.value);"',"btn_sign")),array("align='right'")));?>";
+		retval += "		<?=str_replace(array(chr(10),chr(13),'"'),array("","","'"),$t->row(array($v->words("email"),":",$f->input("email","",'tabindex="11" maxlength="75" autocomplete="on"',"txt_login")),array("id='td1'")));?>";
+		retval += "		<?=str_replace(array(chr(10),chr(13),'"'),array("","","'"),$t->row(array("","",$f->input("signin",$v->words("send"),'type="button" tabindex="12" onclick="apply_action(opportunity_id.value,email.value);"',"btn_sign")),array("align='right'")));?>";
 		retval += "	<?=str_replace(array(chr(10),chr(13)),"",$t->end());?>";
 		retval += "</div>";//login_form_area
 		
