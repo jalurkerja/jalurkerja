@@ -99,7 +99,7 @@
 		var applybtn2 = document.getElementById("applybtn2");
 		if(applybtn1.className == "jobtools_btn" && applybtn2.className == "jobtools_btn"){
 			<?php if (!$__isloggedin) { ?>
-				show_login_form(opportunity_id);
+				parent.show_login_form(opportunity_id);
 			<?php } else if($__company_id) { ?>
 				apply_on_company_page(opportunity_id,'<?=$__company_id;?>');
 			<?php } else { ?>
@@ -113,7 +113,7 @@
 		var savebtn2 = document.getElementById("savebtn2");
 		if(savebtn1.className == "jobtools_btn" && savebtn2.className == "jobtools_btn"){
 			<?php if (!$__isloggedin) { ?>
-				show_login_form(opportunity_id);
+				popup_message("<?=$v->w("login_first");?>");
 			<?php } else { ?>
 				save_action(opportunity_id);
 			<?php } ?>
@@ -131,12 +131,16 @@
 				update_applybtn_class(valrespond);
 				popup_message("<?=$v->words("apply_success");?>");
 			} else if (valrespond.substr(0,10) == "need_email"){
-				alert("butuh isi email");
+				alert("error:1024");
 			} else if (valrespond == "need_confirmation"){
 				var message = "<div style='widht:500px;'><?=$v->w("need_confirmation");?><br><br><?=$v->w("click_resend_confirmation");?><div>";
 				message += "<div class='language_notactive' onclick='resend_confirmation();'>[<?=$v->w("resend");?>]</div>";
 				popup_message(message,"error_message");
-			} else if (valrespond.substr(0,5) == "error"){
+			} else if (valrespond == "error:user_not_exist"){
+				popup_message("<?=$v->w("user_not_exist");?>","error_message");
+			} else if (valrespond == "error:already_applied"){
+				popup_message("<?=$v->w("already_applied");?>","error_message");
+			} else {
 				alert(valrespond);
 			}
 		}, 500);
@@ -201,7 +205,11 @@
 		return retval;
 	}
 	
+	function open_detail_opportunity(url){
+		$.fancybox.open({ href: url, type: 'iframe',width:'1050px' });
+	}
+	
 	function load_detail_opportunity(opportunity_id){
-		get_ajax("ajax/searchjob_ajax.php?mode=generate_token&opportunity_id="+opportunity_id,"return_generate_token","openwindow('opportunity_detail.php?id="+opportunity_id+"&token='+global_respon['return_generate_token']);");
+		get_ajax("ajax/searchjob_ajax.php?mode=generate_token&opportunity_id="+opportunity_id,"return_generate_token","open_detail_opportunity('opportunity_detail.php?id="+opportunity_id+"&token='+global_respon['return_generate_token']);",false);
 	}
 </script>

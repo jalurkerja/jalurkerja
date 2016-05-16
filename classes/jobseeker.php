@@ -12,14 +12,18 @@
 		
         public function apply_opportunity($user_id,$opportunity_id){
 			if($this->is_applied($user_id,$opportunity_id) <= 0){
-				$this->addtable("applied_opportunities");
-				$this->addfield("user_id");			$this->addvalue($user_id);
-				$this->addfield("opportunity_id");	$this->addvalue($opportunity_id);
-				$this->addfield("created_at");		$this->addvalue(date("Y-m-d H:i:s"));
-				$this->addfield("created_by");		$this->addvalue($_SESSION["username"]);
-				$this->addfield("created_ip");		$this->addvalue($_SERVER["REMOTE_ADDR"]);
-				$inserting = $this->insert();
-				return $inserting["affected_rows"];
+				if($user_id > 0){
+					$this->addtable("applied_opportunities");
+					$this->addfield("user_id");			$this->addvalue($user_id);
+					$this->addfield("opportunity_id");	$this->addvalue($opportunity_id);
+					$this->addfield("created_at");		$this->addvalue(date("Y-m-d H:i:s"));
+					$this->addfield("created_by");		$this->addvalue($_SESSION["username"]);
+					$this->addfield("created_ip");		$this->addvalue($_SERVER["REMOTE_ADDR"]);
+					$inserting = $this->insert();
+					return $inserting["affected_rows"];
+				}else{
+					return "error:user_not_exist";
+				}
 			}else{
 				return "error:already_applied";
 			}

@@ -261,6 +261,10 @@ class Vocabulary{
 		$arr[$l]["you_still_have_a_quota_of_ads"]			= "You still have a quota of ads";
 		$arr[$l]["unlimited"]								= "Unlimited";
 		$arr[$l]["from_where_you_know_jalurkerjadotcom"]	= "From where You know JalurKerja.com";
+		$arr[$l]["already_applied"]							= "This opportunity has been applied";
+		$arr[$l]["user_not_exist"]							= "Email not registered";
+		$arr[$l]["already_saved"]							= "This opportunity has been saved";
+		$arr[$l]["login_first"]								= "Please sign in first";
 		/*==================================================================================================================================*/
 		/*==================================================================================================================================*/
 		$l = "id";
@@ -508,6 +512,10 @@ class Vocabulary{
 		$arr[$l]["you_still_have_a_quota_of_ads"]			= "Anda masih memiliki quota iklan";
 		$arr[$l]["unlimited"]								= "Tanpa batas";
 		$arr[$l]["from_where_you_know_jalurkerjadotcom"]	= "Dari mana Anda tahu JalurKerja.com";
+		$arr[$l]["already_applied"]							= "Lowongan ini telah terkirim";
+		$arr[$l]["user_not_exist"]							= "Email tidak terdaftar.";
+		$arr[$l]["already_saved"]							= "Lowongan ini telah tersimpan";
+		$arr[$l]["login_first"]								= "Silakan login terlebih dahulu";
 		
 		return $arr[$this->locale][$index];
 	}
