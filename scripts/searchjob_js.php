@@ -2,19 +2,32 @@
 	<?php
 		if(isset($_GET["get_search"]) && $_GET["get_search"]!=""){
 			?>  
+			var sb_job_function = 1;
+			var sb_industries = 1;
+			var sb_job_level = 1;
+			var sb_education_level = 1;
+			var sb_job_type = 0;
 			$(document).ready(function() { 
-				<?php if(isset($_GET["job_function"]))	{ ?> loading_select_box_job_function("serach_btn_click()"); <?php } ?>
-				<?php if(isset($_GET["job_level"]))		{ ?> loading_select_box_job_level("serach_btn_click()"); <?php } ?>
-				<?php if(isset($_GET["industries"]))		{ ?> loading_select_box_industries("serach_btn_click()"); <?php } ?>
-				<?php if(isset($_GET["education_level"]))		{ ?> loading_select_box_education_level("serach_btn_click()"); <?php } ?>
-				loading_select_box_job_type("serach_btn_click()");
-				serach_btn_click();
+				<?php if(isset($_GET["job_function"]))	{ ?> sb_job_function = 0; loading_select_box_job_function("sb_job_function = 1;"); <?php } ?>
+				<?php if(isset($_GET["industries"]))		{ ?> sb_industries = 0; loading_select_box_industries("sb_industries = 1;"); <?php } ?>
+				<?php if(isset($_GET["job_level"]))		{ ?> sb_job_level = 0; loading_select_box_job_level("sb_job_level = 1;"); <?php } ?>
+				<?php if(isset($_GET["education_level"]))		{ ?> sb_education_level = 0; loading_select_box_education_level("sb_education_level = 1;"); <?php } ?>
+				loading_select_box_job_type("sb_job_type = 1;");
+				setTimeout(function() { first_loading(); }, 10);
 			}); 
 			<?php
 		} else {
 			?> get_ajax("ajax/searchjob_ajax.php?mode=list","opportunities_list","loading_paging()"); <?php
 		}
 	?>
+	
+	function first_loading(){
+		if(sb_job_function == 1 && sb_job_level == 1 && sb_industries == 1 && sb_education_level == 1 && sb_job_type == 1){
+			serach_btn_click();
+		} else {
+			setTimeout(function() { first_loading(); }, 100);
+		}
+	}
 	
 	function changepage(page){
 		document.getElementById("searchjob_page").value = page;		
