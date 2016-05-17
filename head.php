@@ -7,7 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=8;" />
 		<meta name="keywords" content="lowongan, lowongan kerja, lowongan pekerjaan, lowongan kerja terbaru, lowongan kerja pt, lowongan kerja bank, job fair, bursa kerja"/>
 		<meta name="description" content="jalurkerja.com adalah salah satu situs rekrutmen tenaga kerja online yang terbesar dengan informasi 	lowongan kerja terbaru setiap hari dari berbagai perusahaan di Indonesia. . karir indonesia"/>
-		<meta name="title" content="situs informasi lowongan kerja terbaru dan karir di Indonesia | jalurkerja.com"/>
+		<meta name="title" content="situs informasi lowongan kerja terbaru di Indonesia | jalurkerja.com"/>
 		<meta name="language" content="id"/>
 		<meta name="country" content="indonesia"/>
 		<meta name="source" content="http://www.jalurkerja.com/"/>
