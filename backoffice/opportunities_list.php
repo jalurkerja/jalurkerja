@@ -99,6 +99,7 @@
 						"<div onclick=\"sorting('id');\">Opportunity Id</div>",
 						"<div onclick=\"sorting('company_id');\">Company Id</div>",
 						"<div onclick=\"sorting('company_id');\">Company Name</div>",
+						"Applied",
 						"<div onclick=\"sorting('title_en');\">Title</div>",
 						"<div onclick=\"sorting('job_type_id');\">Job Type</div>",
 						"<div onclick=\"sorting('industry_id');\">Industry</div>",
@@ -114,6 +115,7 @@
 						""));?>
 	<?php foreach($opportunities as $no => $opportunity){ ?>
 		<?php
+			$total_applicant = $db->fetch_single_data("applied_opportunities","count(1)",array("opportunity_id" => $opportunity["id"])) * 1;
 			$job_type = $db->fetch_single_data("job_type","name_en",array("id" => $opportunity["job_type_id"]));
 			$industry = $db->fetch_single_data("industries","name_en",array("id" => $opportunity["industry_id"]));
 			$location = $db->fetch_single_data("locations","name_en",array("province_id" => $opportunity["province_id"],"location_id" => $opportunity["location_id"]));
@@ -134,6 +136,7 @@
 						"<a href=\"opportunities_view.php?id=".$opportunity["id"]."\">".$opportunity["id"]."</a>",
 						$opportunity["company_id"],
 						$company_name,
+						"<div style='cursor:pointer;' onclick=\"load_detail_applicant('".$opportunity["id"]."');\">".$total_applicant."</div>",
 						$opportunity["title_en"],
 						$job_type,
 						$industry,

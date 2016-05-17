@@ -77,4 +77,8 @@
 		}
 	}
 	
+	function load_detail_applicant(opportunity_id){
+		$.fancybox.open({ href: "opportunities_applicant.php?opportunity_id="+opportunity_id, type: 'iframe',width:'1050px' });
+	}
+	
 </script>
