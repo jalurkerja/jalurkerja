@@ -137,8 +137,7 @@
 	}
 	
 	function resend_confirmation(){
-		popup_message("<?=$v->w("sending_confirmation");?>");
-		window.location = "resend_confirmation.php";
+		try{ parent.get_ajax("resend_confirmation.php"); } catch(e){ get_ajax("resend_confirmation.php"); }
 	}
 	
 	function success_applied(valrespond){
