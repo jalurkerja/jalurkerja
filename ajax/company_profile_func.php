@@ -184,16 +184,20 @@
 			$matched_categories = str_replace(",","<br>",$t_a_m["matched_categories"]);
 			$applicant_status_id = ($t_a_m["applicant_status_id"] > 0) ? $db->fetch_single_data("applicant_status","name",array("id" => $t_a_m["applicant_status_id"])) : $v->w("unviewed");
 			$row_attr[] = "onclick=\"load_applicant_management_detail('".$t_a_m["opportunity_id"]."','".$t_a_m["user_id"]."');\"";
+			if(strlen($t_a_m["position"]) > 20){ $_position = "..."; } else { $_position = ""; }
+			if(strlen($t_a_m["company_name"]) > 20){ $_company_name = "..."; } else { $_company_name = ""; }
+			if(strlen($t_a_m["name"]) > 20){ $_name = "..."; } else { $_name = ""; }
+			if(strlen($major) > 20){ $_major = "..."; } else { $_major = ""; }
 			$rows[] = array(
 							$t_a_m["match_level"],
 							
-							"<b>".$t_a_m["name"]."</b><br>".
+							"<b>".substr($t_a_m["name"],0,20).$_name."</b><br>".
 							$gender.", ".$t_a_m["age"]." ".$v->w("years")."<br>".
 							$location."<br>".
-							$v->w("applied_date")." :".format_tanggal($t_a_m["applied_date"],"dMY"),
+							$v->w("applied_date")." :<br>".format_tanggal($t_a_m["applied_date"],"dMY"),
 							
-							"<b>".$t_a_m["position"]."</b><br>".
-							$t_a_m["company_name"]."<br>".
+							"<b>".substr($t_a_m["position"],0,20).$_position."</b><br>".
+							substr($t_a_m["company_name"],0,20).$_company_name."<br>".
 							$job_level."<br>".
 							$job_function,
 							
@@ -202,7 +206,7 @@
 							number_format($t_a_m["salary_min"]/1000,0,",",".")." - ".number_format($t_a_m["salary_max"]/1000,0,",","."),
 							
 							"<b>".$degree."</b><br>".
-							$major,
+							substr($major,0,28).$_major,
 							
 							"<img width='60' src='seekers_photo/".$t_a_m["photo"]."'>",
 							
