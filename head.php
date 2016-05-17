@@ -52,7 +52,8 @@
 				}
 			}
 			
-			function get_ajax(x_url,target_elm,done_function,withloading = true){
+			function get_ajax(x_url,target_elm,done_function,withloading){
+				if(withloading == undefined) withloading = true;
 				$( document ).ready(function() {
 					if(withloading) popup_message("<img src='icons/loading.gif' width='100'><br><div style='width:100px;height:5px;background-color:white;position:relative;top:-5px;left:100px;'></div>");
 					$.ajax({url: x_url, success: function(result){
