@@ -32,11 +32,13 @@
 	function changepage(page){
 		document.getElementById("searchjob_page").value = page;		
 		$.post( "ajax/searchjob_ajax.php", { post_data: $("#searchjob_form").serialize() }).done(function( data ) { searching_result(data); }); 
+		window.history.pushState("","","searchjob.php?get_search=1&"+$("#searchjob_form").serialize());
 	}
 	
 	function changeorder(order){
 		document.getElementById("searchjob_order").value = order;
 		$.post( "ajax/searchjob_ajax.php", { post_data: $("#searchjob_form").serialize() }).done(function( data ) { searching_result(data);changepage(1) }); 
+		window.history.pushState("","","searchjob.php?get_search=1&"+$("#searchjob_form").serialize());
 	}
 	
 	function serach_btn_click() {
@@ -45,6 +47,7 @@
 		document.getElementById("sort_by").value = "posted_at DESC,updated_at DESC";
 		popup_message("<img src='icons/loading.gif' width='100'><br><div style='width:100px;height:5px;background-color:white;position:relative;top:-5px;left:100px;'></div>");
 		$.post( "ajax/searchjob_ajax.php", { post_data: $("#searchjob_form").serialize() }).done(function( data ) { searching_result(data); }); 
+		window.history.pushState("","","searchjob.php?get_search=1&"+$("#searchjob_form").serialize());
 	}
 	
 	function searching_result(data){
