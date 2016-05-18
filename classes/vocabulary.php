@@ -265,6 +265,10 @@ class Vocabulary{
 		$arr[$l]["user_not_exist"]							= "Email not registered";
 		$arr[$l]["already_saved"]							= "This opportunity has been saved";
 		$arr[$l]["login_first"]								= "Please sign in first";
+		$arr[$l]["upload"]									= "Upload";
+		$arr[$l]["image_to_big"]							= "Photo must be smaller than {max_file} MB";
+		$arr[$l]["error_upload_image"]						= "Upload image failed!";
+		$arr[$l]["image_saved"]								= "Image saved";
 		/*==================================================================================================================================*/
 		/*==================================================================================================================================*/
 		$l = "id";
@@ -516,6 +520,10 @@ class Vocabulary{
 		$arr[$l]["user_not_exist"]							= "Email tidak terdaftar.";
 		$arr[$l]["already_saved"]							= "Lowongan ini telah tersimpan";
 		$arr[$l]["login_first"]								= "Silakan login terlebih dahulu";
+		$arr[$l]["upload"]									= "Unggah";
+		$arr[$l]["image_to_big"]							= "Photo harus lebih kecil dari {max_file} MB";
+		$arr[$l]["error_upload_image"]						= "Gambar gagal diupload, coba gunakan gambar yang lain!";
+		$arr[$l]["image_saved"]								= "Gambar berhasil disimpan";
 		
 		return $arr[$this->locale][$index];
 	}

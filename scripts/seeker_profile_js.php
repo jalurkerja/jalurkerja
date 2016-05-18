@@ -7,7 +7,9 @@
 	function load_documents_saved_opporunities()	{ get_ajax("ajax/seeker_profile_ajax.php?mode=load_documents_saved_opporunities",	"documents_saved_opportunities","remove_footer('documents_saved_opportunities');"); }
 	function load_documents_applied_opporunities()	{ get_ajax("ajax/seeker_profile_ajax.php?mode=load_documents_applied_opporunities",	"documents_applied_opportunities","remove_footer('documents_applied_opportunities');"); }
 	/*START PERSONAL DATA =======================================================================================================*/
-	function edit_photo(){ var win_edit_photo = window.open("seeker_profile_edit_photo.php","seeker_profile_edit_photo","width=300,height=300"); }
+	function edit_photo(){ 
+		$.fancybox.open({ href: "seeker_profile_edit_photo.php", type: 'iframe' });
+	}
 	function edit_personal_data()			{ get_ajax("ajax/seeker_profile_ajax.php?mode=edit_personal_data",			"profile","remove_footer('profile');"); }
 	function save_personal_data() 			{ $.post( "ajax/seeker_profile_ajax.php", { post_data: $("#personal_data_form").serialize() }).done(function( data ) { after_save_personal_data(data); }); }
 	function after_save_personal_data(data)	{ 
