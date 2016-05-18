@@ -49,7 +49,7 @@
 			if($_FILES['header_image']['tmp_name']) {
 				move_uploaded_file($_FILES['header_image']['tmp_name'], "../company_header/".$_GET["id"].".".pathinfo($_FILES['header_image']['name'],PATHINFO_EXTENSION));
 				$db->addtable("company_profiles");$db->where("id",$_GET["id"]);
-				$db->addfield("header_image");$db->addvalue($insert_id.".".pathinfo($_FILES['header_image']['name'],PATHINFO_EXTENSION));$db->update();
+				$db->addfield("header_image");$db->addvalue($_GET["id"].".".pathinfo($_FILES['header_image']['name'],PATHINFO_EXTENSION));$db->update();
 			}
 			javascript("alert('Data Berhasil tersimpan');");
 		} else {
