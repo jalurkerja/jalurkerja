@@ -4,6 +4,23 @@
 	if(isset($_GET["mode"])){ $_mode = $_GET["mode"]; } else { $_mode = ""; }
 	
 	if(isset($_POST["post_data"])){ parse_str($_POST["post_data"],$_POST); }
+	
+	if(isset($_POST["saving_edit_change_password_form"])){
+		$db->addtable("users");$db->addfield("password");$db->where("id",$__user_id);$db->limit(0);
+		$current_password = base64_decode($db->fetch_data(false,0));
+		if($current_password == $_POST["current_password"]){
+			if($_POST["new_password"] == $_POST["confirm_password"]){
+				$db->addtable("users");$db->addfield("password");$db->addvalue(base64_encode($_POST["new_password"]));$db->where("id",$__user_id);
+				$updating = $db->update();
+				echo $updating["affected_rows"];
+			} else {
+				echo "error:wrong_new_password";
+			}
+		} else {
+			echo "error:wrong_password";
+		}
+	}
+	
 	if(isset($_POST["saving_company_profile_form"])){
 		$arrlocation = explode(":",$_POST["location"]);
 		$province_id = $arrlocation[0];
@@ -210,4 +227,7 @@
 	
 	if( $_mode == "load_advertising"
 	){ include_once "company_profile_advertising.php"; }
+	
+	if( $_mode == "load_setting"
+	){ include_once "company_profile_setting.php"; }
 ?>

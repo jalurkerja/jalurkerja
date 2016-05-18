@@ -85,6 +85,21 @@
 		return tgl+"-"+bln+"-"+thn;
 	}
 	
+	/*START CHANGE PASSWORD =======================================================================================================*/
+	function save_edit_change_password() 	{ $.post( "ajax/company_profile_ajax.php", { post_data: $("#edit_change_password").serialize() }).done(function( data ) { after_edit_change_password(data); }); }
+	function after_edit_change_password(data)	{
+		if(data > 0){
+			popup_message("<?=$v->words("your_data_successfully_saved");?>","","load_setting();");
+		} else if(data == "error:wrong_new_password"){
+			popup_message("<?=$v->words("wrong_new_password");?>","error_message","load_setting()");
+		} else if(data == "error:wrong_password"){
+			popup_message("<?=$v->words("wrong_password");?>","error_message","load_setting()");
+		} else {
+			popup_message("<?=$v->words("your_data_fails_to_be_saved");?>","error_message","load_setting()");
+		}
+	}
+	/*END CHANGE PASSWORD =======================================================================================================*/
+	
 	// function load_detail_opportunity(opportunity_id){
 		// get_ajax("ajax/searchjob_ajax.php?mode=generate_token&opportunity_id="+opportunity_id,"return_generate_token","openwindow('opportunity_detail.php?id="+opportunity_id+"&token='+global_respon['return_generate_token']);");
 	// }
