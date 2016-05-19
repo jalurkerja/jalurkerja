@@ -81,19 +81,19 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 			$nav_personal_data = (!$edit_personal_data) ? $btn_edit_personal_data : $btn_save_cancel_personal_data;
 			$nav_personal_data = $t->start("","","navigation") . $nav_personal_data . $t->end();
 		?>
-		<?php if(@filesize("seekers_photo/".@$arr_seeker_profile["photo"])>4096){ ?>
+		<?php if(@filesize("seekers_photo/".@$arr_seeker_profile["photo"])>4096 && $arr_seeker_profile["photo"] != ""){ ?>
 			<div id="photo"><img id="photo" src="seekers_photo/<?=@$arr_seeker_profile["photo"];?>" style="height:150px;"></div>
 		<?php } else if(@file_exists("seekers_photo/nophoto.png")) { ?>
 			<div id="photo"><img id="photo" src="seekers_photo/nophoto.png" style="height:150px;"></div>
 		<?php } ?>
 		
-		<?php if(@filesize("../seekers_photo/".@$arr_seeker_profile["photo"])>4096){ ?>
+		<?php if(@filesize("../seekers_photo/".@$arr_seeker_profile["photo"])>4096 && $arr_seeker_profile["photo"] != ""){ ?>
 			<div id="photo"><img id="photo" src="seekers_photo/<?=@$arr_seeker_profile["photo"];?>" style="height:150px;"></div>
 		<?php } else if(@file_exists("../seekers_photo/nophoto.png")) { ?>
 			<div id="photo"><img id="photo" src="seekers_photo/nophoto.png" style="height:150px;"></div>
 		<?php } ?>
 		<?php if(!isset($_print_view)){ ?>
-		<div id="photo_nav"><?=$f->input("photo_nav",$v->w("edit"),"type='button' onclick=\"edit_photo('".$__user_id."');\"","btn_post");?></div>
+		<div id="photo_nav"><?=$f->input("photo_nav",$v->w("edit")." Photo"," style='width:100px;' type='button' onclick=\"edit_photo('".$__user_id."');\"","btn_post");?></div>
 		<?php } ?>
 		
 		<table width="100%"><tr><td align="center">
