@@ -131,7 +131,7 @@
 										
 							),array("id='td1'")
 							);
-			$rows[] = $t->row(array($v->w("photo"),":",$f->input("photo","",'type="file" tabindex="17"')),array("id='td1'"));
+			//$rows[] = $t->row(array($v->w("photo"),":",$f->input("photo","",'type="file" tabindex="17"')),array("id='td1'"));
 			$rows[] = $t->row(array("","",$f->input("signin",$v->words("save"),'type="submit" tabindex="18"',"btn_sign")),array("align='right'"));
 			$additionalscript = "";
 		?>
