@@ -104,10 +104,12 @@
 		<br><br>
 		<?php
 			$banner2 = new Banner();
-			$sidebanners2[0] = "banners/corporate_human_resource.jpg";
-			$sidebanners2[1] = "banners/jepege.jpg";
-			$sideurls2[0] = "http://www.corphr.com";
-			$sideurls2[1] = "http://www.jepege.co.id";
+			$sidebanners2[0] = "banners/mie_time.jpg";
+			$sidebanners2[1] = "banners/corporate_human_resource.jpg";
+			$sidebanners2[2] = "banners/jepege.jpg";
+			$sideurls2[0] = "https://www.instagram.com/officialmietime/ ";
+			$sideurls2[1] = "http://www.corphr.com";
+			$sideurls2[2] = "http://www.jepege.co.id";
 			echo $banner2->draw("banner2",$sidebanners2,$sideurls2,200,150,5000);
 		?>
 		</td></tr></table>
