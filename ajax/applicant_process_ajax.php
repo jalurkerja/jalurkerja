@@ -35,7 +35,7 @@
 						$no,
 						$transition_status,
 						$aph["notes"],
-						format_tanggal($aph["created_at"],"dMY",true),
+						format_tanggal($aph["created_at"],"dMY",true,true),
 						$updatedby
 					),
 					array("style='width:1px;'","style='width:200px;'","style='width:500px;'")

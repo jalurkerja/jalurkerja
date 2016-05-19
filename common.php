@@ -60,18 +60,21 @@
 		if($_max > 0){return "Rp.".$min." - Rp.".$max;} else {return "Rp.".$min." - ".$v->w("infinite");}
 	}
 	
-	function format_tanggal ($tanggal,$mode="dmY",$withtime=false) {
+	function format_tanggal ($tanggal,$mode="dmY",$withtime=false,$gmt7 = false) {
 		if(substr($tanggal,0,10) != "0000-00-00" && $tanggal != ""){
 			$arr = explode(" ",$tanggal);
-			$time = @$arr[1];
+			$time = null;
+			if(isset($arr[1])) $time = explode(":",$arr[1]);
 			$tanggal = $arr[0];
 			$arr = explode("-",$tanggal);
-			$Y=$arr[0];
-			$m=$arr[1];
-			$d=$arr[2];
-			if($mode == "dmY"){ $tanggal = $d."-".$m."-".$Y; }
-			if($mode == "dMY"){ $tanggal = $d." ".date("F",mktime(0,0,0,$m))." ".$Y; }
-			if($withtime && isset($time)) $tanggal .= " ".$time;
+			$Y = $arr[0]; $m = $arr[1]; $d = $arr[2];
+			if(is_array($time)){ $h = $time[0]; $i = $time[1]; $s = $time[2]; }
+			if($gmt7){ $h = $h + 7; }
+			$format_time = "";
+			if($withtime && is_array($time)) $format_time = " H:i:s";
+
+			if($mode == "dmY"){ $tanggal = date("d-m-Y".$format_time,mktime($h,$i,$s,$m,$d,$Y)); }
+			if($mode == "dMY"){ $tanggal = date("d F Y".$format_time,mktime($h,$i,$s,$m,$d,$Y)); }
 			return $tanggal;
 		}
 	}
