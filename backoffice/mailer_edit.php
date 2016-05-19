@@ -4,8 +4,8 @@
 	if(isset($_POST["save"])){
 		$db->addtable("mailer");$db->where("id",$_GET["id"]);
 		$db->addfield("debug_receiver");	$db->addvalue($_POST["debug_receiver"]);
-		$db->addfield("subject");			$db->addvalue(str_replace("'","''",$_POST["subject"]));
-		$db->addfield("body");				$db->addvalue(str_replace("'","''",$_POST["body"]));
+		$db->addfield("subject");			$db->addvalue($_POST["subject"]);
+		$db->addfield("body");				$db->addvalue($_POST["body"]);
 		$db->addfield("isdebug");			$db->addvalue($_POST["isdebug"]);
 		$db->addfield("exec_time");			$db->addvalue($_POST["exec_time"]." ".$_POST["exec_time_hours"]);
 		$db->addfield("status");			$db->addvalue(0);

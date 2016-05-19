@@ -18,7 +18,7 @@
 				$db->addfield("job_type_id");			$db->addvalue(@$_POST["job_type_id"]);
 				$db->addfield("industry_id");			$db->addvalue(@$_POST["industry_id"]);
 				$db->addfield("web");					$db->addvalue(@$_POST["web"]);
-				$db->addfield("company_description");	$db->addvalue(str_replace("'","''",@$_POST["company_description"]));
+				$db->addfield("company_description");	$db->addvalue(@$_POST["company_description"]);
 				$location_id = explode(":",$_POST["location"]);
 				$db->addfield("province_id");			$db->addvalue($location_id[0]);
 				$db->addfield("location_id");			$db->addvalue($location_id[1]);
@@ -36,9 +36,9 @@
 				$db->addfield("salary_max");			$db->addvalue(@$_POST["salary_max"]);
 				$db->addfield("is_syariah");			$db->addvalue(@$_POST["is_syariah"]);
 				$db->addfield("is_freshgraduate");		$db->addvalue(@$_POST["is_freshgraduate"]);
-				$db->addfield("requirement");			$db->addvalue(str_replace("'","''",@$_POST["requirement"]));
+				$db->addfield("requirement");			$db->addvalue(@$_POST["requirement"]);
 				$db->addfield("contact_person");		$db->addvalue(@$_POST["contact_person"]);
-				$db->addfield("description");			$db->addvalue(str_replace("'","''",@$_POST["description"]));
+				$db->addfield("description");			$db->addvalue(@$_POST["description"]);
 				$db->addfield("closing_date");			$db->addvalue(@$_POST["closing_date"]);
 				$db->addfield("posted_at");				$db->addvalue(@$_POST["posted_at"]);
 				$db->addfield("is_question");			$db->addvalue(@$_POST["is_question"]);

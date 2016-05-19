@@ -42,6 +42,11 @@
 	
 	function javascript($script){  ?> <script> $( document ).ready(function() { <?=$script;?> }); </script> <?php }
 	
+	function sanitasi($value){ return str_replace("'","''",$value); }
+	
+	foreach($_POST as $key => $value){ if(!is_array($value)) $_POST[$key] = sanitasi($value); }
+	foreach($_GET as $key => $value){ if(!is_array($value)) $_GET[$key] = sanitasi($value); }
+	
 	function salary_min_max($min,$max){
 		global $__locale,$v;
 		$_max = $max;
