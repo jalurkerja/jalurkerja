@@ -28,7 +28,7 @@
 		$db->addtable("seeker_profiles");$db->where("user_id",$__user_id);
 		$db->addfield("photo");$db->addvalue($photo_filename);
 		$db->update();
-		?> <script> parent.popup_message("<?=$v->w("image_saved");?>"); </script> <?php
+		?> <script> parent.popup_message("<?=$v->w("image_saved");?>","","location.reload()"); </script> <?php
 	}
 	
 	if(isset($_POST["upload"])){
@@ -71,7 +71,7 @@
 	
 	if(!isset($_POST["upload"])){
 		$db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1); $arr_seeker_profile = $db->fetch_data();
-		if(!isset($arr_seeker_profile["photo"]) || $arr_seeker_profile["photo"] == "") $arr_seeker_profile["photo"] = "seekers_photo/nophoto.png";
+		if(!isset($arr_seeker_profile["photo"]) || $arr_seeker_profile["photo"] == "") $arr_seeker_profile["photo"] = "nophoto.png";
 		echo $f->start("","POST","","enctype='multipart/form-data'");
 			echo $t->start("width='100%'");
 				echo $t->row(array($f->input("file_photo","","type='file'")),array("align='center'"));
@@ -125,6 +125,8 @@
 				$('#thumbnail').imgAreaSelect({ aspectRatio: '1:<?php echo $thumb_height/$thumb_width;?>', onSelectChange: preview }); 
 			});
 		</script>
+		<h3><b>Crop Photo</b></h3>
+		<?=$v->w("please_pick_your_photo_area");?>
 		<table>
 			<tr>
 				<td align="center">
