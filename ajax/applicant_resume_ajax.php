@@ -45,6 +45,9 @@
 	$expected_salary_min = $db->fetch_single_data("seeker_desires","salary_min",array("user_id" => $user_id));
 	$expected_salary_max = $db->fetch_single_data("seeker_desires","salary_max",array("user_id" => $user_id));
 	$expected_salary = salary_min_max($expected_salary_min,$expected_salary_max);
+	$_phone = $seeker_profile["phone"];
+	if($_phone != "" && $seeker_profile["cellphone"] != "")  $_phone .= ",";
+	$_phone .= $seeker_profile["cellphone"];
 ?>
 <div class="card">
 	<div style="height:20px;" id="title"></div>
@@ -55,7 +58,7 @@
 			<?=$last_seeker_experience["position"];?> <?=$v->w("at");?> <?=$last_seeker_experience["company_name"];?> | <?=$last_industry;?> | 
 			<?=$db->fetch_single_data("locations","name_".$__locale,array("province_id" => $seeker_profile["province_id"],"location_id" => $seeker_profile["location_id"]));?>
 		</div>
-		<div id="phone"><?=$v->w("phone");?> : <?=$seeker_profile["phone"];?></div>
+		<div id="phone"><?=$v->w("phone");?> : <?=$_phone;?></div>
 		<div id="mail"><?=$v->w("email");?> : <?=$db->fetch_single_data("users","email",array("id" => $seeker_profile["user_id"]));?></div>
 	</div>
 	<div class="applicant_resume_header_border"></div>
