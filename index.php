@@ -98,7 +98,7 @@
 			$sidebanners[1] = "banners/jobfair_purwokerto.jpg";
 			$sidebanners[2] = "banners/jobfair_semarang.jpg";
 			$sideurls[0] = "http://jalurkerja.com/attachments/pekalongan_jobfair_2016_poster.jpg";
-			$sideurls[1] = "";
+			$sideurls[1] = "http://jalurkerja.com/attachments/purwokerto_jobfair_2016_poster.jpg";
 			$sideurls[2] = "";
 			echo $banner1->draw("banner1",$sidebanners,$sideurls,200,150,5000);
 		?>
