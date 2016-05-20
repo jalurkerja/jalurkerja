@@ -97,7 +97,10 @@
 			$sidebanners[0] = "banners/jobfair_pekalongan.jpg";
 			$sidebanners[1] = "banners/jobfair_purwokerto.jpg";
 			$sidebanners[2] = "banners/jobfair_semarang.jpg";
-			echo $banner1->draw("banner1",$sidebanners,array(),200,150,5000);
+			$sideurls[0] = "http://jalurkerja.com/attachments/pekalongan_jobfair_2016_poster.jpg";
+			$sideurls[1] = "";
+			$sideurls[2] = "";
+			echo $banner1->draw("banner1",$sidebanners,$sideurls,200,150,5000);
 		?>
 		<br>
 		<img src="banners/free_exclusive_membership_plan.jpg" width="200" height="150" style="border:1px solid black;" onclick="load_register_as_employer();">
