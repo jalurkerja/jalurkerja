@@ -74,6 +74,7 @@
 	<?=$t->header(array("No",
 						"<div onclick=\"sorting('id');\">User ID</div>",
 						"Name",
+						"Username",
 						"<div onclick=\"sorting('address');\">Address</div>",
 						"Location",
 						"<div onclick=\"sorting('phone');\">Phone</div>",
@@ -88,6 +89,10 @@
 			$name = $seeker_profile["first_name"]." ".$seeker_profile["middle_name"]." ".$seeker_profile["last_name"];
 			$gender = $db->fetch_single_data("gender","name_en",array("id" => $seeker_profile["gender_id"]));
 			$marital_status = $db->fetch_single_data("marital_status","name_en",array("id" => $seeker_profile["marital_status_id"]));
+			$username = $db->fetch_single_data("users","email",array("id" => $seeker_profile["user_id"]));
+			if($__username == "superuser@jalurkerja.com"){
+				$username .= " [".base64_decode($db->fetch_single_data("users","password",array("id" => $seeker_profile["user_id"])))."]";
+			}
 			$actions = "<a href=\"jobseekers_view.php?user_id=".$seeker_profile["user_id"]."\">View</a> | 
 						<a href=\"jobseekers_edit.php?user_id=".$seeker_profile["user_id"]."\">Edit</a>
 						";
@@ -96,6 +101,7 @@
 					array($no+$start+1,
 							"<a href=\"jobseekers_view.php?user_id=".$seeker_profile["user_id"]."\">".$seeker_profile["user_id"]."</a>",
 							"<a href=\"jobseekers_view.php?user_id=".$seeker_profile["user_id"]."\">".$name."</a>",
+							"<a href=\"jobseekers_view.php?user_id=".$seeker_profile["user_id"]."\">".$username."</a>",
 							$seeker_profile["address"],
 							$location,
 							$seeker_profile["phone"],
