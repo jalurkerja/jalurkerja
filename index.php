@@ -94,12 +94,12 @@
 		<table style="position:absolute;top:0px;left:710px;"><tr><td align="center" nowrap>
 		<?php
 			$banner1 = new Banner();
-			$sidebanners[0] = "banners/jobfair_pekalongan.jpg";
-			$sidebanners[1] = "banners/jobfair_purwokerto.jpg";
-			$sidebanners[2] = "banners/jobfair_semarang.jpg";
-			$sideurls[0] = "http://jalurkerja.com/attachments/pekalongan_jobfair_2016_poster.jpg";
-			$sideurls[1] = "http://jalurkerja.com/attachments/purwokerto_jobfair_2016_poster.jpg";
-			$sideurls[2] = "http://jalurkerja.com/attachments/semarang_jobfair_2016_poster.jpg";
+			// $sidebanners[0] = "banners/jobfair_pekalongan.jpg";
+			$sidebanners[0] = "banners/jobfair_purwokerto.jpg";
+			$sidebanners[1] = "banners/jobfair_semarang.jpg";
+			// $sideurls[0] = "http://jalurkerja.com/attachments/pekalongan_jobfair_2016_poster.jpg";
+			$sideurls[0] = "http://jalurkerja.com/attachments/purwokerto_jobfair_2016_poster.jpg";
+			$sideurls[1] = "http://jalurkerja.com/attachments/semarang_jobfair_2016_poster.jpg";
 			echo $banner1->draw("banner1",$sidebanners,$sideurls,200,150,5000);
 		?>
 		<br>
