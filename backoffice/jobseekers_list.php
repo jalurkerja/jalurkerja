@@ -18,6 +18,8 @@
 				$sel_gender = $f->select("sel_gender",$genders,@$_GET["sel_gender"],"style='height:20px;'");
 				$marital_status = $db->fetch_select_data("marital_status","id","name_en");$marital_status[null] = ""; ksort($marital_status);
 				$sel_marital_status = $f->select("sel_marital_status",$marital_status,@$_GET["sel_marital_status"],"style='height:20px;'");
+				$txt_created_at = $f->input("txt_created_at",@$_GET["txt_created_at"]);
+				$txt_timestamp = $f->input("txt_timestamp",@$_GET["txt_timestamp"]);
 			?>
 			<?=$t->row(array("ID",$txt_id));?>
 			<?=$t->row(array("Name",$txt_name));?>
@@ -27,6 +29,8 @@
 			<?=$t->row(array("Cellphone",$txt_cellphone));?>
 			<?=$t->row(array("Gender",$sel_gender));?>
 			<?=$t->row(array("Marital Status",$sel_marital_status));?>
+			<?=$t->row(array("Created At",$txt_created_at));?>
+			<?=$t->row(array("Timestamp",$txt_timestamp));?>
 			<?=$t->end();?>
 			<?=$f->input("page","1","type='hidden'");?>
 			<?=$f->input("sort",@$_GET["sort"],"type='hidden'");?>
@@ -57,6 +61,8 @@
 	if(@$_GET["txt_cellphone"]!="") $whereclause .= "cellphone LIKE '%".@$_GET["txt_cellphone"]."%' AND ";
 	if(@$_GET["sel_gender"] != ""){ $whereclause .= "gender_id = '".@$_GET["sel_gender"]."' AND "; }
 	if(@$_GET["sel_marital_status"] != ""){ $whereclause .= "marital_status_id = '".@$_GET["sel_marital_status"]."' AND "; }
+	if(@$_GET["txt_phone"]!="") $whereclause .= "created_at LIKE '".@$_GET["txt_created_at"]."%' AND ";
+	if(@$_GET["txt_timestamp"]!="") $whereclause .= "xtimestamp LIKE '".@$_GET["txt_timestamp"]."%' AND ";
 	
 	$db->addtable("seeker_profiles");
 	if($whereclause != "") $db->awhere(substr($whereclause,0,-4));$db->limit($_max_counting);
