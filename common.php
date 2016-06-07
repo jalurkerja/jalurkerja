@@ -157,6 +157,7 @@
 		for($i = 1 ; $i <= $numpage ; $i++){
 			if($activepage == $i ) $return .= "<a id=\"a_active\" href=\"javascript:changepage('".$i."');\">".$i."</a>";
 			else  $return .= "<a href=\"javascript:changepage('".$i."');\">".$i."</a>";
+			if($i%20 == 0) $return .= "<br><br>";
 		}
 		$return .= "</div>";
 		return $return;

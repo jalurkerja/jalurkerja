@@ -134,7 +134,7 @@
 		//counting//
 		$db->addtable("opportunities");
 		if($whereclause != "") $db->awhere($whereclause);
-		$db->limit(300);//di kasih limit biar ga kepanjangan pagingnya
+		$db->limit(1000);//di kasih limit biar ga kepanjangan pagingnya
 		$maxrow = count($db->fetch_data(true)) * 1;
 		$return = "<div id='opportunities_maxrow' style='display:none'>".$maxrow."</div>";
 		
