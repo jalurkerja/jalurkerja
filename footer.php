@@ -83,7 +83,7 @@
 			}
 
 			function load_advice_center(){ popup_message("<?=$v->w("coming_soon");?>"); }
-			function load_advanced_search(){ popup_message("<?=$v->w("coming_soon");?>"); }
+			function load_advanced_search(){ window.location="searchjob.php"; }
 			function load_register_as_employer(){ get_ajax("register_as_employer.php","register_as_employer","setTimeout(function(){ $.fancybox.open(global_respon['register_as_employer']); }, 10);"); }
 			function load_search_all_candidates(){ popup_message("<?=$v->w("coming_soon");?>"); }
 			function load_products_and_prices(){ get_ajax("contactus.php","contactus","setTimeout(function(){ popup_message(global_respon['contactus']); }, 10);"); }

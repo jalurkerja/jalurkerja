@@ -13,7 +13,10 @@
 <script> $("body").css({"background-color":"white"});</script>
 <div style="height:100px;"></div>
 	<table width="100%" height="100%"><tr><td align="center" nowrap>
-	<table width="1000"><tr><td class="page_title"><?=$v->words("job_seeker_setting");?></td></tr></table>
+	<table width="1000"><tr>
+		<td class="page_title"><?=$v->words("job_seeker_setting");?></td>
+		<td align="right"><?=$f->input("ultimate_search",$v->w("ultimate_search"),"style=\"height:30px;width:150px;font-weight:bolder;font-size:16px;\" onclick=\"window.location='searchjob.php';\"","btn_post");?></td>
+	</tr></table>
 	<?php
 		$tab = new Tabular("profile");
 		$tab->set_border_width(2);
