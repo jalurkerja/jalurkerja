@@ -76,14 +76,18 @@
 			
 			$db->addtable("locations"); 
 			$db->addfield("province_id,location_id,name_".$__locale);
-			$db->where("id",1,"i",">");$db->order("seqno");
-			foreach ($db->fetch_data() as $key => $arrlocation){
-				if($arrlocation[1]>0){
+			$db->where("id",1,"i",">");$db->where("location_id",0);$db->order("seqno");
+			$provinces = $db->fetch_data(true);
+			foreach ($provinces as $key => $arrprovince){
+				$arrlocations[$arrprovince[0].":".$arrprovince[1]] = "<b>".$arrprovince[2]."</b>";
+				$db->addtable("locations"); 
+				$db->addfield("province_id,location_id,name_".$__locale);
+				$db->where("province_id",$arrprovince[0]);$db->where("location_id",0,"i",">");$db->order("name_".$__locale);
+				$locations = $db->fetch_data(true);
+				foreach ($locations as $key2 => $arrlocation){
 					$arrlocations[$arrlocation[0].":".$arrlocation[1]] = "&nbsp;&nbsp;".$arrlocation[2];
-				} else {
-					$arrlocations[$arrlocation[0].":".$arrlocation[1]] = "<b>".$arrlocation[2]."</b>";
 				}
-			}
+			}			
 			
 			$db->addtable("gender"); $db->addfield("id,name_".$__locale);
 			foreach ($db->fetch_data() as $key => $gender){ $genders[$gender[0]] = $gender[1]; }
