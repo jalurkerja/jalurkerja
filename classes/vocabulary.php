@@ -398,7 +398,7 @@ class Vocabulary{
 		$arr[$l]["education"]								= "Pendidikan";
 		$arr[$l]["language"]								= "Bahasa";
 		$arr[$l]["skill"]									= "Ketrampilan";
-		$arr[$l]["summary"]									= "Rangkuman";
+		$arr[$l]["summary"]									= "Ringkasan";
 		$arr[$l]["profile"]									= "Profil";
 		$arr[$l]["settings"]								= "Pengaturan";
 		$arr[$l]["documents"]								= "Dokumen";
