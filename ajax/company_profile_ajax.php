@@ -230,4 +230,10 @@
 	
 	if( $_mode == "load_setting"
 	){ include_once "company_profile_setting.php"; }
+	
+	if( $_mode == "load_candidate_search"
+	){ include_once "company_profile_candidate_search.php"; }
+	
+	if( $_mode == "load_report"
+	){ include_once "company_profile_report.php"; }
 ?>
