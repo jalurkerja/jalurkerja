@@ -94,8 +94,10 @@
 ?>
 	<?=$f->input("add","Add","type='button' onclick=\"window.location='opportunities_add.php';\"");?>
 	<?=$paging;?>
+	<?=$f->start("opportunities_list");?>
 	<?=$t->start("","data_content");?>
 	<?=$t->header(array("No",
+						"",
 						"<div onclick=\"sorting('id');\">Opportunity Id</div>",
 						"<div onclick=\"sorting('company_id');\">Company Id</div>",
 						"<div onclick=\"sorting('company_id');\">Company Name</div>",
@@ -127,12 +129,14 @@
 			$is_syariah = ($opportunity["is_syariah"] == 1) ? "Yes" : "No";
 			$is_freshgraduate = ($opportunity["is_freshgraduate"] == 1) ? "Yes" : "No";
 			
+			$checkbox = $f->input("chk_".$opportunity["id"],"1","type='checkbox'");
 			$actions = "<a href=\"opportunities_view.php?id=".$opportunity["id"]."\">View</a> | 
 						<a href=\"opportunities_edit.php?id=".$opportunity["id"]."\">Edit</a>
 						";
 		?>
 		<?=$t->row(
 					array($no+$start+1,
+						$checkbox,
 						"<a href=\"opportunities_view.php?id=".$opportunity["id"]."\">".$opportunity["id"]."</a>",
 						$opportunity["company_id"],
 						$company_name,
@@ -154,6 +158,8 @@
 				);?>
 	<?php } ?>
 	<?=$t->end();?>
+	<?=$f->input("repost","Repost","type='button' onclick=\"reposting();\"");?>
+	<?=$f->end();?>
 	<?=$paging;?>
 	
 <?php include_once "footer.php";?>

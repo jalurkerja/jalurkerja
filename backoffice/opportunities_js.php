@@ -81,4 +81,21 @@
 		$.fancybox.open({ href: "opportunities_applicant.php?opportunity_id="+opportunity_id, type: 'iframe',width:'1050px' });
 	}
 	
+	function reposting(){
+		var opportunity_ids = new Array();
+		var list_form = document.getElementById("opportunities_list").elements;
+		var xx = 0;
+		for(var i = 0; i < list_form.length; i++) {
+			if(list_form[i].type == "checkbox" && list_form[i].checked == true) {
+				opportunity_ids[xx] = list_form[i].id;
+				xx++;
+			}
+		}
+		if(opportunity_ids.length > 0){
+			var posting_date = prompt("Masukkan tanggal posting:", "<?=date("Y-m-d");?>");
+			get_ajax("../ajax/opportunity_ajax.php?mode=reposting&opportunity_ids="+opportunity_ids+"&posting_date="+posting_date,"reposting_span");
+		}
+		
+	}
 </script>
+<span id="reposting_span"></span>
