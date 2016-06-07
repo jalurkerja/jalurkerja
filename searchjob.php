@@ -71,6 +71,7 @@
 		$box_syariah = $v->w("show_only_syariah_opportunities")." ".$f->input("chk_syariah","1","type='checkbox' $checked");
 		$checked = ($_GET["chk_fresh_graduate"] == 1) ? "checked" : "";
 		$box_fresh_graduate = $v->w("show_fresh_graduate_opportunities")." ".$f->input("chk_fresh_graduate","1","type='checkbox' $checked");
+		$btn_clear_search = $f->input("clear_search",$v->w("clear_search"),'type="button" onclick="clear_serach_btn_click();" style="width:150px;"',"btn_sign");
 		$btn_search = $f->input("search",$v->w("search"),'type="button" onclick="serach_btn_click();"',"btn_sign");
 		
 		$leftarea  = "<div style='position:fixed;'>";
@@ -92,7 +93,7 @@
 		$leftarea .= 			$t->row(array($sel_salaries."<br>"));
 		$leftarea .= 			$t->row(array($box_syariah."<br>"),array("align='right'"));
 		$leftarea .= 			$t->row(array($box_fresh_graduate."<br>"),array("align='right'"));
-		$leftarea .= 			$t->row(array($btn_search."<br>"),array("align='right'"));
+		$leftarea .= 			$t->row(array($btn_clear_search."&nbsp;&nbsp;&nbsp;&nbsp;".$btn_search."<br>"),array("align='right'"));
 		$leftarea .= 			$t->end();
 		$leftarea .= 		$f->end();
 		$leftarea .= 	"</div>";

@@ -54,6 +54,7 @@ class Vocabulary{
 		$arr[$l]["location"]								= "Location";
 		$arr[$l]["job_level"]								= "Job Level";
 		$arr[$l]["search"]									= "Search";
+		$arr[$l]["clear_search"]							= "Clear Search";
 		$arr[$l]["featured_hiring_employers"]				= "Most Popular Companies";
 		$arr[$l]["advertising_info"]						= "Advertising Info";
 		$arr[$l]["office_day"]								= "Mon - Fri";
@@ -310,6 +311,7 @@ class Vocabulary{
 		$arr[$l]["location"]								= "Lokasi";
 		$arr[$l]["job_level"]								= "Jenjang Karir";
 		$arr[$l]["search"]									= "Cari";
+		$arr[$l]["clear_search"]							= "Bersihkan Pencarian";
 		$arr[$l]["featured_hiring_employers"]				= "Perusahaan Terpopuler";
 		$arr[$l]["advertising_info"]						= "Info Iklan";
 		$arr[$l]["office_day"]								= "Senin - Jumat";

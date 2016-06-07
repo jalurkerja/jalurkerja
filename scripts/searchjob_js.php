@@ -41,6 +41,10 @@
 		window.history.pushState("","","searchjob.php?get_search=1&"+$("#searchjob_form").serialize());
 	}
 	
+	function clear_serach_btn_click() {
+		window.location = "searchjob.php";
+	}
+	
 	function serach_btn_click() {
 		document.getElementById("searchjob_page").value = 1;
 		document.getElementById("searchjob_order").value = "posted_at DESC,updated_at DESC";
