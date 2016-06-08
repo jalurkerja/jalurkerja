@@ -200,6 +200,7 @@ class Vocabulary{
 		$arr[$l]["get_job_alert"]							= "Receive Job Alert";
 		$arr[$l]["get_newsletter"]							= "Receive Newsletter";
 		$arr[$l]["ultimate_search"]							= "Ultimate Search";
+		$arr[$l]["search_job"]								= "Search Job";
 		$arr[$l]["login_for_find_out_salary"]				= "Login to find out salary";
 		$arr[$l]["below_expectation"]						= "Below Expectation";
 		$arr[$l]["meet_expectation"]						= "Meet Expectation";
@@ -457,6 +458,7 @@ class Vocabulary{
 		$arr[$l]["get_job_alert"]							= "Menerima email lowongan";
 		$arr[$l]["get_newsletter"]							= "Menerima email berita";
 		$arr[$l]["ultimate_search"]							= "Pencarian Utama";
+		$arr[$l]["search_job"]								= "Cari Lowongan";
 		$arr[$l]["login_for_find_out_salary"]				= "Login untuk mengetahui gaji";
 		$arr[$l]["below_expectation"]						= "Dibawah Harapan";
 		$arr[$l]["meet_expectation"]						= "Sesuai Harapan";
