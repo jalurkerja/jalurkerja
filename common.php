@@ -40,6 +40,16 @@
 	
 	function chr13tobr($string) { return str_replace(chr(13).chr(10),"<br>",$string); }
 	
+	function add_br($string,$numchar = 100) { 
+		$return = "";
+		$i = 0;
+		while($i<strlen($string)){
+			$return .= substr($string,$i,$numchar)."<br>";
+			$i += $numchar;
+		}
+		return $return;
+	}
+	
 	function javascript($script){  ?> <script> $( document ).ready(function() { <?=$script;?> }); </script> <?php }
 	
 	function sanitasi($value){ return str_replace("'","''",$value); }

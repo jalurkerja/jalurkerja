@@ -382,12 +382,16 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 							$_wk  = "<div class='seeker_profile_sp_detail'>";
 							$_wk .= 	$t->start("","","navigation") . $btn_edit_work_experience . $t->end();
 							$_wk .= "	<div id='sp_container'>";
-							$_wk .= "		<div id='sp_position'>".$arr_seeker_experiences["position"].$v->words("at").$arr_seeker_experiences["company_name"]." (".$industry.")</div>";
+							$_wk .= "		<div id='sp_position'>".ucfirst(strtolower($arr_seeker_experiences["position"]))."<br>".$v->words("at").ucfirst(strtolower($arr_seeker_experiences["company_name"]))."<br>(".$industry.")</div>";
 							$_wk .= "		<div id='sp_range_date'>".format_range_tanggal($arr_seeker_experiences["startdate"],$arr_seeker_experiences["enddate"])."</div>";
 							$_wk .= "		<div id='sp_salary'>".salary_min_max($arr_seeker_experiences["salary_min"],$arr_seeker_experiences["salary_max"])."</div>";
 							$_wk .= "		<div id='sp_job_type_level'>".$job_type." - ".$job_level."</div>";
 							$_wk .= "		<div id='sp_job_fucntion_category'>".$job_function."</div>";
-							$_wk .= "		<div id='sp_description'>".chr13tobr($arr_seeker_experiences["description"])."</div>";
+							if(isset($_print_view)) {
+								$_wk .= "		<div id='sp_description'>".chr13tobr(ucfirst(strtolower($arr_seeker_experiences["description"])))."</div>";
+							} else {
+								$_wk .= "		<div id='sp_description'>".chr13tobr(add_br(ucfirst(strtolower($arr_seeker_experiences["description"]))))."</div>";
+							}
 							$_wk .= "	</div>";
 							$_wk .= "</div><div style='height:20px;'></div>";
 							
