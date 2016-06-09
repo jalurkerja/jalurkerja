@@ -72,8 +72,10 @@
 	/*END JOIN REASON=======================================================================================================*/
 	
 	function remove_footer(area){
-		var current_height = document.getElementById(area).offsetHeight * 1;
-		if(current_height > 0) footer_area.style.top = (current_height + 250) + "px";
+		setTimeout(function(){ 
+			var current_height = document.getElementById(area).offsetHeight * 1;
+			if(current_height > 0) footer_area.style.top = (current_height + 300) + "px";
+		 }, 200);
 	}	
 	
 	function change_close_date(tgl,bln,thn) {
