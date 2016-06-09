@@ -42,17 +42,17 @@
 
 <?php
 	$whereclause = "";
-	if(@$_GET["txt_id"]!="") $whereclause .= "id = '".@$_GET["txt_name"]."' AND ";
-	if(@$_GET["txt_name"]!="") $whereclause .= "name LIKE '"."%".str_replace(" ","%",@$_GET["txt_name"])."%"."' AND ";
+	if(@$_GET["txt_id"]!="") $whereclause .= "user_id = '".@$_GET["txt_id"]."' AND ";
+	if(@$_GET["txt_name"]!="") $whereclause .= "concat(first_name,middle_name,last_name) LIKE '"."%".str_replace(" ","%",@$_GET["txt_name"])."%"."' AND ";
 	if(@$_GET["txt_address"]!="") $whereclause .= "address LIKE '"."%".str_replace(" ","%",@$_GET["txt_address"])."%"."' AND ";
 	if(count(@$_GET["sm_locations"]) > 0){
 		$innerwhere = "";
 		foreach(@$_GET["sm_locations"] as $selected){ 
 			$arrselected = explode(":",$selected);
 			if($arrselected[1] == 0){
-				$innerwhere .= "(province_id = '".$arrselected[0]."' AND location_id = '".$arrselected[1]."') OR "; 
-			}else{
 				$innerwhere .= "(province_id = '".$arrselected[0]."') OR "; 
+			}else{
+				$innerwhere .= "(province_id = '".$arrselected[0]."' AND location_id = '".$arrselected[1]."') OR "; 
 			}
 		}
 		$whereclause .= "(".substr($innerwhere,0,-3).") AND ";
@@ -61,7 +61,7 @@
 	if(@$_GET["txt_cellphone"]!="") $whereclause .= "cellphone LIKE '%".@$_GET["txt_cellphone"]."%' AND ";
 	if(@$_GET["sel_gender"] != ""){ $whereclause .= "gender_id = '".@$_GET["sel_gender"]."' AND "; }
 	if(@$_GET["sel_marital_status"] != ""){ $whereclause .= "marital_status_id = '".@$_GET["sel_marital_status"]."' AND "; }
-	if(@$_GET["txt_phone"]!="") $whereclause .= "created_at LIKE '".@$_GET["txt_created_at"]."%' AND ";
+	if(@$_GET["txt_created_at"]!="") $whereclause .= "created_at LIKE '".@$_GET["txt_created_at"]."%' AND ";
 	if(@$_GET["txt_timestamp"]!="") $whereclause .= "xtimestamp LIKE '".@$_GET["txt_timestamp"]."%' AND ";
 	
 	$db->addtable("seeker_profiles");
@@ -71,6 +71,7 @@
 	$paging = paging($_rowperpage,$maxrow,@$_GET["page"],"paging");
 	
 	$db->addtable("seeker_profiles");
+	
 	if($whereclause != "") $db->awhere(substr($whereclause,0,-4));$db->limit($start.",".$_rowperpage);
 	if(@$_GET["sort"] != "") $db->order(@$_GET["sort"]);
 	$seeker_profiles = $db->fetch_data(true);
