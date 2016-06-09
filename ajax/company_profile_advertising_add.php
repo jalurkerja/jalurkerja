@@ -14,7 +14,7 @@
 	$sel_location 				= $f->select("location",$db->fetch_select_data("locations","concat(province_id,':',location_id) as location_id","name_id"),$opp["province_id"].":".$opp["location_id"]);
 	$sm_job_levels 				= $f->select_multiple("job_level_ids",$db->fetch_select_data("job_level","id","name_id"),pipetoarray($opp["job_level_ids"])).$ket_select_multiple;
 	$sel_function				= $f->select("job_function_id",$db->fetch_select_data("job_functions","id","name_id"),$opp["job_function_id"]);
-	$sel_degree					= $f->select("degree_id",$db->fetch_select_data("degree","id","name_id"),$opp["degree_id"]);
+	$sel_degree					= $f->select("degree_id",$db->fetch_select_data("degree","id","name_id",array("id" => "0:>")),$opp["degree_id"]);
 	$majors = $db->fetch_select_data("majors","id","name_id"); asort($majors);
 	$sm_majors	 				= $f->select_multiple("major_ids",$majors,pipetoarray($opp["major_ids"])).$ket_select_multiple;
 	$checked = ($opp["is_freshgraduate"] == 1) ? "checked" : "";
