@@ -6,10 +6,12 @@
 		<?=$f->start("filter","GET");?>
 			<?=$t->start();?>
 			<?php
+				$txt_user_id = $f->input("txt_user_id",@$_GET["txt_user_id"]);
 				$txt_email = $f->input("txt_email",@$_GET["txt_email"]);
 				$txt_company_profiles_id = $f->input("txt_company_profiles_id",@$_GET["txt_company_profiles_id"]);
 				$sel_locale = $f->select("sel_locale",array("" => "","id" => "Indonesian","en" => "English"),@$_GET["sel_locale"],"style='height:20px;'");
 			?>
+			<?=$t->row(array("User ID",$txt_user_id));?>
 			<?=$t->row(array("Email",$txt_email));?>
 			<?=$t->row(array("Company Profile ID",$txt_company_profiles_id));?>
 			<?=$t->row(array("Locale",$sel_locale));?>
@@ -24,6 +26,7 @@
 
 <?php
 	$whereclause = "";
+	if(@$_GET["txt_user_id"]!="") $whereclause .= "id = '".$_GET["txt_user_id"]."' AND ";
 	if(@$_GET["txt_email"]!="") $whereclause .= "email LIKE '"."%".str_replace(" ","%",$_GET["txt_email"])."%"."' AND ";
 	if(@$_GET["txt_company_profiles_id"]!="") $whereclause .= "company_profiles_id = '".$_GET["txt_company_profiles_id"]."' AND ";
 	if(@$_GET["sel_locale"]!="") $whereclause .= "locale = '".$_GET["sel_locale"]."' AND ";
