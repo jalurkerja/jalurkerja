@@ -145,8 +145,8 @@
 		$return  = "";
 		$return .= "";
 		$arrsortby = array(
-						 "applied_date" => $v->w("applied_date")." (A - Z)",
 						 "applied_date DESC" => $v->w("applied_date")." (Z - A)",
+						 "applied_date" => $v->w("applied_date")." (A - Z)",
 						 "experience_years DESC" => $v->w("work_experience")." (Z - A)",
 						 "experience_years" => $v->w("work_experience")." (A - Z)",
 						 "match_level DESC" => $v->w("match_level")." (Z - A)",
@@ -171,7 +171,7 @@
 		$db->addtable("temp_applicant_management");$db->awhere($whereclause);
 		$start = getStartRow($page,$db->searchjob_limit);
 		$db->limit($start.",".$db->searchjob_limit);
-		if(!$sort) $sort = "applied_date"; $db->order($sort);
+		if(!$sort) $sort = "applied_date DESC"; $db->order($sort);
 		$t_a_ms= $db->fetch_data(true);
 		$rows = array();
 		foreach($t_a_ms as $t_a_m){
