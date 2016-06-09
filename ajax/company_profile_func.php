@@ -158,7 +158,7 @@
 						);
 		$sel_sortby = $f->select("orderby",$arrsortby,$sort,"onchange=\"load_applicant_management('".$tabid."','".$keyword."',this.value,'1','".$key_id."');\"");
 		
-		$return .= "<table width='100%'><tr><td align='right' nowrap>".$v->w("sort_by")." : ".$sel_sortby."</td></tr></table>";
+		$return .= "<table width='100%'><tr><td><input type='button' value='".$v->w("change_filter_category")."' onclick=\"change_filter_category('".$key_id."');\"></td><td align='right' nowrap>".$v->w("sort_by")." : ".$sel_sortby."</td></tr></table>";
 		$return .= "<div style='margin:10px;width:950px;' class='seeker_profile_sp_detail'>";
 		$return .= 		$t->start("style='width:950px;cursor:pointer;'","","content_data");
 		$return .= 			$t->header(array(	"%",

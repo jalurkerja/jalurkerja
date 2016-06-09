@@ -272,6 +272,7 @@ class Vocabulary{
 		$arr[$l]["error_upload_image"]						= "Upload image failed!";
 		$arr[$l]["image_saved"]								= "Image saved";
 		$arr[$l]["please_pick_your_photo_area"]				= "Please pick Your photo area";
+		$arr[$l]["change_filter_category"]					= "Change filter category";
 		/*==================================================================================================================================*/
 		/*==================================================================================================================================*/
 		$l = "id";
@@ -530,6 +531,7 @@ class Vocabulary{
 		$arr[$l]["error_upload_image"]						= "Gambar gagal diupload, coba gunakan gambar yang lain!";
 		$arr[$l]["image_saved"]								= "Gambar berhasil disimpan";
 		$arr[$l]["please_pick_your_photo_area"]				= "Silahkan memilih daerah foto Anda";
+		$arr[$l]["change_filter_category"]					= "Ubah filter category";
 		
 		return $arr[$this->locale][$index];
 	}

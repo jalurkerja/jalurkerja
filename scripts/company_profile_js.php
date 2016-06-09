@@ -6,6 +6,9 @@
 		window.history.pushState("","",url_string);
 		get_ajax("ajax/company_profile_ajax.php"+url_string,"applicant_management","remove_footer('applicant_management');"); 
 	}
+	function change_filter_category(opportunity_id){
+		get_ajax("ajax/change_filter_category.php?opportunity_id="+opportunity_id,"applicant_management","remove_footer('applicant_management');");
+	}
 	function load_advertising(gets)				{ 
 		var url_string = "?mode=load_advertising&"+gets;
 		get_ajax("ajax/company_profile_ajax.php"+url_string,"advertising","remove_footer('advertising');");
@@ -29,6 +32,16 @@
 			popup_message("<?=$v->words("your_data_successfully_saved");?>","","document.getElementById('add_advertising').value = 0; load_advertising()");
 		} else {
 			popup_message("<?=$v->words("your_data_fails_to_be_saved");?>","error_message","document.getElementById('add_advertising').value = 0; load_advertising()");
+		}
+	}
+	
+	
+	function changing_filter_category() { $.post( "ajax/company_profile_ajax.php", { post_data: $("#change_filter_category_form").serialize() }).done(function( data ) { after_save_changing_filter_category(data); }); }
+	function after_save_changing_filter_category(data){
+		if(data > 0){
+			popup_message("<?=$v->words("your_data_successfully_saved");?>","","window.location = window.location;");
+		} else {
+			popup_message("<?=$v->words("your_data_fails_to_be_saved");?>","error_message","window.location = window.location;");
 		}
 	}
 	
