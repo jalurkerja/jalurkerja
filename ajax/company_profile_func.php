@@ -147,10 +147,14 @@
 		$arrsortby = array(
 						 "applied_date DESC" => $v->w("applied_date")." (Z - A)",
 						 "applied_date" => $v->w("applied_date")." (A - Z)",
-						 "experience_years DESC" => $v->w("work_experience")." (Z - A)",
-						 "experience_years" => $v->w("work_experience")." (A - Z)",
 						 "match_level DESC" => $v->w("match_level")." (Z - A)",
 						 "match_level" => $v->w("match_level")." (A - Z)",
+						 "experience_years DESC" => $v->w("experience_years")." (Z - A)",
+						 "experience_years" => $v->w("experience_years")." (A - Z)",
+						 "salary_min" => $v->w("salary")." (A - Z)",
+						 "salary_min DESC" => $v->w("salary")." (Z - A)",
+						 "degree_id DESC" => $v->w("education_level")." (Z - A)",
+						 "degree_id" => $v->w("education_level")." (A - Z)"
 						);
 		$sel_sortby = $f->select("orderby",$arrsortby,$sort,"onchange=\"load_applicant_management('".$tabid."','".$keyword."',this.value,'1','".$key_id."');\"");
 		
