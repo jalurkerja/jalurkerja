@@ -8,6 +8,7 @@
 			<?=$t->start();?>
 			<?php
 				$txt_id = $f->input("txt_id",@$_GET["txt_id"]);
+				$txt_email = $f->input("txt_email",@$_GET["txt_email"]);
 				$txt_name = $f->input("txt_name",@$_GET["txt_name"]);
 				$txt_address = $f->input("txt_address",@$_GET["txt_address"]);
 				$locations = $db->fetch_select_data("locations","concat(province_id,':',location_id) as location_id","name_en");
@@ -22,6 +23,7 @@
 				$txt_timestamp = $f->input("txt_timestamp",@$_GET["txt_timestamp"]);
 			?>
 			<?=$t->row(array("ID",$txt_id));?>
+			<?=$t->row(array("Email",$txt_email));?>
 			<?=$t->row(array("Name",$txt_name));?>
 			<?=$t->row(array("Address",$txt_address));?>
 			<?=$t->row(array("Locations",$sm_locations));?>
@@ -43,6 +45,7 @@
 <?php
 	$whereclause = "";
 	if(@$_GET["txt_id"]!="") $whereclause .= "user_id = '".@$_GET["txt_id"]."' AND ";
+	if(@$_GET["txt_email"]!="") $whereclause .= "user_id IN (SELECT id FROM users WHERE email LIKE '%".@$_GET["txt_email"]."%') AND ";
 	if(@$_GET["txt_name"]!="") $whereclause .= "concat(first_name,middle_name,last_name) LIKE '"."%".str_replace(" ","%",@$_GET["txt_name"])."%"."' AND ";
 	if(@$_GET["txt_address"]!="") $whereclause .= "address LIKE '"."%".str_replace(" ","%",@$_GET["txt_address"])."%"."' AND ";
 	if(count(@$_GET["sm_locations"]) > 0){
