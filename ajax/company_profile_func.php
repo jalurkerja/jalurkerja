@@ -83,7 +83,7 @@
 				foreach(pipetoarray($opportunity["gender"]) as $value){ $innerwhere .= "gender_id = '".$value."' OR "; }
 				if($innerwhere != "") $innerwhere = substr($innerwhere,0,-3);
 				$db->addtable("seeker_profiles");$db->addfield("count(0)"); $db->awhere("user_id = '".$user_id."' AND (".$innerwhere.")");
-				$hsl = $db->fetch_data(true); if($hsl[0] > 0){ $match_level_1++; $matched_categories .= "gender, ";}
+				$hsl = $db->fetch_data(true); if($hsl[0][0] > 0){ $match_level_1++; $matched_categories .= "gender, ";}
 			}
 			$startdate = $db->fetch_single_data("seeker_experiences","startdate",array("user_id" => $user_id),array("startdate"));
 			$enddate = $db->fetch_single_data("seeker_experiences","enddate",array("user_id" => $user_id),array("enddate DESC"));
