@@ -94,12 +94,10 @@
 		<table style="position:absolute;top:0px;left:710px;"><tr><td align="center" nowrap>
 		<?php
 			$banner1 = new Banner();
-			// $sidebanners[0] = "banners/jobfair_pekalongan.jpg";
 			$sidebanners[0] = "banners/lengkapi_resume.jpg";
-			// $sidebanners[1] = "banners/jobfair_semarang.jpg";
-			// $sideurls[0] = "http://jalurkerja.com/attachments/pekalongan_jobfair_2016_poster.jpg";
-			// $sideurls[0] = "http://jalurkerja.com/attachments/purwokerto_jobfair_2016_poster.jpg";
-			// $sideurls[1] = "http://jalurkerja.com/attachments/semarang_jobfair_2016_poster.jpg";
+			$sidebanners[1] = "banners/banner_lowongan_syariah.jpg";
+			$sideurls[0] = "#";
+			$sideurls[1] = "http://www.jalurkerja.com/searchjob.php?get_search=1&searchjobpage_searching=1&searchjob_page=1&searchjob_order=posted_at+DESC%2Cupdated_at+DESC&keyword=&int_job_function=&chr_job_function=&int_work_location=%5B%5D&chr_work_location=%5B%5D&int_job_level=&chr_job_level=&int_industries=&chr_industries=&int_education_level=&chr_education_level=&int_work_experience=%5B%5D&chr_work_experience=%5B%5D&int_job_type=&chr_job_type=&salary_from=0&salary_to=0&chk_syariah=1";
 			echo $banner1->draw("banner1",$sidebanners,$sideurls,200,150,5000);
 		?>
 		<br>
