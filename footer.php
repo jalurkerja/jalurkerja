@@ -71,6 +71,9 @@
 			</div>
 		</div>
 		<script>
+			<?php if(isset($_GET["register_as_employer"])) { ?> 
+				load_register_as_employer();
+			<?php } ?>
 			<?php if(isset($_POST["register_as_employer"])) { ?> 
 				popup_message("<table width='500'><tr><td>Terima kasih atas registrasi Anda di jalurkerja.com.<br>Untuk aktifasi keanggotaanya, tim jalurkerja.com akan segera menghubungi Anda.</td></tr></table>"); 
 			<?php } ?>
