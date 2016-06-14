@@ -287,11 +287,14 @@
 				} else {
 					$isapplied = "";
 				}
+				$opportunity_periode = format_range_tanggal($opportunity["posted_at"],$opportunity["closing_date"]);
+				
 				$return .= "	<div id='title".$isapplied."'><table><tr><td width='360'>".$opportunity["title_".$__locale]."</td></tr></table></div>";
 				$return .= "	<div id='detail'><b><u>".$opportunity["name"]."</u></b> - ".$location."</div>";
 				$return .= "	<div id='detail'>".$v->words("work_experience")." : ".$opportunity["experience_years"]." ".$v->words("years")."</div>";
 				$return .= "	<div id='detail'><table><tr><td width='360'>".$v->words("salary_offer")." : ".$salaries."</td></tr></table></div>";
 				$return .= "	<div id='detail'>".$v->words("industry")." : ".$industry."&nbsp;&nbsp;&bull;&nbsp;&nbsp;".$job_function."</div>";
+				$return .= "	<div id='detail'>".$v->words("opportunity_periode")." : ".$opportunity_periode."</div>";
 				$return .= "</div>";
 				$return .= "<div id='ending'></div><br>";
 			}

@@ -56,7 +56,8 @@
 				<div style="font-size:20px;font-weight:bolder;"><?=$opportunity["name"];?></div>
 				<br>
 				<div style="font-size:15px;font-weight:bolder;"><?=$db->fetch_single_data("locations","name_".$__locale,array("province_id" => $opportunity["province_id"],"location_id" => $opportunity["location_id"]));?></div>
-				<div style="font-size:13px;"><?=$v->w("salary");?> : <?=$salaries;?></div>
+				<div style="font-size:13px;"><?=$v->w("salary");?> : <?=$salaries;?></div><br>
+				<div style="font-size:13px;"><b><?=$v->w("opportunity_periode");?> : <?=format_range_tanggal($opportunity["posted_at"],$opportunity["closing_date"]);?></b></div>
 			</td>
 			<td width="350" valign="middle">
 				<?php if($opportunity["is_syariah"] == 1){ ?> <img style="position:absolute;left:550px;" src='icons/syariah_stamp.png' height='80'> <?php } ?>
