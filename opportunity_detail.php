@@ -136,7 +136,10 @@
 					<tr>
 						<td>
 							<b><?=$v->w("aboutus");?> :</b><br><br>
-							<?=chr13tobr($opportunity["company_description"]);?>
+							<?php
+								$company_description = $db->fetch_single_data("company_profiles","description",array("id" => $opportunity["company_id"]));
+							?>
+							<?=chr13tobr($company_description);?>
 							<?php 
 								if($company_profile["web"] != ""){ 
 									$website = $company_profile["web"];
