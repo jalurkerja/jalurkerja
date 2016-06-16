@@ -51,7 +51,7 @@
 
 	if($_mode == "loading_paging"){
 		if($_GET["maxrow"] > 0){
-			$return  = "<div class='whitecard' style='text-align:center'>";
+			$return  = "<div class='whitecard' style='text-align:center;width:500px;'>";
 			$return .= paging($db->searchjob_limit,$_GET["maxrow"],1,"paging");
 			$return .= "</div>";
 			echo $return;
@@ -280,7 +280,7 @@
 				$syariah_stamp = "<img src='icons/syariah_stamp.png' height='80'>";
 				
 				$return .= "<div id='container' onclick='load_detail_opportunity(\"".$opportunity["id"]."\");'>";
-				$return .= "	<div id='logo'>".$logo."</div>";
+				$return .= "	<div id='logo'><div style=\"height:5px;\"></div>".$logo."</div>";
 				if($opportunity["is_syariah"] == 1) $return .= "	<div id='syariah_stamp'>".$syariah_stamp."</div>";
 				if($__isloggedin){
 					$isapplied = ($db->fetch_single_data("applied_opportunities","id",array("user_id" => $__user_id,"opportunity_id" => $opportunity["id"])) > 0) ? "_applied" : "";
@@ -289,12 +289,14 @@
 				}
 				$opportunity_periode = format_range_tanggal($opportunity["posted_at"],$opportunity["closing_date"]);
 				
-				$return .= "	<div id='title".$isapplied."'><table><tr><td width='360'>".$opportunity["title_".$__locale]."</td></tr></table></div>";
-				$return .= "	<div id='detail'><b><u>".$opportunity["name"]."</u></b> - ".$location."</div>";
-				$return .= "	<div id='detail'>".$v->words("work_experience")." : ".$opportunity["experience_years"]." ".$v->words("years")."</div>";
-				$return .= "	<div id='detail'><table><tr><td width='360'>".$v->words("salary_offer")." : ".$salaries."</td></tr></table></div>";
-				$return .= "	<div id='detail'>".$v->words("industry")." : ".$industry."&nbsp;&nbsp;&bull;&nbsp;&nbsp;".$job_function."</div>";
-				$return .= "	<div id='detail'>".$v->words("opportunity_periode")." : ".$opportunity_periode."</div>";
+				$return .= "	<div id='title".$isapplied."'><table><tr><td width='380' align='left'>".$opportunity["title_".$__locale]."</td></tr></table></div>";
+				$return .= "	<table><tr><td width='380' align='left'>";
+				$return .= "		<div id='detail'><b><u>".$opportunity["name"]."</u></b> - ".$location."</div>";
+				$return .= "		<div id='detail'>".$v->words("work_experience")." : ".$opportunity["experience_years"]." ".$v->words("years")."</div>";
+				$return .= "		<div id='detail'><table><tr><td width='330'>".$v->words("salary_offer")." : ".$salaries."</td></tr></table></div>";
+				$return .= "		<div id='detail'>".$v->words("industry")." : ".$industry."&nbsp;&nbsp;&bull;&nbsp;&nbsp;".$job_function."</div>";
+				$return .= "		<div id='detail'>".$v->words("opportunity_periode")." : ".$opportunity_periode."</div>";
+				$return .= "	</td></tr></table>";
 				$return .= "</div>";
 				$return .= "<div id='ending'></div><br>";
 			}
