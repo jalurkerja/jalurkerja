@@ -274,6 +274,7 @@ class Vocabulary{
 		$arr[$l]["please_pick_your_photo_area"]				= "Please pick Your photo area";
 		$arr[$l]["change_filter_category"]					= "Change filter category";
 		$arr[$l]["opportunity_periode"]						= "Opportunity Periode";
+		$arr[$l]["forgot_password"]							= "Forgot Password";
 		/*==================================================================================================================================*/
 		/*==================================================================================================================================*/
 		$l = "id";
@@ -534,6 +535,7 @@ class Vocabulary{
 		$arr[$l]["please_pick_your_photo_area"]				= "Silahkan memilih daerah foto Anda";
 		$arr[$l]["change_filter_category"]					= "Ubah filter category";
 		$arr[$l]["opportunity_periode"]						= "Periode Lowongan";
+		$arr[$l]["forgot_password"]							= "Lupa Kata Sandi";
 		
 		return $arr[$this->locale][$index];
 	}

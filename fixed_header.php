@@ -19,22 +19,19 @@
 							<img src="images/jk_text.png" style="height:35px;cursor:pointer;border:0px;" alt="jalurkerja.com" title="jalurkerja.com" onclick="window.location='index.php';">
 						</td>
 						<td style="width:20px;">&nbsp;</td>
-						<td style="width:250px;" align="left" nowrap>
+						<td style="width:200px;" align="left" nowrap>
 							<!--MENU WHEN LOGGED IN-->
 							<!--END MENU WHEN LOGGED IN-->
 						</td>
-						<td nowrap width="120">
-							<?php
-								if($__locale == "en") {
-									$_link_bahasa = "<span class='language_notactive' onclick=\"window.location='?locale=id';\">Bahasa</span>";
-									$_link_english = "<span class='language_active'>English</span>";
-								} else {
-									$_link_bahasa = "<span class='language_active'>Bahasa</span>";
-									$_link_english = "<span class='language_notactive' onclick=\"window.location='?locale=en';\">English</span>";
-								}
-							?>
-							<?=$_link_bahasa;?> <b>|</b> <?=$_link_english;?>
-						</td>
+						<?php
+							if($__locale == "en") {
+								$_link_bahasa = "<span class='language_notactive' onclick=\"window.location='?locale=id';\">Bahasa</span>";
+								$_link_english = "<span class='language_active'>English</span>";
+							} else {
+								$_link_bahasa = "<span class='language_active'>Bahasa</span>";
+								$_link_english = "<span class='language_notactive' onclick=\"window.location='?locale=en';\">English</span>";
+							}
+						?>
 						<?php if($__isloggedin) {
 							if($__company_id == ""){
 								$photo = $db->fetch_single_data("seeker_profiles","photo",array("user_id" => $__user_id));
@@ -45,7 +42,10 @@
 							}
 						?>
 							<td class="homepage_greeting" nowrap valign="middle">
+								<br>
 								<?=$v->words("hello");?>, <span id="first_name"><?=ucwords($__first_name);?></span>
+								<br>
+								<?=$_link_bahasa;?> <b>|</b> <?=$_link_english;?>
 							</td>
 							<td class="homepage_greeting" nowrap valign="middle">
 								<?php if($__company_id == ""){ ?>
@@ -56,11 +56,11 @@
 							</td>
 							<td class="homepage_greeting" nowrap valign="middle">
 								<?php if($__company_id == ""){ ?>
-									<img id="job_seeker_setting_icon" title="<?=$v->words("job_seeker_setting");?>" src="icons/settings.png" onclick="window.location='seeker_profile.php';">
+									<img style="margin-top:10px;" id="job_seeker_setting_icon" title="<?=$v->words("job_seeker_setting");?>" src="icons/my_account_<?=$__locale;?>.png" onclick="window.location='seeker_profile.php';">
 								<?php } else { ?>
-									<img id="job_seeker_setting_icon" title="<?=$v->words("employer_pages");?>" src="icons/settings.png" onclick="window.location='company_profile.php';">
+									<img style="margin-top:10px;" id="job_seeker_setting_icon" title="<?=$v->words("employer_pages");?>" src="icons/my_account_<?=$__locale;?>.png" onclick="window.location='company_profile.php';">
 								<?php }  ?>
-								<img title="<?=$v->words("signout");?>" src="icons/logout.png" onclick="window.location='?logout_action=1';">
+								<img style="margin-top:10px;" title="<?=$v->words("signout");?>" src="icons/logout_<?=$__locale;?>.png" onclick="window.location='?logout_action=1';">
 							</td>
 						<?php } ?>
 						<td nowrap>&nbsp;&nbsp;&nbsp;</td>
@@ -81,6 +81,11 @@
 										<td><?=$f->input("password","",'type="password" tabindex="2" maxlength="75" autocomplete="on"',"txt_login");?></td>
 										<td style="width:13px;"></td>
 										<td><?=$f->input("signin",$v->words("signin"),'type="submit" tabindex="2"',"btn_sign");?></td>
+									</tr>
+									<tr>
+										<td><?=$_link_bahasa;?> <b>|</b> <?=$_link_english;?></td>
+										<td></td>
+										<!--td><span class='language_notactive'><?=$v->words("forgot_password");?>?</span></td-->
 									</tr>
 								</table>
 							<?=$f->end();?>
