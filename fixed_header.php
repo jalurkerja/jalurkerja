@@ -56,11 +56,11 @@
 							</td>
 							<td class="homepage_greeting" nowrap valign="middle">
 								<?php if($__company_id == ""){ ?>
-									<img style="margin-top:10px;" id="job_seeker_setting_icon" title="<?=$v->words("job_seeker_setting");?>" src="icons/my_account_<?=$__locale;?>.png" onclick="window.location='seeker_profile.php';">
+									<img style="margin-top:10px;height:50px;" id="job_seeker_setting_icon" title="<?=$v->words("job_seeker_setting");?>" src="icons/my_account_<?=$__locale;?>.png" onclick="window.location='seeker_profile.php';">
 								<?php } else { ?>
-									<img style="margin-top:10px;" id="job_seeker_setting_icon" title="<?=$v->words("employer_pages");?>" src="icons/my_account_<?=$__locale;?>.png" onclick="window.location='company_profile.php';">
+									<img style="margin-top:10px;height:50px;" id="job_seeker_setting_icon" title="<?=$v->words("employer_pages");?>" src="icons/my_account_<?=$__locale;?>.png" onclick="window.location='company_profile.php';">
 								<?php }  ?>
-								<img style="margin-top:10px;" title="<?=$v->words("signout");?>" src="icons/logout_<?=$__locale;?>.png" onclick="window.location='?logout_action=1';">
+								<img style="margin-top:10px;height:50px;" title="<?=$v->words("signout");?>" src="icons/logout_<?=$__locale;?>.png" onclick="window.location='?logout_action=1';">
 							</td>
 						<?php } ?>
 						<td nowrap>&nbsp;&nbsp;&nbsp;</td>
