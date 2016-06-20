@@ -200,7 +200,7 @@
 	<br>
 	<!--FHE-->
 	<table width="100%"><tr><td align="center" nowrap>
-		<table width="700" class = "whitecard"><tr><td align="center" nowrap><br>
+		<table width="920" class = "whitecard"><tr><td align="center" nowrap><br>
 	<?php
 		$db->addtable("fhe");
 		$db->addfield("slot");
