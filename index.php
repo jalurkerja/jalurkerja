@@ -89,110 +89,111 @@
 	<br>
 	<!--CATEGORY SEARCH-->
 	<table width="100%"><tr><td align="center" nowrap>
-		<table width="700" class="whitecard"><tr><td align="center" nowrap>
-		<?php if(!isMobile()){ ?>
-		<!--BANNER SIDE-->
-		<table style="position:absolute;top:0px;left:710px;"><tr><td align="center" nowrap>
+		<table><tr><td valign="top">
+			<table width="700" class="whitecard"><tr><td align="center" nowrap>
+			<br>
 		<?php
-			$banner1 = new Banner();
-			$sidebanners[0] = "banners/lengkapi_resume.jpg";
-			$sidebanners[1] = "banners/banner_lowongan_syariah.jpg";
-			$sideurls[0] = "#";
-			$sideurls[1] = "http://www.jalurkerja.com/searchjob.php?get_search=1&searchjobpage_searching=1&searchjob_page=1&searchjob_order=posted_at+DESC%2Cupdated_at+DESC&keyword=&int_job_function=&chr_job_function=&int_work_location=%5B%5D&chr_work_location=%5B%5D&int_job_level=&chr_job_level=&int_industries=&chr_industries=&int_education_level=&chr_education_level=&int_work_experience=%5B%5D&chr_work_experience=%5B%5D&int_job_type=&chr_job_type=&salary_from=0&salary_to=0&chk_syariah=1";
-			echo $banner1->draw("banner1",$sidebanners,$sideurls,200,150,5000);
+			$tab = new Tabular("index");
+			$tab->set_tab_width(120);
+			$tab->set_area_width(650);
+			$tab->set_area_height(500);
+			$tab->add_tab_title($v->words("job_function"));
+			$tab->add_tab_title($v->words("job_level"));
+			$tab->add_tab_title($v->words("work_location"));
+			$tab->add_tab_title("<div onclick=\"document.getElementById('chk_syariah').checked = true; search_btn.click(); \"'>Syariah</div>");
+			
+			/**JOB FUNCTIONS**/
+			$db->addtable("job_functions");
+			$db->addfield("id");
+			$db->addfield("name_".$__locale);
+			$db->where("id",0,"i",">");
+			$db->order("name_".$__locale);
+			$job_functions = $db->fetch_data();
+			$maxrows = round(count($job_functions)/2);
+			$arrcontainer = array();
+			$cols=1;
+			$arrcontainer[0] = "&nbsp;&nbsp;&nbsp;";
+			foreach($job_functions as $key => $job_function){
+				if($key >= $maxrows) $cols = 2;
+				if(!isset($arrcontainer[$cols])) $arrcontainer[$cols] = "";
+				$arrcontainer[$cols] .= "<div class='category_search_link'><a href='searchjob.php?get_search=1&job_function[".$job_function["id"]."]=1'>".$job_function["name_".$__locale]."</a></div><br>";
+			}
+			$containers = $t->start() . $t->row($arrcontainer) . $t->end();
+			$tab->add_tab_container($containers);
+			/**END JOB FUNCTIONS**/
+			
+			/**JOB JOB LEVEL**/
+			$db->addtable("job_level");
+			$db->addfield("id");
+			$db->addfield("name_".$__locale);
+			$db->where("id",0,"i",">");
+			$db->order("name_".$__locale);
+			$joblevels = $db->fetch_data();
+			$maxrows = round(count($joblevels)/2);
+			$arrcontainer = array();
+			$cols=1;
+			$arrcontainer[0] = "&nbsp;&nbsp;&nbsp;";
+			foreach($joblevels as $key => $joblevel){
+				if($key >= $maxrows) $cols = 2;
+				if(!isset($arrcontainer[$cols])) $arrcontainer[$cols] = "";
+				$arrcontainer[$cols] .= "<div class='category_search_link'><a href='searchjob.php?get_search=1&job_level[".$joblevel["id"]."]=1'>".$joblevel["name_".$__locale]."</a></div><br>";
+			}
+			$containers = $t->start() . $t->row($arrcontainer) . $t->end();
+			$tab->add_tab_container($containers);
+			/**END JOB LEVEL**/
+			
+			/**JOB LOCATION**/
+			$db->addtable("locations");
+			$db->addfield("province_id");
+			$db->addfield("location_id");
+			$db->addfield("name_".$__locale);
+			$db->where("province_id",0,"i",">");
+			$db->where("location_id",0,"i");
+			$db->order("seqno");
+			$locations = $db->fetch_data();
+			$maxrows = round(count($locations)/2);
+			$arrcontainer = array();
+			$cols=1;
+			$arrcontainer[0] = "&nbsp;&nbsp;&nbsp;";
+			foreach($locations as $key => $location){
+				if($key >= $maxrows) $cols = 2;
+				if(!isset($arrcontainer[$cols])) $arrcontainer[$cols] = "";
+				$arrcontainer[$cols] .= "<div class='category_search_link'><a href='searchjob.php?get_search=1&work_location[".$location["province_id"].":".$location["location_id"]."]=1'>".$location["name_".$__locale]."</a></div><br>";
+			}
+			$containers = $t->start() . $t->row($arrcontainer) . $t->end();
+			$tab->add_tab_container($containers);
+			/**END LOCATION**/
+			$tab->set_bordercolor("#0CB31D");
+			echo $tab->draw();
 		?>
-		<br>
-		<img src="banners/free_exclusive_membership_plan.jpg" width="200" height="150" style="border:1px solid black;" onclick="load_register_as_employer();">
-		<br><br>
-		<?php
-			$banner2 = new Banner();
-			$sidebanners2[0] = "banners/mie_time.jpg";
-			$sidebanners2[1] = "banners/corporate_human_resource.jpg";
-			$sidebanners2[2] = "banners/jepege.jpg";
-			$sideurls2[0] = "https://www.instagram.com/officialmietime/ ";
-			$sideurls2[1] = "http://www.corphr.com";
-			$sideurls2[2] = "http://www.jepege.co.id";
-			echo $banner2->draw("banner2",$sidebanners2,$sideurls2,200,150,5000);
-		?>
+			<br></td></tr></table>
+		</td><td valign="top">
+			<!--BANNER SIDE-->
+			<table><tr><td align="center" nowrap>
+			<?php
+				$banner1 = new Banner();
+				$sidebanners[0] = "banners/lengkapi_resume.jpg";
+				$sidebanners[1] = "banners/banner_lowongan_syariah.jpg";
+				$sideurls[0] = "#";
+				$sideurls[1] = "http://www.jalurkerja.com/searchjob.php?get_search=1&searchjobpage_searching=1&searchjob_page=1&searchjob_order=posted_at+DESC%2Cupdated_at+DESC&keyword=&int_job_function=&chr_job_function=&int_work_location=%5B%5D&chr_work_location=%5B%5D&int_job_level=&chr_job_level=&int_industries=&chr_industries=&int_education_level=&chr_education_level=&int_work_experience=%5B%5D&chr_work_experience=%5B%5D&int_job_type=&chr_job_type=&salary_from=0&salary_to=0&chk_syariah=1";
+				echo $banner1->draw("banner1",$sidebanners,$sideurls,200,150,5000);
+			?>
+			<br>
+			<img src="banners/free_exclusive_membership_plan.jpg" width="200" height="150" style="border:1px solid black;" onclick="load_register_as_employer();">
+			<br><br>
+			<?php
+				$banner2 = new Banner();
+				$sidebanners2[0] = "banners/mie_time.jpg";
+				$sidebanners2[1] = "banners/corporate_human_resource.jpg";
+				$sidebanners2[2] = "banners/jepege.jpg";
+				$sideurls2[0] = "https://www.instagram.com/officialmietime/ ";
+				$sideurls2[1] = "http://www.corphr.com";
+				$sideurls2[2] = "http://www.jepege.co.id";
+				echo $banner2->draw("banner2",$sidebanners2,$sideurls2,200,150,5000);
+			?>
+			</td></tr></table>
+			<!--END BANNER SIDE-->
 		</td></tr></table>
-		<!--END BANNER SIDE-->
-		<?php } ?>
-		<br>
-	<?php
-		$tab = new Tabular("index");
-		$tab->set_tab_width(120);
-		$tab->set_area_width(650);
-		$tab->set_area_height(500);
-		$tab->add_tab_title($v->words("job_function"));
-		$tab->add_tab_title($v->words("job_level"));
-		$tab->add_tab_title($v->words("work_location"));
-		$tab->add_tab_title("<div onclick=\"document.getElementById('chk_syariah').checked = true; search_btn.click(); \"'>Syariah</div>");
-		
-		/**JOB FUNCTIONS**/
-		$db->addtable("job_functions");
-		$db->addfield("id");
-		$db->addfield("name_".$__locale);
-		$db->where("id",0,"i",">");
-		$db->order("name_".$__locale);
-		$job_functions = $db->fetch_data();
-		$maxrows = round(count($job_functions)/2);
-		$arrcontainer = array();
-		$cols=1;
-		$arrcontainer[0] = "&nbsp;&nbsp;&nbsp;";
-		foreach($job_functions as $key => $job_function){
-			if($key >= $maxrows) $cols = 2;
-			if(!isset($arrcontainer[$cols])) $arrcontainer[$cols] = "";
-			$arrcontainer[$cols] .= "<div class='category_search_link'><a href='searchjob.php?get_search=1&job_function[".$job_function["id"]."]=1'>".$job_function["name_".$__locale]."</a></div><br>";
-		}
-		$containers = $t->start() . $t->row($arrcontainer) . $t->end();
-		$tab->add_tab_container($containers);
-		/**END JOB FUNCTIONS**/
-		
-		/**JOB JOB LEVEL**/
-		$db->addtable("job_level");
-		$db->addfield("id");
-		$db->addfield("name_".$__locale);
-		$db->where("id",0,"i",">");
-		$db->order("name_".$__locale);
-		$joblevels = $db->fetch_data();
-		$maxrows = round(count($joblevels)/2);
-		$arrcontainer = array();
-		$cols=1;
-		$arrcontainer[0] = "&nbsp;&nbsp;&nbsp;";
-		foreach($joblevels as $key => $joblevel){
-			if($key >= $maxrows) $cols = 2;
-			if(!isset($arrcontainer[$cols])) $arrcontainer[$cols] = "";
-			$arrcontainer[$cols] .= "<div class='category_search_link'><a href='searchjob.php?get_search=1&job_level[".$joblevel["id"]."]=1'>".$joblevel["name_".$__locale]."</a></div><br>";
-		}
-		$containers = $t->start() . $t->row($arrcontainer) . $t->end();
-		$tab->add_tab_container($containers);
-		/**END JOB LEVEL**/
-		
-		/**JOB LOCATION**/
-		$db->addtable("locations");
-		$db->addfield("province_id");
-		$db->addfield("location_id");
-		$db->addfield("name_".$__locale);
-		$db->where("province_id",0,"i",">");
-		$db->where("location_id",0,"i");
-		$db->order("seqno");
-		$locations = $db->fetch_data();
-		$maxrows = round(count($locations)/2);
-		$arrcontainer = array();
-		$cols=1;
-		$arrcontainer[0] = "&nbsp;&nbsp;&nbsp;";
-		foreach($locations as $key => $location){
-			if($key >= $maxrows) $cols = 2;
-			if(!isset($arrcontainer[$cols])) $arrcontainer[$cols] = "";
-			$arrcontainer[$cols] .= "<div class='category_search_link'><a href='searchjob.php?get_search=1&work_location[".$location["province_id"].":".$location["location_id"]."]=1'>".$location["name_".$__locale]."</a></div><br>";
-		}
-		$containers = $t->start() . $t->row($arrcontainer) . $t->end();
-		$tab->add_tab_container($containers);
-		/**END LOCATION**/
-		$tab->set_bordercolor("#0CB31D");
-		echo $tab->draw();
-	?>
-		<br></td></tr></table>
 	</td>
 	</tr></table>
 	<!--END CATEGORY SEARCH-->
