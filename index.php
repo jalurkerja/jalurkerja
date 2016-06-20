@@ -172,24 +172,24 @@
 			<table><tr><td align="center" nowrap>
 			<?php
 				$banner1 = new Banner();
-				$sidebanners[0] = "banners/lengkapi_resume.jpg";
-				$sidebanners[1] = "banners/banner_lowongan_syariah.jpg";
+				$sidebanners[0] = "banners/00.jpg";
+				$sidebanners[1] = "banners/01.jpg";
 				$sideurls[0] = "#";
 				$sideurls[1] = "http://www.jalurkerja.com/searchjob.php?get_search=1&searchjobpage_searching=1&searchjob_page=1&searchjob_order=posted_at+DESC%2Cupdated_at+DESC&keyword=&int_job_function=&chr_job_function=&int_work_location=%5B%5D&chr_work_location=%5B%5D&int_job_level=&chr_job_level=&int_industries=&chr_industries=&int_education_level=&chr_education_level=&int_work_experience=%5B%5D&chr_work_experience=%5B%5D&int_job_type=&chr_job_type=&salary_from=0&salary_to=0&chk_syariah=1";
-				echo $banner1->draw("banner1",$sidebanners,$sideurls,200,150,5000);
+				echo $banner1->draw("banner1",$sidebanners,$sideurls,250,168,5000);
 			?>
 			<br>
-			<img src="banners/free_exclusive_membership_plan.jpg" width="200" height="150" style="border:1px solid black;" onclick="load_register_as_employer();">
+			<img src="banners/10.jpg" width="250" height="168" style="border:1px solid black;" onclick="load_register_as_employer();">
 			<br><br>
 			<?php
 				$banner2 = new Banner();
-				$sidebanners2[0] = "banners/mie_time.jpg";
-				$sidebanners2[1] = "banners/corporate_human_resource.jpg";
-				$sidebanners2[2] = "banners/jepege.jpg";
-				$sideurls2[0] = "https://www.instagram.com/officialmietime/ ";
-				$sideurls2[1] = "http://www.corphr.com";
-				$sideurls2[2] = "http://www.jepege.co.id";
-				echo $banner2->draw("banner2",$sidebanners2,$sideurls2,200,150,5000);
+				// $sidebanners2[0] = "banners/mie_time.jpg";
+				$sidebanners2[0] = "banners/20.jpg";
+				$sidebanners2[1] = "banners/21.jpg";
+				// $sideurls2[0] = "https://www.instagram.com/officialmietime/ ";
+				$sideurls2[0] = "http://www.corphr.com";
+				$sideurls2[1] = "http://www.jepege.co.id";
+				echo $banner2->draw("banner2",$sidebanners2,$sideurls2,250,168,5000);
 			?>
 			</td></tr></table>
 			<!--END BANNER SIDE-->
