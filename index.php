@@ -90,6 +90,7 @@
 	<!--CATEGORY SEARCH-->
 	<table width="100%"><tr><td align="center" nowrap>
 		<table width="700" class="whitecard"><tr><td align="center" nowrap>
+		<?php if(!isMobile()){ ?>
 		<!--BANNER SIDE-->
 		<table style="position:absolute;top:0px;left:710px;"><tr><td align="center" nowrap>
 		<?php
@@ -114,7 +115,8 @@
 			echo $banner2->draw("banner2",$sidebanners2,$sideurls2,200,150,5000);
 		?>
 		</td></tr></table>
-	<!--END BANNER SIDE-->
+		<!--END BANNER SIDE-->
+		<?php } ?>
 		<br>
 	<?php
 		$tab = new Tabular("index");
