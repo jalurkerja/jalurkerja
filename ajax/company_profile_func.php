@@ -112,7 +112,7 @@
 			$last_seeker_educations = $db->fetch_data();
 			$degree_id = $last_seeker_educations["degree_id"];
 			$major_id = $last_seeker_educations["major_id"];
-			$photo = $seeker_profile["photo"]; if($photo == "") $photo = "nophoto.png";
+			$photo = $seeker_profile["photo"]; if($photo == "" || !file_exists("../seekers_photo/".$photo)) $photo = "nophoto.png";
 			$applicant_status_id = $applied_opportunity["applicant_status_id"];
 			
 			$db->addtable("temp_applicant_management");

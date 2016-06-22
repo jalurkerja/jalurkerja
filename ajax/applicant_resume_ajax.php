@@ -36,7 +36,7 @@
 	$db->addtable("seeker_profiles");$db->where("user_id",$user_id);$db->limit(1);
 	$seeker_profile = $db->fetch_data();
 	$photo = $seeker_profile["photo"];
-	if($photo == "") $photo = "nophoto.png";
+	if($photo == "" || !file_exists("seekers_photo/".$photo)) $photo = "nophoto.png";
 	$photo = "seekers_photo/".$photo;
 	$db->addtable("seeker_experiences");$db->where("user_id",$user_id);$db->order("startdate DESC");$db->limit(1);
 	$last_seeker_experience = $db->fetch_data();
