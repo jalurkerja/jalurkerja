@@ -99,6 +99,10 @@ class Vocabulary{
 		$arr[$l]["share"]									= "Share";
 		$arr[$l]["major"]									= "Major";
 		$arr[$l]["work_experience"]							= "Work Experience";
+		$arr[$l]["organization"]							= "Organization";
+		$arr[$l]["organization_name"]						= "Organization Name";
+		$arr[$l]["organization_periode"]					= "Organization Periode";
+		$arr[$l]["organization_description"]				= "Organization Description";
 		$arr[$l]["years"]									= "Year(s)";
 		$arr[$l]["salary_offer"]							= "Salary Offer";
 		$arr[$l]["posted_date"]								= "Posted Date";
@@ -168,6 +172,7 @@ class Vocabulary{
 		$arr[$l]["at"]										= " at ";
 		$arr[$l]["now"]										= "now";
 		$arr[$l]["still_work_here"]							= "still work here";
+		$arr[$l]["still_here"]								= "still here";
 		$arr[$l]["are_you_sure_to_delete_this_data"]		= "Are You sure to delete this data";
 		$arr[$l]["certification"]							= "Certification";
 		$arr[$l]["name"]									= "Name";
@@ -360,6 +365,10 @@ class Vocabulary{
 		$arr[$l]["share"]									= "Bagikan";
 		$arr[$l]["major"]									= "Jurusan";
 		$arr[$l]["work_experience"]							= "Pengalaman Kerja";
+		$arr[$l]["organization"]							= "Organisasi";
+		$arr[$l]["organization_name"]						= "Nama Organisasi";
+		$arr[$l]["organization_periode"]					= "Periode Organisasi";
+		$arr[$l]["organization_description"]				= "Deskripsi Organisasi";
 		$arr[$l]["years"]									= "Tahun";
 		$arr[$l]["salary_offer"]							= "Penawaran Gaji";
 		$arr[$l]["posted_date"]								= "Tanggal Pasang";
@@ -429,6 +438,7 @@ class Vocabulary{
 		$arr[$l]["at"]										= " di ";
 		$arr[$l]["now"]										= "sekarang";
 		$arr[$l]["still_work_here"]							= "masih bekerja disini";
+		$arr[$l]["still_here"]								= "masih disini";
 		$arr[$l]["are_you_sure_to_delete_this_data"]		= "Anda yakin ingin menghapus data ini";
 		$arr[$l]["certification"]							= "Sertifikasi";
 		$arr[$l]["name"]									= "Name";

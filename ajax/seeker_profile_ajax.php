@@ -290,6 +290,50 @@
 		echo $deleting["affected_rows"];
 	}
 	
+	if(isset($_POST["saving_add_organization_form"])){
+		$db->addtable("seeker_organizations");
+		$db->addfield("user_id");$db->addvalue($__user_id);
+		$db->addfield("name");$db->addvalue($_POST["name"]);
+		$db->addfield("position");$db->addvalue($_POST["position"]);
+		$db->addfield("description");$db->addvalue($_POST["description"]);
+		$db->addfield("startyear");$db->addvalue($_POST["startyear"]);
+		$db->addfield("endyear");$db->addvalue($_POST["endyear"]);
+		$db->addfield("created_at");$db->addvalue(date("Y-m-d H:i:s"));
+		$db->addfield("created_by");$db->addvalue($__username);
+		$db->addfield("created_ip");$db->addvalue($_SERVER["REMOTE_ADDR"]);
+		$db->addfield("updated_at");$db->addvalue(date("Y-m-d H:i:s"));
+		$db->addfield("updated_by");$db->addvalue($__username);
+		$db->addfield("updated_ip");$db->addvalue($_SERVER["REMOTE_ADDR"]);
+		$inserting = $db->insert();
+		echo $inserting["affected_rows"];
+	}
+	
+	if(isset($_POST["saving_edit_organization_form"])){
+		$id_seeker_organizations = $_POST["id_seeker_organizations"];
+		$db->addtable("seeker_organizations");
+		$db->addfield("name");$db->addvalue($_POST["name"]);
+		$db->addfield("position");$db->addvalue($_POST["position"]);
+		$db->addfield("description");$db->addvalue($_POST["description"]);
+		$db->addfield("startyear");$db->addvalue($_POST["startyear"]);
+		$db->addfield("endyear");$db->addvalue($_POST["endyear"]);
+		$db->addfield("updated_at");$db->addvalue(date("Y-m-d H:i:s"));
+		$db->addfield("updated_by");$db->addvalue($__username);
+		$db->addfield("updated_ip");$db->addvalue($_SERVER["REMOTE_ADDR"]);
+		$db->where("id",$id_seeker_organizations);
+		$db->where("user_id",$__user_id);
+		$updating = $db->update();
+		echo $updating["affected_rows"];
+	}
+
+	if( $_mode == "deleting_organization"){
+		$id_seeker_organizations = $_GET["id_seeker_organizations"];
+		$db->addtable("seeker_organizations");
+		$db->where("id",$id_seeker_organizations);
+		$db->where("user_id",$__user_id);
+		$deleting = $db->delete_();
+		echo $deleting["affected_rows"];
+	}
+	
 	if(isset($_POST["saving_edit_summary_form"])){
 		$id_seeker_summary = $_POST["id_seeker_summary"];
 		$db->addtable("seeker_summary");
@@ -315,6 +359,8 @@
 		$_mode == "edit_language" ||
 		$_mode == "add_skill" || 
 		$_mode == "edit_skill" ||
+		$_mode == "add_organization" || 
+		$_mode == "edit_organization" || 
 		$_mode == "edit_summary"
 	){ include_once "seeker_profile_personal_data.php"; }
 	

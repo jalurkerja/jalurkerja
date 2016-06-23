@@ -10,6 +10,8 @@ if($_mode == "add_language") $add_language = true; else $add_language=false;
 if($_mode == "edit_language") $edit_language = true; else $edit_language=false;
 if($_mode == "add_skill") $add_skill = true; else $add_skill=false;
 if($_mode == "edit_skill") $edit_skill = true; else $edit_skill=false;
+if($_mode == "add_organization") $add_organization = true; else $add_organization=false;
+if($_mode == "edit_organization") $edit_organization = true; else $edit_organization=false;
 if($_mode == "add_summary") $add_summary = true; else $add_summary=false;
 if($_mode == "edit_summary") $edit_summary = true; else $edit_summary=false;
 		
@@ -723,6 +725,111 @@ $db->addtable("seeker_profiles"); $db->where("user_id",$__user_id); $db->limit(1
 							$_e .= "</div><div style='height:20px;'></div>";
 							
 							echo $_e;
+						}
+					}
+				} 
+			?>
+		</td></tr></table>
+	</div>
+</div>
+<div style="height:20px;"></div>
+<!---------------------------------------------------------------------------------------------------------------------------------------------------------------->
+<div class="card">
+	<div id="title"><?=$v->words("organization");?></div>
+	<div id="content">
+		<table width="100%"><tr><td align="center">
+			<?php 
+				$btn_add_organization = $t->row(array($f->input("add",$v->words("add"),"type='button' onclick=\"add_organization();\"","btn_post")),array("align='right'"));
+				$btn_save_cancel_add_organization = $t->row(
+													array(
+														$f->input("save",$v->words("save"),"type='button' onclick=\"save_add_organization();\"","btn_post")." ".
+														$f->input("cancel",$v->words("cancel"),"type='button' onclick=\"load_profile();\"","btn_post").
+														"<div style='height:20px;'></div>"
+													),
+													array("align='right'")
+												);
+				
+				$btn_nav = (!$add_organization) ? $btn_add_organization : $btn_save_cancel_add_organization;
+				$btn_nav = $t->start("","","navigation") . $btn_nav . $t->end();
+				
+				if($add_organization) {					
+					$rows = array();
+					$rows[] = array($v->w("organization_name"),$f->input("name"));
+					$rows[] = array($v->w("position"),$f->input("position"));
+					$rows[] = array($v->w("organization_periode"),$f->input("startyear","","style='width: 70px;'")."<span id='endyear_organization'> - ".$f->input("endyear","","style='width: 70px;'")."</span> ".$f->input("endyear_current","","type='checkbox' onclick='chk_still_here(this);'")." ".$v->words("still_here"));
+					$rows[] = array($v->w("organization_description"),$f->textarea("description"));
+					
+					echo $f->start("add_organization_form");
+						echo $f->input("saving_add_organization_form","1","type='hidden'");
+						echo $t->start("","","content_data");
+						foreach($rows as $row) { echo $t->row($row); }
+						echo $t->end();
+					echo $f->end();
+				} 
+				
+				if(isset($_print_view)) $btn_nav="<br>";
+				echo (!$add_organization) ? "<div style=\"position:relative;top:-35px;\">".$btn_nav."</div>" : $btn_nav;
+			?>
+		</td></tr></table>
+		<br>
+		<table width="100%" id="table_content"><tr><td align="center">
+			<?php
+				$db->addtable("seeker_organizations"); $db->where("user_id",$__user_id);$db->order("startyear DESC");
+				$seeker_organizations = $db->fetch_data(true);
+				if(count($seeker_organizations) > 0) {
+					foreach($seeker_organizations as $key => $arr_seeker_organizations) {
+						$id_seeker_organizations = $arr_seeker_organizations["id"];
+						
+						$btn_edit_organization = $t->row(array($f->input("edit",$v->words("edit"),"type='button' onclick=\"edit_organization('".$id_seeker_organizations."');\"","btn_post")),array("align='right'"));
+						if(isset($_print_view)) $btn_edit_organization="<br>";
+						$btn_save_cancel_edit_organization = 
+							$t->row(
+								array(
+									$f->input("save",$v->words("save"),"type='button' onclick=\"save_edit_organization('".$id_seeker_organizations."');\"","btn_post")." ".
+									$f->input("delete",$v->words("delete"),"type='button' onclick=\"delete_organization('".$id_seeker_organizations."');\"","btn_post")." ".
+									$f->input("cancel",$v->words("cancel"),"type='button' onclick=\"load_profile();\"","btn_post")
+								),
+								array("align='right'")
+							);
+							
+						$rows = array();
+						if($edit_organization && $id_seeker_organizations == $_GET["id"]){
+							$db->addtable("seeker_organizations"); $db->where("id",$id_seeker_organizations);$db->limit(1);
+							$arr_we = $db->fetch_data();
+							$is_endyear_visible = ($arr_we["endyear"] <= 0) ? "style='visibility:hidden;'" : "";
+							$is_endyear_checked = ($arr_we["endyear"] <= 0) ? "checked" : "";
+							
+							$rows = array();							
+							$rows[] = array($v->words("organization_name"),$f->input("name",$arr_we["name"]));
+							$rows[] = array($v->words("position"),$f->input("position",$arr_we["position"]));
+							$rows[] = array($v->words("organization_periode"),$f->input("startyear",$arr_we["startyear"],"style='width: 70px;'")."<span id='endyear_organization' ".$is_endyear_visible."> - ".$f->input("endyear",$arr_we["endyear"],"style='width: 70px;'")."</span> ".$f->input("endyear_current","","type='checkbox' ".$is_endyear_checked." onclick='chk_still_here(this);'")." ".$v->words("still_here"));
+							$rows[] = array($v->words("organization_description"),$f->textarea("description",$arr_we["description"]));
+							
+							echo $f->start("edit_organization_form");
+								echo $f->input("saving_edit_organization_form","1","type='hidden'");
+								echo $f->input("id_seeker_organizations",$id_seeker_organizations,"type='hidden'");
+								echo $t->start("","","content_data");
+								foreach($rows as $row) { echo $t->row($row); }
+								echo $t->end();
+							echo $f->end();
+							echo $t->start("","","navigation") . $btn_save_cancel_edit_organization . $t->end();
+							echo "<div style='height:20px;'></div>";
+						} else {
+							$endyear = ($arr_seeker_organizations["endyear"] > 0) ? $arr_seeker_organizations["endyear"] : $v->words("now");
+							$_wk  = "<div class='seeker_profile_sp_detail'>";
+							$_wk .= 	$t->start("","","navigation") . $btn_edit_organization . $t->end();
+							$_wk .= "	<div id='sp_container'>";
+							$_wk .= "		<div id='sp_position'>".ucfirst(strtolower($arr_seeker_organizations["position"]))."<br>".$v->words("at").ucfirst(strtolower($arr_seeker_organizations["name"]))."</div>";
+							$_wk .= "		<div id='sp_range_date'>".$arr_seeker_organizations["startyear"]." - ".$endyear."</div>";
+							if(isset($_print_view)) {
+								$_wk .= "		<div id='sp_description'>".chr13tobr(ucfirst(strtolower($arr_seeker_organizations["description"])))."</div>";
+							} else {
+								$_wk .= "		<div id='sp_description'>".chr13tobr(add_br(ucfirst(strtolower($arr_seeker_organizations["description"]))))."</div>";
+							}
+							$_wk .= "	</div>";
+							$_wk .= "</div><div style='height:20px;'></div>";
+							
+							echo $_wk;
 						}
 					}
 				} 

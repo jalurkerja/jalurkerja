@@ -6,6 +6,7 @@
 <?=$f->input("seeker_educations","Seeker Educations","type='button' onclick='seeker_educations();'");?>&nbsp;
 <?=$f->input("seeker_languages","Seeker Languages","type='button' onclick='seeker_languages();'");?>&nbsp;
 <?=$f->input("seeker_skills","Seeker Skills","type='button' onclick='seeker_skills();'");?>&nbsp;
+<?=$f->input("seeker_organizations","Seeker Organizations","type='button' onclick='seeker_organizations();'");?>&nbsp;
 <?=$f->input("seeker_summary","Seeker Summary","type='button' onclick='seeker_summary();'");?>&nbsp;<br>
 <?=$f->input("seeker_desires","Seeker Desires","type='button' onclick='seeker_desires();'");?>&nbsp;
 <?=$f->input("general_settings","Seeker Settings","type='button' onclick='general_settings();'");?>&nbsp;

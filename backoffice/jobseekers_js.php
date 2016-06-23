@@ -14,6 +14,9 @@
 	function seeker_skills(){
 		popup_message("<iframe scrolling='no' id='frame_content' src=\"jobseekers_skills.php?user_id=<?=$_GET["user_id"];?>\"></iframe>");
 	}
+	function seeker_organizations(){
+		popup_message("<iframe scrolling='no' id='frame_content' src=\"jobseekers_organizations.php?user_id=<?=$_GET["user_id"];?>\"></iframe>");
+	}
 	function seeker_summary(){
 		popup_message("<iframe scrolling='no' id='frame_content' src=\"jobseekers_summary.php?user_id=<?=$_GET["user_id"];?>\"></iframe>");
 	}
