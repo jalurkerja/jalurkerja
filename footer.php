@@ -50,6 +50,20 @@
 							<a href='#none' onclick='load_privacy_policy();'>".$v->words("privacy_policy")."</a><br>
 							<div class='v_spacer'></div>
 							<a href='#none' onclick='load_contactus();'>".$v->words("contactus")."</a>
+							<div class='v_spacer'></div>
+							<div class='v_spacer'></div>
+							<a href='https://www.facebook.com/jalurkerjacom-101138663276793/' style='text-decoration:none;' target='_BLANK'>
+								<img width='30' src='icons/footer_fb.png'>
+							</a>
+							<a href='https://twitter.com/jalurkerja' style='text-decoration:none;' target='_BLANK'>
+								<img width='30' src='icons/footer_twitter.png'>
+							</a>
+							<a href='https://www.instagram.com/jalurkerja/' style='text-decoration:none;' target='_BLANK'>
+								<img width='30' src='icons/footer_instagram.png'>
+							</a>
+							<a href='mailto:cs@jalurkerja.com' style='text-decoration:none;'>
+								<img width='30' src='icons/footer_email.png'>
+							</a>
 						";
 						
 						$arrfooters_attr[] = "nowrap valign='top' style='width:200px;font-size:13px;'";
