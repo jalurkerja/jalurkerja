@@ -1,6 +1,8 @@
 <?php
 class Banner{
 	public function draw($id,$images = array(),$urls = array(), $width=120, $height=90, $delay=3000, $fade=1000, $border="1px solid #333", $target = "_BLANK"){
+		if($fade == "") $fade = 1000;
+		if($border == "") $border = "1px solid #333";
 		if(count($images) == 1) $images[1] = $images[0];
 		if(count($urls) == 1) $urls[1] = $urls[0];
 		$return ='

@@ -174,22 +174,31 @@
 				$banner1 = new Banner();
 				$sidebanners[0] = "banners/00.jpg";
 				$sidebanners[1] = "banners/01.jpg";
-				$sideurls[0] = "#";
-				$sideurls[1] = "http://www.jalurkerja.com/searchjob.php?get_search=1&searchjobpage_searching=1&searchjob_page=1&searchjob_order=posted_at+DESC%2Cupdated_at+DESC&keyword=&int_job_function=&chr_job_function=&int_work_location=%5B%5D&chr_work_location=%5B%5D&int_job_level=&chr_job_level=&int_industries=&chr_industries=&int_education_level=&chr_education_level=&int_work_experience=%5B%5D&chr_work_experience=%5B%5D&int_job_type=&chr_job_type=&salary_from=0&salary_to=0&chk_syariah=1";
+				$sidebanners[2] = "banners/02.jpg";
+				$sideurls[0] = "";
+				$sideurls[1] = "";
+				$sideurls[2] = "";
 				echo $banner1->draw("banner1",$sidebanners,$sideurls,250,168,5000);
 			?>
 			<br>
-			<img src="banners/10.jpg" width="250" height="168" style="border:1px solid black;" onclick="load_register_as_employer();">
-			<br><br>
 			<?php
 				$banner2 = new Banner();
-				// $sidebanners2[0] = "banners/mie_time.jpg";
-				$sidebanners2[0] = "banners/20.jpg";
-				$sidebanners2[1] = "banners/21.jpg";
-				// $sideurls2[0] = "https://www.instagram.com/officialmietime/ ";
-				$sideurls2[0] = "http://www.corphr.com";
-				$sideurls2[1] = "http://www.jepege.co.id";
-				echo $banner2->draw("banner2",$sidebanners2,$sideurls2,250,168,5000);
+				$sidebanners2[0] = "banners/10.jpg";
+				$sidebanners2[1] = "banners/11.jpg";
+				$sidebanners2[2] = "banners/12.jpg";
+				$sideurls2[0] = "#";
+				$sideurls2[1] = "javascript:load_register_as_employer();";
+				$sideurls2[2] = "http://www.jalurkerja.com/searchjob.php?get_search=1&searchjobpage_searching=1&searchjob_page=1&searchjob_order=posted_at+DESC%2Cupdated_at+DESC&keyword=&int_job_function=&chr_job_function=&int_work_location=%5B%5D&chr_work_location=%5B%5D&int_job_level=&chr_job_level=&int_industries=&chr_industries=&int_education_level=&chr_education_level=&int_work_experience=%5B%5D&chr_work_experience=%5B%5D&int_job_type=&chr_job_type=&salary_from=0&salary_to=0&chk_syariah=1";
+				echo $banner2->draw("banner2",$sidebanners2,$sideurls2,250,168,5000,"","","");
+			?>
+			<br>
+			<?php
+				$banner3 = new Banner();
+				$sidebanners3[0] = "banners/20.jpg";
+				$sidebanners3[1] = "banners/21.jpg";
+				$sideurls3[0] = "http://www.corphr.com";
+				$sideurls3[1] = "http://www.jepege.co.id";
+				echo $banner3->draw("banner3",$sidebanners3,$sideurls3,250,168,5000);
 			?>
 			</td></tr></table>
 			<!--END BANNER SIDE-->
@@ -197,6 +206,79 @@
 	</td>
 	</tr></table>
 	<!--END CATEGORY SEARCH-->
+	<br>
+	<!--SLIDE BANNER-->
+	<!--
+	<script>
+		jQuery(document).ready(function ($) {
+			$( document ).ready(function() { setInterval(function () { moveRight(); }, 5000); });
+			var slideCount = $('#slider ul li').length;
+			var slideWidth = $('#slider ul li').width();
+			var slideHeight = $('#slider ul li').height();
+			var sliderUlWidth = slideCount * slideWidth;
+			$('#slider').css({ width: slideWidth, height: slideHeight });
+			$('#slider ul').css({ width: sliderUlWidth, marginLeft: - slideWidth });
+			$('#slider ul li:last-child').prependTo('#slider ul');
+			function moveRight() {
+				$('#slider ul').animate({
+					left: - slideWidth
+				}, 200, function () {
+					$('#slider ul li:first-child').appendTo('#slider ul');
+					$('#slider ul').css('left', '');
+				});
+			};
+		});    
+	</script>
+	<style>
+		#slider {
+			position: relative;
+			overflow: hidden;
+			margin: 20px auto 0 auto;
+			border-radius: 4px;
+		}
+
+		#slider ul {
+			position: relative;
+			margin: 0;
+			padding: 0;
+			height: 200px;
+			list-style: none;
+		}
+
+		#slider ul li {
+			position: relative;
+			display: block;
+			float: left;
+			margin: 0;
+			padding: 0;
+			width: 968px;
+			height: 126px;
+			background: #ccc;
+			text-align: center;
+			line-height: 300px;
+		}
+
+		#slider li div{
+			position:absolute;
+			top:152px;
+			width:150px;
+			height:20px;
+			cursor:pointer;
+		}
+
+		#slider img{
+			cursor:pointer;
+		}
+	</style>
+	<div id="slider">
+	  <ul>
+		<li> <img src=""> </li>
+		<li> <img src=""> </li>
+	  </ul>  
+	</div>
+	<br>
+	-->
+	<!--END SLIDE BANNER-->
 	<br>
 	<!--FHE-->
 	<table width="100%"><tr><td align="center" nowrap>
