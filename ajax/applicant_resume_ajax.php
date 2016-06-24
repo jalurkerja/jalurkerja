@@ -36,7 +36,7 @@
 	$db->addtable("seeker_profiles");$db->where("user_id",$user_id);$db->limit(1);
 	$seeker_profile = $db->fetch_data();
 	$photo = $seeker_profile["photo"];
-	if($photo == "" || !file_exists("seekers_photo/".$photo)) $photo = "nophoto.png";
+	if($photo == "" || !file_exists("../seekers_photo/".$photo)) $photo = "nophoto.png";
 	$photo = "seekers_photo/".$photo;
 	$db->addtable("seeker_experiences");$db->where("user_id",$user_id);$db->order("startdate DESC");$db->limit(1);
 	$last_seeker_experience = $db->fetch_data();
@@ -50,8 +50,10 @@
 	$_phone .= $seeker_profile["cellphone"];
 ?>
 <div class="card">
-	<div style="height:20px;" id="title"></div>
-	<img style="position:absolute;left:20px;top:50px;border:3px solid rgba(12, 179, 29, 0.3);" src="<?=$photo;?>" width="150" height="220">
+	<div style="height:20px;" id="title">
+		<div style="position:relative;float:right;"><input name="printbtn" id="printbtn" value="Print" type="button" onclick="print_me();" class="btn_post"></div>
+	</div>
+	<img style="position:absolute;left:20px;top:50px;border:3px solid rgba(12, 179, 29, 0.3);" src="<?=$photo;?>" width="190" height="240">
 	<div class="applicant_resume_header">
 		<div id="name"><?=$seeker_profile["first_name"];?> <?=$seeker_profile["middle_name"];?> <?=$seeker_profile["last_name"];?></div>
 		<div id="workplace">
@@ -170,6 +172,23 @@
 	?>
 	</div>
 	
+	<div class="applicant_resume_border"><?=$v->w("organization");?></div>
+	<div class="seeker_profile_sp_detail" style="margin-left:10px;width:955px;">
+		<?php
+			$db->addtable("seeker_organizations");$db->where("user_id",$user_id); $db->order("startyear DESC");
+			$seeker_organizations = $db->fetch_data(true);
+			foreach($seeker_organizations as $seeker_organization){
+				$endyear = $seeker_organization["endyear"];
+				if($endyear == 0) $endyear = $v->w("now");
+				echo $seeker_organization["startyear"]." - ".$endyear."<br>";
+				echo "<div style='margin-left:10px;font-weight:bolder;font-size:13px;'>".
+					$seeker_organization["position"].$v->w("at").$seeker_organization["name"]."</div>".
+					"<div style='margin-left:20px;'>".$seeker_organization["description"]."</div>".
+					"<div style='height:20px;'></div>";
+			}
+		?>
+	</div>
+	
 	<div class="applicant_resume_border"><?=$v->w("summary");?></div>
 	<div class="seeker_profile_sp_detail" style="margin-left:10px;width:955px;">
 		<?php
@@ -182,3 +201,10 @@
 	</div>
 	<div style="height:50px;"></div>
 </div>
+<script>
+	function print_me(){
+		printbtn.style.display="none";
+		window.print();
+		printbtn.style.display="block";
+	}
+</script>

@@ -660,7 +660,7 @@ body {
 .card .content_data tr:nth-child(odd) {background: rgba(12, 179, 29, 0.3);}
 
 .applicant_resume_header{
-	margin-left:200px;
+	margin-left:230px;
 	margin-top:20px;
 }
 
@@ -697,7 +697,7 @@ body {
 }
 
 .applicant_resume_profile{
-	margin-left:200px;
+	margin-left:230px;
 	margin-top:10px;
 	font-size:12px;
 }
