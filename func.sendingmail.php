@@ -11,7 +11,7 @@ function sendingmail($subject,$address,$body) {
 	$mail->Host       = "iix78.rumahweb.com";
 	$mail->Port       = 465;
 	$mail->Username   = "cs@jalurkerja.com";
-	$mail->Password   = "csR2h2s12x";
+	$mail->Password   = "xxxxxxx";
 	$mail->SMTPKeepAlive = true;  
 	$mail->Mailer = "smtp"; 
 	$mail->CharSet = 'utf-8';  
