@@ -49,7 +49,7 @@
 		public $searchjob_limit		= 15;
 		
 		public function __construct(){	
-			$this->lines = file($_SERVER["DOCUMENT_ROOT"]."/jalurkerja_db_config.php");
+			$this->lines = file("XXXXXXX");
 			$this->arrconfig = explode("|",$this->lines[0]);
 			$this->host   = $this->arrconfig[0];
 			$this->user   = $this->arrconfig[1];
