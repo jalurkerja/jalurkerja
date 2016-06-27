@@ -10,7 +10,7 @@ function sendingmail($subject,$address,$body) {
 	$mail->SMTPSecure = 'ssl';
 	$mail->Host       = "iix78.rumahweb.com";
 	$mail->Port       = 465;
-	$mail->Username   = "cs@jalurkerja.com";
+	$mail->Username   = "xxx@xxxxxxx.xxx";
 	$mail->Password   = "xxxxxxx";
 	$mail->SMTPKeepAlive = true;  
 	$mail->Mailer = "smtp"; 
